@@ -1,8 +1,6 @@
-// import Artboard from '@/components/center/Artboard'
-import Castform from "@/templates/Castform";
+import Artboard from '@/components/center/Artboard'
 import LeftSidebar from "@/components/left/LeftSidebar";
-
-import './left.css';
+import './scroll.css';
 const BuilderArea = () => {
   return (
     <>
@@ -11,9 +9,8 @@ const BuilderArea = () => {
           <LeftSidebar />
         </div>
         <div className="w-1/2 h-full border-4 border-yellow-500">
-          <Castform />
+          <Artboard />
         </div>
-       
       </div>
       
     </>

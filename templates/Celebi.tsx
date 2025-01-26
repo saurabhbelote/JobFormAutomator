@@ -1,4 +1,3 @@
-import { useTranslation } from 'react-i18next';
 import React from 'react';
 import { hexToRgb } from './util/index';
 import AwardsA from './blocks/Achievements/Achievements';
@@ -9,7 +8,6 @@ import HeadingE from './blocks/Heading/HeadingE';
 import HobbiesA from './blocks/Hobbies/HobbiesA';
 import LanguagesB from './blocks/Languages/LanguagesB';
 import ObjectiveA from './blocks/Objective/ObjectiveA';
-import PageContext from './util/PageContext';
 import ProjectsA from './blocks/Projects/ProjectsA';
 import ReferencesA from './blocks/References/ReferencesA';
 import SkillsA from './blocks/Skills/SkillsA';
@@ -58,59 +56,10 @@ interface CelebiProps {
 }
 
 export default function Celebi ()  {
-  const layout = data.metadata.layout.celebi;
-  const { r, g, b } = hexToRgb(data.metadata.colors.primary) || {};
-  const { t } = useTranslation();
-
-  const styles: { header: React.CSSProperties; leftSection: React.CSSProperties; rightSection: React.CSSProperties } = {
-    header: {
-      position: 'absolute',
-      left: 0,
-      right: 0,
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      color: data.metadata.colors.background,
-      backgroundColor: data.metadata.colors.text,
-      height: '160px',
-      paddingLeft: '275px',
-    },
-    leftSection: {
-      backgroundColor: `rgba(${r}, ${g}, ${b}, 0.1)`,
-    },
-    rightSection: {
-      marginTop: '160px',
-    },
-  };
-
-  const Photo = () =>
-    data.profile.photograph !== '' && (
-      <div className="relative z-40">
-        <img
-          className="w-full object-cover object-center"
-          src={data.profile.photograph}
-          alt={data.profile.firstName}
-          style={{
-            height: '160px',
-          }}
-        />
-      </div>
-    );
-
   return (
-      <div
-        id="page"
-        className="relative rounded"
-        style={{
-          fontFamily: data.metadata.font,
-          color: data.metadata.colors.text,
-          backgroundColor: data.metadata.colors.background,
-        }}
-      >
+      <div id="page"className="relative rounded" >
         <div className="grid grid-cols-12 gap-8">
-          <div className="col-span-4 ml-8" style={styles.leftSection}>
-            <Photo />
-
+          <div className="col-span-4 ml-8">
             <div className="text-center grid gap-4 mt-4 mb-8 mx-6">
               <div>
                 <HeadingE>{t('builder.sections.profile')}</HeadingE>
