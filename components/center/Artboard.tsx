@@ -1,12 +1,8 @@
-
-export default function Artboard () {
+import Castform from "@/templates/Castform";
+export default function Artboard() {
   return (
     <>
-    <div className="w-1/2 h-full bg-green-500">
-      hello
-    </div>
+      <Castform />
     </>
   );
-};
-
-
+}

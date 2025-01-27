@@ -23,7 +23,7 @@ const RightSidebar: React.FC = () => {
           <button
             key={font}
             onClick={() => setSelectedFont(font)}
-            className={`text-sm p-2 border rounded-md 
+            className={`text-sm  p-2 border rounded-md 
             ${selectedFont === font ? 'border-black font-bold' : 'border-gray-300'}`}
             style={{ fontFamily: font }}
           >
