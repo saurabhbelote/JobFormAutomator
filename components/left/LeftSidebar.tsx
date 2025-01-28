@@ -13,7 +13,7 @@ import { BsFillPersonLinesFill } from "react-icons/bs";
 import { AiOutlineLink, AiOutlineMail } from "react-icons/ai";
 import { BiWorld } from "react-icons/bi";
 import { FiPhone } from "react-icons/fi";
-import Image from 'next/image';
+import './scroll.css'
 
 export default function LeftSidebar() {
   // Store and personal data management
@@ -46,7 +46,7 @@ export default function LeftSidebar() {
   };
 
   return (
-    <div className="w-full max-w-[450px] bg-white h-screen overflow-y-auto">
+    <div className="w-full max-w-[450px] bg-white h-screen overflow-y-scroll scrollbar-hidden">
       {/* Basics Section */}
       <section className="p-6 border-b">
         <div className="flex items-center gap-2 mb-6">
