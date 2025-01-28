@@ -32,16 +32,15 @@ export default function LeftSidebar() {
   const [volunteering, setVolunteering] = useState<number[]>([]);
   const [references, setReferences] = useState<number[]>([]);
 
-  // Text editor state
+
   const [summaryContent, setSummaryContent] = useState("");
 
-  // Handle personal data changes
+
   const handleChangePersonal = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     updatePersonalData(name, value);
   };
 
-  // Generic add item function
   const addItem = (setter: React.Dispatch<React.SetStateAction<number[]>>) => {
     setter(prev => [...prev, prev.length + 1]);
   };
@@ -55,7 +54,7 @@ export default function LeftSidebar() {
           <h2 className="text-xl font-bold">Basics</h2>
         </div>
 
-        {/* Profile Picture */}
+
         <div className="mb-4">
           <label className="block text-sm font-medium mb-2">Picture</label>
           <div className="flex items-center gap-2">
@@ -76,7 +75,6 @@ export default function LeftSidebar() {
           </div>
         </div>
 
-        {/* Full Name */}
         <div className="mb-4">
           <label className="block text-sm font-medium mb-2">Full Name</label>
           <input
@@ -89,7 +87,6 @@ export default function LeftSidebar() {
           />
         </div>
 
-        {/* Headline */}
         <div className="mb-4">
           <label className="block text-sm font-medium mb-2">Headline</label>
           <input
@@ -102,7 +99,6 @@ export default function LeftSidebar() {
           />
         </div>
 
-        {/* Contact Info */}
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium mb-2">Email</label>
@@ -150,7 +146,7 @@ export default function LeftSidebar() {
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium mb-2">Location</label>
+            <label className="block text-sm font-medium mb-2">Location </label>
             <input
               type="text"
               className="w-full p-2 border rounded-md"
@@ -163,7 +159,6 @@ export default function LeftSidebar() {
         </div>
       </section>
 
-      {/* Summary Section with Rich Text Editor */}
       <section className="p-6 border-b">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
@@ -234,8 +229,6 @@ export default function LeftSidebar() {
 
           {state.map((id) => (
             <div key={id} className="mt-4 p-4 border rounded-md">
-              {/* Item content will be rendered here */}
-              {/* You can create separate components for each section's items */}
             </div>
           ))}
         </section>
