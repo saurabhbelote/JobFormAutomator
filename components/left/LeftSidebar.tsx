@@ -1,245 +1,245 @@
-// src/components/DataStyleSelection/DataStyleSelection.tsx
-
 "use client";
 import React, { ChangeEvent, useState } from "react";
 import { usePersonalDataStore } from "@/app/store";
 import { GoPerson } from "react-icons/go";
 import { BsJournals } from "react-icons/bs";
 import { MdWork } from "react-icons/md";
-import { GiAchievement } from "react-icons/gi";
+import { GiAchievement, GiGraduateCap } from "react-icons/gi";
 import { PiCertificateLight } from "react-icons/pi";
-import EducationInput from "./sections/EducationInput";
-import ProjectInput from "./sections/ProjectInput";
-import ExperienceInput from "./sections/ExperienceInput";
-import CertificationInput from "./sections/CertificationInput";
-import AchievementInput from "./sections/AchievementInput";
-import { GiGraduateCap } from "react-icons/gi";
+import { FaLanguage } from "react-icons/fa";
+import { BiBook } from "react-icons/bi";
+import { MdInterests, MdVolunteerActivism } from "react-icons/md";
+import { BsFillPersonLinesFill } from "react-icons/bs";
+import { AiOutlineLink, AiOutlineMail } from "react-icons/ai";
+import { BiWorld } from "react-icons/bi";
+import { FiPhone } from "react-icons/fi";
+import Image from 'next/image';
 
 export default function LeftSidebar() {
+  // Store and personal data management
   const { personalData, updatePersonalData } = usePersonalDataStore();
-  // To Add Personal Data to the State
-  const handleChangePersonal = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+
+  // State for each section's items
+  const [education, setEducation] = useState<number[]>([]);
+  const [experience, setExperience] = useState<number[]>([]);
+  const [projects, setProjects] = useState<number[]>([]);
+  const [skills, setSkills] = useState<number[]>([]);
+  const [languages, setLanguages] = useState<number[]>([]);
+  const [awards, setAwards] = useState<number[]>([]);
+  const [certifications, setCertifications] = useState<number[]>([]);
+  const [interests, setInterests] = useState<number[]>([]);
+  const [publications, setPublications] = useState<number[]>([]);
+  const [volunteering, setVolunteering] = useState<number[]>([]);
+  const [references, setReferences] = useState<number[]>([]);
+
+  // Text editor state
+  const [summaryContent, setSummaryContent] = useState("");
+
+  // Handle personal data changes
+  const handleChangePersonal = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    updatePersonalData(name, value); // Update other fields in the store
+    updatePersonalData(name, value);
   };
-  const [education, setEducation] = useState<number[]>([]); // Array to track instances
-  const handleAddEducation = () => {
-    setEducation((prev) => [...prev, prev.length + 1]); // Add a new instance
-  };
-  const [project, setProject] = useState<number[]>([]); // Array to track instances
-  const handleAddProject = () => {
-    setProject((prev) => [...prev, prev.length + 1]); // Add a new instance
-  };
-  const [experience, setExperience] = useState<number[]>([]); // Array to track instances
-  const handleAddExperience = () => {
-    setExperience((prev) => [...prev, prev.length + 1]); // Add a new instance
-  };
-  const [certification, setCertification] = useState<number[]>([]); // Array to track instances
-  const handleAddCertification = () => {
-    setCertification((prev) => [...prev, prev.length + 1]); // Add a new instance
-  };
-  const [achievement, setAchievement] = useState<number[]>([]); // Array to track instances
-  const handleAddAchievement = () => {
-    setAchievement((prev) => [...prev, prev.length + 1]); // Add a new instance
+
+  // Generic add item function
+  const addItem = (setter: React.Dispatch<React.SetStateAction<number[]>>) => {
+    setter(prev => [...prev, prev.length + 1]);
   };
 
   return (
-    <div className="w-full bg-black p-4">
-      {/* Personal Details Area */}
-      <div className="flex flex-row space-x-5">
-        <span>
-          <GoPerson color="grey" size={30} />
-        </span>
-        <span className="text-white text-2xl">Personal Details</span>
-      </div>
-      <div className="mb-2">
-        <div className="my-2">
-          <input
-            name="name"
-            onChange={handleChangePersonal}
-            type="text"
-            placeholder="Your Name"
-            value={personalData.name}
-            className="rounded-md w-72 h-8 bg-gray-700 text-white"
-          />
+    <div className="w-full max-w-[450px] bg-white h-screen overflow-y-auto">
+      {/* Basics Section */}
+      <section className="p-6 border-b">
+        <div className="flex items-center gap-2 mb-6">
+          <GoPerson className="text-xl" />
+          <h2 className="text-xl font-bold">Basics</h2>
         </div>
-        <div className="my-2">
-          <input
-            name="summary"
-            onChange={handleChangePersonal}
-            type="text"
-            placeholder="Your Summary"
-            value={personalData.summary}
-            className="rounded-md w-72 h-8 bg-gray-700 text-white"
-          />
-        </div>
-        <div className="my-2">
-          <input
-            name="profile"
-            onChange={handleChangePersonal}
-            type="text"
-            placeholder="Work Profile"
-            value={personalData.profile}
-            className="rounded-md w-72 h-8 bg-gray-700 text-white"
-          />
-        </div>
-        <div className="my-2">
-          <input
-            name="address"
-            onChange={handleChangePersonal}
-            type="text"
-            placeholder="Address"
-            value={personalData.address}
-            className="rounded-md w-72 h-8 bg-gray-700 text-white"
-          />
-        </div>
-        <div className="my-2">
-          <input
-            name="phone"
-            onChange={handleChangePersonal}
-            type="tel"
-            placeholder="Phone number"
-            value={personalData.phone}
-            className="rounded-md w-72 h-8 bg-gray-700 text-white"
-          />
-        </div>
-        <div className="my-2">
-          <input
-            name="email"
-            onChange={handleChangePersonal}
-            type="email"
-            placeholder="Email id"
-            value={personalData.email}
-            className="rounded-md w-72 h-8 bg-gray-700 text-white"
-          />
-        </div>
-        <div>
-          <div className="my-2">
+
+        {/* Profile Picture */}
+        <div className="mb-4">
+          <label className="block text-sm font-medium mb-2">Picture</label>
+          <div className="flex items-center gap-2">
+            <div className="w-12 h-12 bg-emerald-700 rounded-full flex items-center justify-center text-white text-xl">
+              {personalData.fullName?.[0] || 'M'}
+            </div>
             <input
-              name="linkedin"
-              onChange={handleChangePersonal}
               type="text"
-              placeholder="Linkedin"
-              value={personalData.linkedin}
-              className="rounded-md w-72 h-8 bg-gray-700 text-white"
+              placeholder="Profile picture URL"
+              className="flex-1 p-2 border rounded-md"
+              name="pictureUrl"
+              value={personalData.pictureUrl || ''}
+              onChange={handleChangePersonal}
+            />
+            <button className="p-2 border rounded-md hover:bg-gray-50">
+              <AiOutlineLink className="text-gray-500" />
+            </button>
+          </div>
+        </div>
+
+        {/* Full Name */}
+        <div className="mb-4">
+          <label className="block text-sm font-medium mb-2">Full Name</label>
+          <input
+            type="text"
+            className="w-full p-2 border rounded-md"
+            name="fullName"
+            value={personalData.fullName || ''}
+            onChange={handleChangePersonal}
+            placeholder="Your full name"
+          />
+        </div>
+
+        {/* Headline */}
+        <div className="mb-4">
+          <label className="block text-sm font-medium mb-2">Headline</label>
+          <input
+            type="text"
+            className="w-full p-2 border rounded-md"
+            name="headline"
+            value={personalData.headline || ''}
+            onChange={handleChangePersonal}
+            placeholder="Your professional headline"
+          />
+        </div>
+
+        {/* Contact Info */}
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium mb-2">Email</label>
+            <div className="relative">
+              <input
+                type="email"
+                className="w-full p-2 pl-8 border rounded-md"
+                name="email"
+                value={personalData.email || ''}
+                onChange={handleChangePersonal}
+                placeholder="Your email"
+              />
+              <AiOutlineMail className="absolute left-2 top-3 text-gray-500" />
+            </div>
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-2">Website</label>
+            <div className="relative">
+              <input
+                type="url"
+                className="w-full p-2 pl-8 border rounded-md"
+                name="website"
+                value={personalData.website || ''}
+                onChange={handleChangePersonal}
+                placeholder="Your website"
+              />
+              <BiWorld className="absolute left-2 top-3 text-gray-500" />
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4 mt-4">
+          <div>
+            <label className="block text-sm font-medium mb-2">Phone</label>
+            <div className="relative">
+              <input
+                type="tel"
+                className="w-full p-2 pl-8 border rounded-md"
+                name="phone"
+                value={personalData.phone || ''}
+                onChange={handleChangePersonal}
+                placeholder="+1 (123) 456-7890"
+              />
+              <FiPhone className="absolute left-2 top-3 text-gray-500" />
+            </div>
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-2">Location</label>
+            <input
+              type="text"
+              className="w-full p-2 border rounded-md"
+              name="location"
+              value={personalData.location || ''}
+              onChange={handleChangePersonal}
+              placeholder="Your location"
             />
           </div>
         </div>
-        <div>
-          <div className="my-2">
-            <input
-              name="github"
-              onChange={handleChangePersonal}
-              type="text"
-              placeholder="Github"
-              value={personalData.github}
-              className="rounded-md w-72 h-8 bg-gray-700 text-white"
-            />
+      </section>
+
+      {/* Summary Section with Rich Text Editor */}
+      <section className="p-6 border-b">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2">
+            <BsJournals className="text-xl" />
+            <h2 className="text-xl font-bold">Summary</h2>
           </div>
+          <button className="p-2 hover:bg-gray-100 rounded-md">
+            <span className="sr-only">Toggle</span>
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
         </div>
-      </div>
-
-      {/* Education Area */}
-      <div className="mb-2">
-        <div className="flex flex-row space-x-5">
-          <span>
-            <GiGraduateCap color="grey" size={30} />
-          </span>
-          <span className="text-white text-2xl">Education</span>
+        
+        {/* Rich Text Editor Toolbar */}
+        <div className="flex flex-wrap gap-2 mb-4 p-2 border rounded-md">
+          <button className="p-2 hover:bg-gray-100 rounded">B</button>
+          <button className="p-2 hover:bg-gray-100 rounded italic">I</button>
+          <button className="p-2 hover:bg-gray-100 rounded line-through">S</button>
+          <button className="p-2 hover:bg-gray-100 rounded">A</button>
+          <button className="p-2 hover:bg-gray-100 rounded">@</button>
+          <button className="p-2 hover:bg-gray-100 rounded">🔗</button>
+          <button className="p-2 hover:bg-gray-100 rounded">&lt;/&gt;</button>
         </div>
-        <button
-          onClick={handleAddEducation}
-          className="bg-blue-500 text-white px-4 py-2 rounded-md mb-4"
-        >
-          Add Input Component
-        </button>
 
-        <div>
-          {education.map((id) => (
-            <EducationInput key={id} /> // Render each InputComponent with a unique key and id
+        <textarea
+          className="w-full p-3 border rounded-md min-h-[150px]"
+          value={summaryContent}
+          onChange={(e) => setSummaryContent(e.target.value)}
+          placeholder="Write your professional summary..."
+        />
+      </section>
+
+      {/* Sections with Add Item Functionality */}
+      {[
+        { title: 'Experience', icon: MdWork, state: experience, setState: setExperience },
+        { title: 'Education', icon: GiGraduateCap, state: education, setState: setEducation },
+        { title: 'Skills', icon: GiAchievement, state: skills, setState: setSkills },
+        { title: 'Languages', icon: FaLanguage, state: languages, setState: setLanguages },
+        { title: 'Awards', icon: GiAchievement, state: awards, setState: setAwards },
+        { title: 'Certifications', icon: PiCertificateLight, state: certifications, setState: setCertifications },
+        { title: 'Interests', icon: MdInterests, state: interests, setState: setInterests },
+        { title: 'Projects', icon: BiBook, state: projects, setState: setProjects },
+        { title: 'Publications', icon: BsJournals, state: publications, setState: setPublications },
+        { title: 'Volunteering', icon: MdVolunteerActivism, state: volunteering, setState: setVolunteering },
+        { title: 'References', icon: BsFillPersonLinesFill, state: references, setState: setReferences }
+      ].map(({ title, icon: Icon, state, setState }) => (
+        <section key={title} className="p-6 border-b">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <Icon className="text-xl" />
+              <h2 className="text-xl font-bold">{title}</h2>
+            </div>
+            <button className="p-2 hover:bg-gray-100 rounded-md">
+              <span className="sr-only">Toggle</span>
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          </div>
+
+          <button
+            onClick={() => addItem(setState)}
+            className="w-full p-3 border-2 border-dashed rounded-md text-gray-500 hover:bg-gray-50 transition-colors"
+          >
+            + Add a new item
+          </button>
+
+          {state.map((id) => (
+            <div key={id} className="mt-4 p-4 border rounded-md">
+              {/* Item content will be rendered here */}
+              {/* You can create separate components for each section's items */}
+            </div>
           ))}
-        </div>
-      </div>
-
-      {/* Projects Area */}
-      <div className="flex flex-row space-x-5">
-        <span>
-          <BsJournals color="grey" size={30} />
-        </span>
-        <span className="text-white text-2xl">Projects</span>
-      </div>
-      <button
-        onClick={handleAddProject}
-        className="bg-blue-500 text-white px-4 py-2 rounded-md mb-4"
-      >
-        Add Input Component
-      </button>
-
-      <div>
-        {project.map((id) => (
-          <ProjectInput key={id} /> // Render each InputComponent with a unique key and id
-        ))}
-      </div>
-      {/* Work Experience Area */}
-      <div className="flex flex-row space-x-5">
-        <span>
-          <MdWork color="grey" size={30} />
-        </span>
-        <span className="text-white text-2xl">Work Experience</span>
-      </div>
-      <button
-        onClick={handleAddExperience}
-        className="bg-blue-500 text-white px-4 py-2 rounded-md mb-4"
-      >
-        Add Input Component
-      </button>
-
-      <div>
-        {experience.map((id) => (
-          <ExperienceInput key={id} /> // Render each InputComponent with a unique key and id
-        ))}
-      </div>
-      {/* Awards & Achievement */}
-      <div className="flex flex-row space-x-5">
-        <span>
-          <GiAchievement color="grey" size={30} />
-        </span>
-        <span className="text-white text-2xl">Achievements</span>
-      </div>
-      <button
-        onClick={handleAddAchievement}
-        className="bg-blue-500 text-white px-4 py-2 rounded-md mb-4"
-      >
-        Add Input Component
-      </button>
-
-      <div>
-        {achievement.map((id) => (
-          <AchievementInput key={id} /> // Render each InputComponent with a unique key and id
-        ))}
-      </div>
-      {/* Certification */}
-      <div className="flex flex-row space-x-5">
-        <span>
-          <PiCertificateLight color="grey" size={30} />
-        </span>
-        <span className="text-white text-2xl">Certificates</span>
-      </div>
-      <button
-        onClick={handleAddCertification}
-        className="bg-blue-500 text-white px-4 py-2 rounded-md mb-4"
-      >
-        Add Input Componen
-      </button>
-
-      <div>
-        {certification.map((id) => (
-          <CertificationInput key={id} /> // Render each InputComponent with a unique key and id
-        ))}
-      </div>
-      {/* Languages Area */}
+        </section>
+      ))}
     </div>
   );
-}
+};
