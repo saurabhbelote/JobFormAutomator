@@ -1,7 +1,7 @@
 /** @format */
-
+"use client"
 import { useState, useEffect, useRef } from "react";
-import TemplateCard from "../ats-resume/TemplateCard";
+import TemplateCard from "./TemplateCard";
 
 const templates = [
   { name: "Efficient", imgSrc: "/images/resumeCard.png" },

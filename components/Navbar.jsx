@@ -27,7 +27,7 @@ const Navbar = () => {
           { label: "Pricing", path: "/pricing" },
           { label: "About", path: "/about" },
           { label: "Policy", path: "/policy" },
-          { label: "ATS Resume", path: "/ats-resume" },
+          { label: "ATS Resume", path: "/atsresume" },
         ].map((item) => (
           <li
             key={item.path}
