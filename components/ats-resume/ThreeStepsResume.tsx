@@ -1,6 +1,6 @@
+"use client"
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-
 export default function ThreeStepsResume() {
   const steps = [
     {
@@ -83,10 +83,12 @@ export default function ThreeStepsResume() {
             >
               {/* Icon */}
               <div className="bg-[#2C223B] w-12 h-12 flex items-center justify-center rounded-full">
-                <img
+                <Image
                   src={step.icon}
                   alt={`Icon for ${step.title}`}
                   className="w-6 h-6"
+                  height={24}
+                  width={24}
                 />
               </div>
               {/* Title */}
