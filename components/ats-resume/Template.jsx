@@ -4,14 +4,14 @@ import { useState, useEffect, useRef } from "react";
 import TemplateCard from "../ats-resume/TemplateCard";
 
 const templates = [
-  { name: "Efficient", imgSrc: "/images/resumeCard.png" },
-  { name: "Minimal", imgSrc: "/images/resumeCard.png" },
-  { name: "Clean", imgSrc: "/images/resumeCard.png" },
-  { name: "Efficient", imgSrc: "/images/resumeCard.png" },
-  { name: "Minimal", imgSrc: "/images/resumeCard.png" },
-  { name: "Clean", imgSrc: "/images/resumeCard.png" },
-  { name: "Efficient", imgSrc: "/images/resumeCard.png" },
-  { name: "Minimal", imgSrc: "/images/resumeCard.png" },
+  { name: "Efficient", imgSrc: "/images/atsResume/resumeCard.png" },
+  { name: "Minimal", imgSrc: "/images/atsResume/resumeCard.png" },
+  { name: "Clean", imgSrc: "/images/atsResume/resumeCard.png" },
+  { name: "Efficient", imgSrc: "/images/atsResume/resumeCard.png" },
+  { name: "Minimal", imgSrc: "/images/atsResume/resumeCard.png" },
+  { name: "Clean", imgSrc: "/images/atsResume/resumeCard.png" },
+  { name: "Efficient", imgSrc: "/images/atsResume/resumeCard.png" },
+  { name: "Minimal", imgSrc: "/images/atsResume/resumeCard.png" },
   // Add more templates as needed
 ];
 

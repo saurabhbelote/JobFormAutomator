@@ -13,7 +13,7 @@ export default function GetHired() {
                 .map((_, index) => (
                   <img
                     key={index}
-                    src="images/star.png"
+                    src="images/atsResume/star.png"
                     alt="Star"
                     className="w-3 h-3 mr-1"
                   />
@@ -33,7 +33,7 @@ export default function GetHired() {
               {["Img1.png", "Img2.png", "Img3.png", "Img4.png"].map((img, index) => (
                 <img
                   key={index}
-                  src={`Images/${img}`}
+                  src={`/images/atsResume/${img}`}
                   alt={`Avatar ${index + 1}`}
                   className="w-10 h-10 rounded-full border border-gray-700 transition-all duration-300 hover:scale-110"
                 />
@@ -47,7 +47,7 @@ export default function GetHired() {
         <div className="mt-12 lg:mt-0 animate-slideInRight">
           <div>
             <img
-              src="/images/resume.png"
+              src="/images/atsResume/resume.png"
               alt="Resume 1"
               className="w-96 transition-all duration-300 transform hover:scale-105"
             />

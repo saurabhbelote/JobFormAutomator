@@ -8,21 +8,21 @@ export default function ThreeStepsResume() {
       title: "Step 1",
       description:
         "Pick a template and follow the prompts. Input your details, and the builder tailors your resume to the job.",
-      icon: "/images/folder.png", // Path to the image for step 1
+      icon: "/images/atsResume/folder.png", // Path to the image for step 1
     },
     {
       id: 2,
       title: "Step 2",
       description:
         "Get customized text that fits your work story. The builder features professionally written content options to choose from.",
-      icon: "/images/pen.png", // Path to the image for step 2
+      icon: "/images/atsResume/pen.png", // Path to the image for step 2
     },
     {
       id: 3,
       title: "Step 3",
       description:
         "Download and send to employers. Save and send it as a PDF, Word DOC, or any file format the employer requests.",
-      icon: "/images/download.png", // Path to the image for step 3
+      icon: "/images/atsResume/download.png", // Path to the image for step 3
     },
   ];
 
