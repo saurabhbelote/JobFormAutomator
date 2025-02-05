@@ -1,21 +1,31 @@
 "use client";
 import React from 'react';
-
-const Celibi = () => {
+import Image from 'next/image'
+import {usePersonalDataStore,useProjectStore,useEducationStore,useCertificateStore,useExperienceStore,useAchievementStore} from '@/app/store'
+export default function Celibi () {
+  const {personalData} = usePersonalDataStore();
+  const {projects} = useProjectStore();
+  const {educations} = useEducationStore();
+  const {certificates} = useCertificateStore();
+  const {experiences} = useExperienceStore();
+  const {achievements} = useAchievementStore();
+  
   return (
     <div className="max-w-5xl mx-auto p-8 bg-white text-gray-800">
       {/* Header Section */}
       <header className="flex items-start gap-8 mb-8">
         <div className="w-32 h-32">
-          <img 
+          <Image
             src="/api/placeholder/128/128"
             alt="Profile"
+            height={128}
+            width={128}
             className="w-full h-full object-cover rounded"
           />
         </div>
         <div className="flex-1 bg-gray-800 text-white p-6">
-          <h1 className="text-3xl font-bold mb-2">AMRUTH PILLAI</h1>
-          <h2 className="text-xl">FULL STACK WEB DEVELOPER</h2>
+          <h1 className="text-3xl font-bold mb-2">{personalData.name}</h1>
+          <h2 className="text-xl">{personalData.headline}</h2>
         </div>
       </header>
 
@@ -27,31 +37,27 @@ const Celibi = () => {
             <div className="space-y-4">
               <div>
                 <h4 className="font-semibold">Address</h4>
-                <p className="text-sm">#5/A, Banashankari Nivas,<br />Brindavan Layout, Subramanyapura,<br />Bangalore, India - 560061</p>
+                <p className="text-sm">{personalData.address}</p>
               </div>
               <div>
                 <h4 className="font-semibold">Phone</h4>
-                <p className="text-sm">+91 98453 36113</p>
+                <p className="text-sm">+91 {personalData.phone}</p>
               </div>
               <div>
-                <h4 className="font-semibold">Website</h4>
-                <p className="text-sm">amruthpillai.com</p>
+                <h4 className="font-semibold">Github</h4>
+                <p className="text-sm">{personalData.github}</p>
               </div>
               <div>
                 <h4 className="font-semibold">Email</h4>
-                <p className="text-sm">hello@amruthpillai.com</p>
-              </div>
-              <div>
-                <h4 className="font-semibold">Instagram</h4>
-                <p className="text-sm">AmruthPillai</p>
+                <p className="text-sm">{personalData.email}</p>
               </div>
               <div>
                 <h4 className="font-semibold">Twitter</h4>
-                <p className="text-sm">KingOKings</p>
+                <p className="text-sm">{personalData.twitter}</p>
               </div>
               <div>
                 <h4 className="font-semibold">LinkedIn</h4>
-                <p className="text-sm">AmruthPillai</p>
+                <p className="text-sm">{personalData.linkedin}</p>
               </div>
             </div>
           </section>
@@ -183,7 +189,7 @@ const Celibi = () => {
                 <p className="text-sm italic mb-2">Customer Service Representative</p>
                 <ul className="list-disc list-inside text-sm space-y-1 mb-2">
                   <li>Worked as a full time customer service rep in a high volume call center.</li>
-                  <li>Received "Associate of the Month" award six times.</li>
+                  <li>Received Associate of the Month award six times.</li>
                   <li>Chosen as an example for other associates in trainings.</li>
                 </ul>
                 <p className="text-sm">
@@ -296,7 +302,7 @@ const Celibi = () => {
                   https://amruthpillai.com
                 </a>
                 <p className="text-sm">
-                  Resume on the Web has been a project that I've been focused on since the early 2014s. I didn't want
+                  Resume on the Web has been a project that I have been focused on since the early 2014s. I didnot want
                   my information to be displayed on just a sheet of paper that only HRs or Stack Source could read
                   through. I wanted it to be accessible through the most basic application that runs on almost all
                   devices, the browser.
@@ -310,4 +316,3 @@ const Celibi = () => {
   );
 };
 
-export default Celibi;

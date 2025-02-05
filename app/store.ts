@@ -3,6 +3,7 @@ import React from 'react';
 //change the personal data
 type PersonalData = {
     name: string;
+    headline:string;
     summary: string;
     profile: string;
     address: string;
@@ -11,6 +12,7 @@ type PersonalData = {
     skill: string;
     hobbie: string;
     language: string;
+    twitter:string;
     linkedin: string;
     github: string;
 };
@@ -23,6 +25,7 @@ type PersonalDataStore = {
 export const usePersonalDataStore = create<PersonalDataStore>((set) => ({
     personalData: {
         name: "",
+        headline:"",
         summary: "",
         profile: "",
         address: "",
@@ -31,6 +34,7 @@ export const usePersonalDataStore = create<PersonalDataStore>((set) => ({
         skill: "",
         hobbie: "",
         language: "",
+        twitter:"",
         linkedin: "",
         github: "",
     },
