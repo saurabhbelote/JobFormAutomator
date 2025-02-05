@@ -6,7 +6,6 @@ import { BsGrid, BsList } from "react-icons/bs";
 import GridView from "./GridView";
 import ListView from "./ListView";
 import { usePathname } from "next/navigation";
-import Image from "next/image";
 
 const Header = () => {
   const [viewMode, setViewMode] = useState("grid");

@@ -1,16 +1,14 @@
-/** @format */
-
+"use client"
 import React from "react";
 import { useRouter } from "next/navigation";
-
-const GridView = () => {
+export default function GridView () {
   const router = useRouter();
 
   return (
     <div className=" flex p-6 h-[100vh] gap-10 bg-gradient-to-b pt-5 from-[#11011E] via-[#35013e] to-[#11011E] bg-[#11011E] text-white">
       {/* Create new resume card */}
       <div 
-        onClick={() => router.push("/Resume")}
+        onClick={() => router.push("/create-new-resume")}
         className="bg-[#ffffff0f] border-[#ffffff17] w-[25%] h-[60%] border-[1.5px] rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow duration-200 cursor-pointer">
         <div className="aspect-w-8 aspect-h-11 bg-[#11011ea3] mb-4 py-20 px-10  rounded-lg">
           <div className="w-full h-full flex flex-col items-center justify-center">
@@ -53,4 +51,3 @@ const GridView = () => {
   );
 };
 
-export default GridView;

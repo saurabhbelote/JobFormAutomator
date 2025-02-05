@@ -1,6 +1,6 @@
-/** @format */
-"use client";
 
+"use client";
+import Link from 'next/link'
 import React, { useEffect, useRef, useState } from "react";
 import { FaInstagram, FaFacebook, FaTwitter, FaYoutube } from "react-icons/fa";
 import Image from "next/image";
@@ -86,22 +86,22 @@ const Footer = () => {
             <h3 className="text-lg font-semibold text-white mb-4">About Us</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="hover:text-white">
-                  About
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white">
+                <a href="/careers" className="hover:text-white">
                   Careers
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white">
+                <a href="/blog" className="hover:text-white">
                   Blog
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-white">
+                <a href="/policy" className="hover:text-white">
+                  Policy
+                </a>
+              </li>
+              <li>
+                <a href="/privacy" className="hover:text-white">
                   Legal & Privacy
                 </a>
               </li>
