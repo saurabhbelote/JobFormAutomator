@@ -26,7 +26,6 @@ export default function Home() {
               alt="ATS"
               height={300}
               width={300}
-
             />
             <span className="text-2xl font-semibold">ATS Score Check</span>
             <span className="text-lg text-center">
@@ -34,35 +33,60 @@ export default function Home() {
               Molestias odio impedit quibusdam dolore atque laudantium autem!
             </span>
           </div>
-          <div className="w-96 h-96 border-2 flex flex-col items-center rounded-lg shadow-xl  my-10">
+          <div className="w-96 h-96 border-2 flex flex-col items-center rounded-lg shadow-xl bg-[#f2f4f6] my-10">
+            <Image
+              src="/home/resume.jpg"
+              alt="ATS"
+              height={300}
+              width={300}
+            />
             <span className="text-2xl font-semibold">Build your Resume</span>
             <span className="text-lg text-center">
               Lorem, ipsum dolor sit amet consectetur adipisicing elit.
               Molestias odio impedit quibusdam dolore atque laudantium autem!
             </span>
           </div>
-          <div className="w-96 h-96 border-2 flex flex-col items-center rounded-lg shadow-xl  my-10">
-            <span className="text-2xl font-semibold">Build your cover letter</span>
+          <div className="w-96 h-96 border-2 flex flex-col items-center rounded-lg shadow-xl bg-[#f2f4f6] my-10">
+            <Image
+              src="/home/coverLetter.jpg"
+              alt="ATS"
+              height={300}
+              width={300}
+            />
+            <span className="text-2xl font-semibold">
+              Build your cover letter
+            </span>
             <span className="text-lg text-center">
               Lorem, ipsum dolor sit amet consectetur adipisicing elit.
               Molestias odio impedit quibusdam dolore atque laudantium autem!
             </span>
           </div>
-          <div className="w-96 h-96 border-2 flex flex-col items-center rounded-lg shadow-xl  my-10">
+          <div className="w-96 h-96 border-2 flex flex-col items-center rounded-lg shadow-xl bg-[#f2f4f6] my-10">
+            <Image
+              src="/home/aiInterviewer.jpg"
+              alt="ATS"
+              height={300}
+              width={300}
+            />
             <span className="text-2xl font-semibold">AI Interviewer</span>
             <span className="text-lg text-center">
               Lorem, ipsum dolor sit amet consectetur adipisicing elit.
               Molestias odio impedit quibusdam dolore atque laudantium autem!
             </span>
           </div>
-          <div className="w-96 h-96 border-2 flex flex-col items-center rounded-lg shadow-xl  my-10">
+          <div className="w-96 h-96 border-2 flex flex-col items-center rounded-lg shadow-xl bg-[#f2f4f6] my-10">
+            <Image
+              src="/home/skills.jpg"
+              alt="ATS"
+              height={300}
+              width={300}
+            />
             <span className="text-2xl font-semibold">Skills Suggestion</span>
             <span className="text-lg text-center">
               Lorem, ipsum dolor sit amet consectetur adipisicing elit.
               Molestias odio impedit quibusdam dolore atque laudantium autem!
             </span>
           </div>
-          
         </div>
       </div>
     </section>
