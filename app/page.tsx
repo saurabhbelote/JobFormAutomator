@@ -6,7 +6,7 @@ import HeroSection from '@/components/home/HeroSection';
 import HowItWorks from '@/components/home/HowItWorks';
 import ResumeATSChecker from '@/components/home/ResumeATSChecker';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from '@/app/firebase/config';
+import { auth } from '@/firebase/config';
 import { useRouter } from "next/navigation";
 // import Resume from '@/app/Resume/page'
 // import Signup from '@/app/sign-up/page'
