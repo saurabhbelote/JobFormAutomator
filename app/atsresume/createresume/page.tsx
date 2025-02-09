@@ -1,5 +1,5 @@
 // import Artboard from '@/components/center/Artboard'
-import LeftSidebar from "@/components/left/LeftSidebar";
+// import LeftSidebar from "@/components/left/LeftSidebar";
 import Rightsidebar from '@/components/right/Rightsidebar';
 import Celibi from "@/components/resume_templates/Celibi";
 
