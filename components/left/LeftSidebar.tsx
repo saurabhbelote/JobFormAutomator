@@ -60,16 +60,16 @@ export default function LeftSidebar() {
           <label className="block text-sm font-medium mb-2">Picture</label>
           <div className="flex items-center gap-2">
             <div className="w-12 h-12 bg-emerald-700 rounded-full flex items-center justify-center text-white text-xl">
-              {personalData.fullName?.[0] || 'M'}
+              {personalData.name?.[0] || 'M'}
             </div>
-            <input
+            {/* <input
               type="text"
               placeholder="Profile picture URL"
               className="flex-1 p-2 border rounded-md"
               name="pictureUrl"
               value={personalData.pictureUrl || ''}
               onChange={handleChangePersonal}
-            />
+            /> */}
             <button className="p-2 border rounded-md hover:bg-gray-50">
               <AiOutlineLink className="text-gray-500" />
             </button>
@@ -82,7 +82,7 @@ export default function LeftSidebar() {
             type="text"
             className="w-full p-2 border rounded-md"
             name="fullName"
-            value={personalData.fullName || ''}
+            value={personalData.name || ''}
             onChange={handleChangePersonal}
             placeholder="Your full name"
           />
@@ -122,7 +122,7 @@ export default function LeftSidebar() {
                 type="url"
                 className="w-full p-2 pl-8 border rounded-md"
                 name="website"
-                value={personalData.website || ''}
+                value={personalData.github || ''}
                 onChange={handleChangePersonal}
                 placeholder="Your website"
               />
@@ -152,7 +152,7 @@ export default function LeftSidebar() {
               type="text"
               className="w-full p-2 border rounded-md"
               name="location"
-              value={personalData.location || ''}
+              value={personalData.address || ''}
               onChange={handleChangePersonal}
               placeholder="Your location"
             />
