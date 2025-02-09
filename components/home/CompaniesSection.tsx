@@ -1,4 +1,4 @@
-/** @format */
+
 import Image from "next/image";
 
 const CompaniesSection = () => {
@@ -18,7 +18,7 @@ const CompaniesSection = () => {
           <div className="flex flex-wrap justify-center items-center gap-6 mt-6">
             {companies.map((company, index) => (
               <div key={index} className="w-24 sm:w-28 lg:w-32">
-                <img
+                <Image
                   src={company.logo}
                   alt={`${company.name} logo`}
                   className="w-full h-auto object-contain"

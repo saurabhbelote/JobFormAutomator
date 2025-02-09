@@ -1,7 +1,3 @@
-/** @format */
-
-import Image from "next/image";
-
 const PrivacySection = () => {
   return (
     <div className="min-h-screen text-[#ECF1F0] font-semibold mt-10 font-sans px-4 sm:px-8">
@@ -70,7 +66,7 @@ const PrivacySection = () => {
             </li>
             <li>
               Improvement: To analyze user behavior and feedback to improve our
-              extension's features and user experience.
+              extensions features and user experience.
             </li>
           </ul>
         </section>
@@ -244,7 +240,7 @@ const PrivacySection = () => {
               <li>
                 <span className=" font-semibold">Eligibility for Refund:</span>
                 Refunds are available for technical issues or if the service
-                doesn't meet advertised standards.
+                does not meet advertised standards.
               </li>
               <li>
                 <span className=" font-semibold">Time Frame:</span> Requests must be made

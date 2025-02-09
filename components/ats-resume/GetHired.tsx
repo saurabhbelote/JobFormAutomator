@@ -9,9 +9,9 @@ export default function GetHired() {
           <div className="flex items-center space-x-2">
             <span className="bg-[#FFFFFF05] border-[1px] border-[#ffffff17] px-3 py-1 rounded-full flex items-center">
               {Array(5)
-                .fill()
+                .fill(null)
                 .map((_, index) => (
-                  <img
+                  <Image
                     key={index}
                     src="images/star.png"
                     alt="Star"
@@ -31,7 +31,7 @@ export default function GetHired() {
           <div className="flex items-center space-x-4">
             <div className="flex -space-x-4 mb-2">
               {["Img1.png", "Img2.png", "Img3.png", "Img4.png"].map((img, index) => (
-                <img
+                <Image
                   key={index}
                   src={`Images/${img}`}
                   alt={`Avatar ${index + 1}`}
@@ -46,7 +46,7 @@ export default function GetHired() {
         {/* Right Image Section */}
         <div className="mt-12 lg:mt-0 animate-slideInRight">
           <div>
-            <img
+            <Image
               src="/images/resume.png"
               alt="Resume 1"
               className="w-96 transition-all duration-300 transform hover:scale-105"

@@ -1,14 +1,9 @@
 "use client";
 import React from 'react';
 import Image from 'next/image'
-import {usePersonalDataStore,useProjectStore,useEducationStore,useCertificateStore,useExperienceStore,useAchievementStore} from '@/app/store'
+import {usePersonalDataStore,} from '@/app/store'
 export default function Celibi () {
   const {personalData} = usePersonalDataStore();
-  const {projects} = useProjectStore();
-  const {educations} = useEducationStore();
-  const {certificates} = useCertificateStore();
-  const {experiences} = useExperienceStore();
-  const {achievements} = useAchievementStore();
   
   return (
     <div className="max-w-5xl mx-auto p-8 bg-white text-gray-800">

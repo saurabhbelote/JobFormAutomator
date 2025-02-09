@@ -1,8 +1,16 @@
 import Image from 'next/image';
 
-const TeamCard = ({ name, role, linkedin, twitter }) => (
+interface TeamCardProps {
+  name: string;
+  role: string;
+  linkedin: string;
+  twitter: string;
+}
+
+const TeamCard = ({ name, role, linkedin, twitter }: TeamCardProps) => (
   <div className="rounded-lg text-center pb-8 border-[1px] border-[#FFFFFF17] bg-[#FFFFFF06] animate-fade-in-up">
-    <img
+    <Image
+      width={100} height={100}
       src="/images/user.png"
       alt={name}
       className="mx-auto   object-cover"
@@ -11,10 +19,10 @@ const TeamCard = ({ name, role, linkedin, twitter }) => (
     <p className="text-sm sm:text-base text-gray-300">{role}</p>
     <div className="flex justify-center gap-4 mt-4">
       <a href={linkedin} target="_blank" rel="noreferrer">
-        <img src="/images/linkedin-icon.png" alt="LinkedIn" className="w-8 h-8 sm:w-10 sm:h-10" />
+        <Image src="/images/linkedin-icon.png" alt="LinkedIn" className="w-8 h-8 sm:w-10 sm:h-10" />
       </a>
       <a href={twitter} target="_blank" rel="noreferrer">
-        <img src="/images/twitter-icon.png" alt="Twitter" className="w-8 h-8 sm:w-10 sm:h-10" />
+        <Image src="/images/twitter-icon.png" alt="Twitter" className="w-8 h-8 sm:w-10 sm:h-10" />
       </a>
     </div>
   </div>

@@ -14,7 +14,7 @@ import { AiOutlineLink, AiOutlineMail } from "react-icons/ai";
 import { BiWorld } from "react-icons/bi";
 import { FiPhone } from "react-icons/fi";
 import './scroll.css'
-import {FaProjectDiagram} from "react-icons/fa";
+
 
 export default function LeftSidebar() {
   // Store and personal data management
@@ -32,7 +32,6 @@ export default function LeftSidebar() {
   const [publications, setPublications] = useState<number[]>([]);
   const [volunteering, setVolunteering] = useState<number[]>([]);
   const [references, setReferences] = useState<number[]>([]);
-  const [showInputs, setShowInputs] = useState(false);
 
 
   const [summaryContent, setSummaryContent] = useState("");

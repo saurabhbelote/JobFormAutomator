@@ -9,9 +9,9 @@ const HeroSection = () => {
       <div className="text-sm text-white font-light mb-4 flex justify-center items-center animate-fadeIn">
         <span className="bg-[#FFFFFF05] border-[1px] border-[#ffffff17] px-3 py-1 rounded-full flex items-center">
           {Array(5)
-            .fill()
+            .fill(null)
             .map((_, index) => (
-              <img
+              <Image
                 key={index}
                 src="images/star.png"
                 alt="Star"
@@ -49,7 +49,7 @@ const HeroSection = () => {
         <div className="flex -space-x-4 mb-2">
           {["Img1.png", "Img2.png", "Img3.png", "Img4.png"].map(
             (img, index) => (
-              <img
+              <Image
                 key={index}
                 src={`Images/${img}`}
                 alt={`Avatar ${index + 1}`}
