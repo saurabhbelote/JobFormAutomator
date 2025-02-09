@@ -49,12 +49,13 @@ const ValuesSection = () => {
       { threshold: 0.1 } // Lower threshold for better mobile support
     );
 
-    valueRefs.current
+    const currentRefs = valueRefs.current;
+    currentRefs
       .filter((card) => card !== null)
       .forEach((card) => observer.observe(card));
 
     return () => {
-      valueRefs.current
+      currentRefs
         .filter((card) => card !== null)
         .forEach((card) => observer.unobserve(card));
     };

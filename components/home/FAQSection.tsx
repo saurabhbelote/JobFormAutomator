@@ -4,9 +4,9 @@ import { useState } from "react";
 import { motion } from "framer-motion"; // Import motion for animations
 
 const FAQSection = () => {
-  const [activeIndex, setActiveIndex] = useState(null);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
-  const toggleFAQ = (index) => {
+  const toggleFAQ = (index:number) => {
     setActiveIndex(index === activeIndex ? null : index);
   };
 

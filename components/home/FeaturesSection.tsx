@@ -32,7 +32,7 @@ const FeaturesSection = () => {
     },
   ];
 
-  const featureRefs = useRef([]); // Reference for feature cards
+  const featureRefs = useRef<(HTMLDivElement | null)[]>([]); // Reference for feature cards
   const [isInView, setIsInView] = useState(false); // State to track visibility of cards
 
   useEffect(() => {
@@ -82,7 +82,9 @@ const FeaturesSection = () => {
           {features.map((feature, index) => (
             <div
               key={index}
-              ref={(el) => (featureRefs.current[index] = el)} // Assign DOM element
+              ref={(el) => {
+                featureRefs.current[index] = el;
+              }} // Assign DOM element
               className={`bg-[#FFFFFF05] border-[1px] border-[#ffffff17] backdrop-blur-3xl p-6 rounded-lg transition-all duration-500 ease-in-out transform ${
                 isInView
                   ? "opacity-100 translate-y-0"

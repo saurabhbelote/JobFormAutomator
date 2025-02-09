@@ -1,7 +1,15 @@
 /** @format */
 "use client";
 
-const Step = ({ id, title, description, buttonText, imageOnLeft }) => (
+interface StepProps {
+  id: number;
+  title: string;
+  description: string;
+  buttonText?: string;
+  imageOnLeft: boolean;
+}
+
+const Step = ({ id, title, description, buttonText, imageOnLeft }: StepProps) => (
   <div
     className={`flex flex-col md:flex-row ${
       imageOnLeft ? "md:flex-row-reverse" : ""
