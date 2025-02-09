@@ -1,21 +1,36 @@
-// import CompaniesSection from '@/components/home/CompaniesSection';
-// import FAQSection from '@/components/home/FAQSection';
-// import FeaturesSection from '@/components/home/FeaturesSection';
-// import HeroSection from '@/components/home/HeroSection';
-// import HowItWorks from '@/components/home/HowItWorks';
-// import ResumeATSChecker from '@/components/home/ResumeATSChecker';
-import Resume from '@/app/Resume/page'
+"use client";
+import CompaniesSection from '@/components/home/CompaniesSection';
+import FAQSection from '@/components/home/FAQSection';
+import FeaturesSection from '@/components/home/FeaturesSection';
+import HeroSection from '@/components/home/HeroSection';
+import HowItWorks from '@/components/home/HowItWorks';
+import ResumeATSChecker from '@/components/home/ResumeATSChecker';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '@/app/firebase/config';
+import { useRouter } from 'next/navigation ';
+// import Resume from '@/app/Resume/page'
+// import Signup from '@/app/sign-up/page'
+// import SignupPage from "./sign-up/page";
 
 export default function Mainpage() {
+
+  const [user]= useAuthState(auth);
+  const router= useRouter()
+
+  if(!user){
+    router.push('/sign-up ')
+  }
+
+  console.log(user); 
   return (
     <>
-      {/* <HeroSection />
+      <HeroSection />
       <FeaturesSection />
       <CompaniesSection />
       <HowItWorks />
       <ResumeATSChecker />
-      <FAQSection /> */}
-      <Resume/>
+      <FAQSection />
+      {/* <SignupPage/> */}
     </>
   );
 }

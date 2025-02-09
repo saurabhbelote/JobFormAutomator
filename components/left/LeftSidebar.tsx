@@ -410,6 +410,7 @@ export default function LeftSidebar() {
         ))}
       </section>
 
+     {/* Projects section  */}
       <section className="p-6 border-b">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
@@ -434,7 +435,7 @@ export default function LeftSidebar() {
           </div>
         ))}
       </section>
-
+   {/* end  */}
       <section className="p-6 border-b">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
