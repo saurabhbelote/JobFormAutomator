@@ -48,7 +48,7 @@ export default function LeftSidebar() {
   };
 
   return (
-    <div className="w-full max-w-[450px] bg-white h-screen overflow-y-scroll scrollbar-hidden text-black">
+    <div className="w-[450px] bg-white h-fit overflow-y-scroll scrollbar-hide text-black">
       {/* Basics Section */}
       <section className="p-6 border-b">
         <div className="flex items-center gap-2 mb-6">

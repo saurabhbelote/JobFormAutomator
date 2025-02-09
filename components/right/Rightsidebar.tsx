@@ -68,7 +68,7 @@ const RightSidebar: React.FC = () => {
   `;
 
   return (
-    <div className="p-6 w-full max-w-[450px] bg-black text-white border-l border-gray-300 h-screen overflow-y-scroll scrollbar-hidden">
+    <div className="p-6 w-full max-w-[450px] bg-black text-white border-l border-gray-300">
       <h2 className="text-xl font-bold mb-4">Typography</h2>
       
       {/* Font Buttons */}
