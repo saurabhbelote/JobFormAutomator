@@ -17,7 +17,7 @@ export default function Signin () {
         sessionStorage.setItem('user', 'true')
         setEmail('');
         setPassword('');
-        router.push('/')
+        router.push('/home')
     }catch(e){
         console.error(e)
     }

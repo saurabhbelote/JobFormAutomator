@@ -91,14 +91,16 @@ const Navbar = () => {
 
       {/* Auth Buttons */}
       <div className="hidden sm:flex items-center space-x-4">
-        <Link href="/auth">
+        <Link href="/sign-in">
           <button className="text-sm sm:text-base hover:text-primary transform transition duration-200 hover:scale-105">
             Login
           </button>
-        </Link>
+        </Link >
+        <Link href= "sign-up">
         <button className="bg-primary text-black px-4 py-2 rounded-md hover:bg-[#0FAE96CC] transform transition duration-200 hover:scale-105 text-sm sm:text-base">
           Sign Up
-        </button>
+        </button>        
+        </Link>
       </div>
   </nav>
   );
