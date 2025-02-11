@@ -1,8 +1,22 @@
 "use client";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '@/firebase/config';
 export default function Home() {
+
+  const [user]= useAuthState(auth);
+    const router= useRouter();
+
+    useEffect(() => {
+    if (!user) {
+      router.push("/sign-up");
+    }
+  }, [user, router]);
   return (
+    <>
     <section className="bg-[#f1f3f5] text-black">
       <div className="flex flex-row w-full h-96">
         <div className="w-1/2 flex flex-col justify-center items-center font-bold text-5xl">
@@ -90,5 +104,6 @@ export default function Home() {
         </div>
       </div>
     </section>
+    </>
   );
 }
