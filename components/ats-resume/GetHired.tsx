@@ -13,9 +13,11 @@ export default function GetHired() {
                 .map((_, index) => (
                   <Image
                     key={index}
-                    src="images/star.png"
+                    src="/images/star.png"
                     alt="Star"
                     className="w-3 h-3 mr-1"
+                    width={10}
+                    height={10}
                   />
                 ))}
               <span>4.5 star rated</span>
@@ -33,9 +35,11 @@ export default function GetHired() {
               {["Img1.png", "Img2.png", "Img3.png", "Img4.png"].map((img, index) => (
                 <Image
                   key={index}
-                  src={`Images/${img}`}
+                  src={`/images/${img}`}
                   alt={`Avatar ${index + 1}`}
                   className="w-10 h-10 rounded-full border border-gray-700 transition-all duration-300 hover:scale-110"
+                  width={10}
+                  height={10}
                 />
               ))}
             </div>

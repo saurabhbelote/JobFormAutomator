@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const HeroSection = () => {
   return (
-    <section className="bg-gradient-to-b from-[#11011E] via-[#35013e] to-[#11011E] bg-[#11011E] py-16 pt-24 px-6 md:px-16 lg:px-20 text-white text-center">
+    <div className="bg-gradient-to-b from-[#11011E] via-[#35013e] to-[#11011E] bg-[#11011E] py-16 pt-24 px-6 md:px-16 lg:px-20 text-white text-center">
       {/* Star Rating */}
       <div className="text-sm text-white font-light mb-4 flex justify-center items-center animate-fadeIn">
         <span className="bg-[#FFFFFF05] border-[1px] border-[#ffffff17] px-3 py-1 rounded-full flex items-center">
@@ -13,9 +13,11 @@ const HeroSection = () => {
             .map((_, index) => (
               <Image
                 key={index}
-                src="images/star.png"
+                src="/images/star.png"
                 alt="Star"
                 className="w-3 h-3 mr-1"
+                width={10}
+                height={10}
               />
             ))}
           <span>5 star rated</span>
@@ -51,9 +53,11 @@ const HeroSection = () => {
             (img, index) => (
               <Image
                 key={index}
-                src={`Images/${img}`}
+                src={`/images/${img}`}
                 alt={`Avatar ${index + 1}`}
                 className="w-10 h-10 rounded-full border border-gray-700"
+                width={10}
+                height={10}
               />
             )
           )}
@@ -65,7 +69,7 @@ const HeroSection = () => {
           Jobform Automator
         </p>
       </div>
-    </section>
+    </div>
   );
 };
 

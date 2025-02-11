@@ -11,15 +11,24 @@ import { useRouter } from "next/navigation";
 // import Resume from '@/app/Resume/page'
 // import Signup from '@/app/sign-up/page'
 // import SignupPage from "./sign-up/page";
+import { useEffect } from "react";
 
 export default function Mainpage() {
 
   const [user]= useAuthState(auth);
-  const router= useRouter()
+  const router= useRouter();
+  // const user = null; 
+  
 
-  if(!user){
-    router.push('/sign-up ')
-  }
+  useEffect(() => {
+    if (!user) {
+      router.push("/sign-up");
+    }
+  }, [user, router]);
+
+  // if(!user){
+  //   router.push('/sign-up')
+  // }
 
   console.log(user); 
   return (

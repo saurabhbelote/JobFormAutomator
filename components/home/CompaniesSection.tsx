@@ -22,6 +22,8 @@ const CompaniesSection = () => {
                   src={company.logo}
                   alt={`${company.name} logo`}
                   className="w-full h-auto object-contain"
+                  width={10}
+                  height={10}
                 />
               </div>
             ))}
