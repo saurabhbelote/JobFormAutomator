@@ -5,10 +5,12 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/firebase/config';
+import { signOut } from "firebase/auth";
 export default function Home() {
 
   const [user]= useAuthState(auth);
     const router= useRouter();
+    console.log(user)
 
     useEffect(() => {
     if (!user) {
@@ -20,6 +22,7 @@ export default function Home() {
     <section className="bg-[#f1f3f5] text-black">
       <div className="flex flex-row w-full h-96">
         <div className="w-1/2 flex flex-col justify-center items-center font-bold text-5xl">
+        <button onClick={()=>{signOut(auth)}}>Log Out </button>
           <span className="">Hello,</span>
           <span>Mahaprasad Prusty</span>
         </div>
