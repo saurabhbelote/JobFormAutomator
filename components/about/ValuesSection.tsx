@@ -1,6 +1,8 @@
+/** @format */
 "use client";
-// import Image from "next/image";
+
 import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 const ValuesSection = () => {
   const values = [
@@ -30,8 +32,8 @@ const ValuesSection = () => {
     },
   ];
 
-  const valueRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const [isInView, setIsInView] = useState<boolean[]>([]);
+  const valueRefs = useRef([]);
+  const [isInView, setIsInView] = useState([]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -46,18 +48,13 @@ const ValuesSection = () => {
           }
         });
       },
-      { threshold: 0.1 } // Lower threshold for better mobile support
+      { threshold: 0.1 }
     );
 
-    const currentRefs = valueRefs.current;
-    currentRefs
-      .filter((card) => card !== null)
-      .forEach((card) => observer.observe(card));
+    valueRefs.current.forEach((card) => card && observer.observe(card));
 
     return () => {
-      currentRefs
-        .filter((card) => card !== null)
-        .forEach((card) => observer.unobserve(card));
+      valueRefs.current.forEach((card) => card && observer.unobserve(card));
     };
   }, []);
 
@@ -70,18 +67,20 @@ const ValuesSection = () => {
         {values.map((value, index) => (
           <div
             key={index}
-            // ref={(el) => (valueRefs.current[index] = el)}
+            ref={(el) => (valueRefs.current[index] = el)}
             className={`bg-[#1A1125] border-[1px] border-[#ffffff17] backdrop-blur-3xl p-6 md:p-8 rounded-lg shadow-lg transition-all duration-700 ease-in-out transform ${
               isInView[index] ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
             <div className="w-14 h-14 md:w-16 md:h-16 flex justify-center items-center bg-[#2C223B] rounded-full mb-4 md:mb-6">
-              {/* <Image
+              <Image
                 src={value.icon}
                 alt={value.title}
-                onError={(e) => (e.target.src = "/fallback-image.png")}
+                width={32}
+                height={32}
                 className="w-6 h-6 md:w-8 md:h-8"
-              /> */}
+                priority
+              />
             </div>
             <h3 className="text-lg md:text-xl font-semibold mb-2 md:mb-4">
               {value.title}
