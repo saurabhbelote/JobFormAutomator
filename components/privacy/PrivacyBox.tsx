@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const PrivacyBox = () => {
   return (
-    <div className="relative bg-gradient-to-b from-[#11011E] via-[#35013e] to-[#9267b5] text-white">
+    <div className="relative  bg-gradient-to-b from-[#11011E] via-[#35013e] to-[#11011E] text-white">
       <div className="flex flex-col md:flex-row items-center justify-between gap-8 mx-6 sm:mx-12 lg:mx-20 rounded-xl bg-[#FFFFFF05] px-6 sm:px-10 py-10 sm:py-16 border-[1.5px] border-[#ffffff17]">
         {/* Text Section */}
         <div className="text-center md:text-left max-w-lg">
