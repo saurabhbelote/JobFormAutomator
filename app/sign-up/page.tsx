@@ -108,8 +108,6 @@ const SignUpPage = () => {
             <div className="flex-1 h-px bg-purple-600/30"></div>
           </div>
 
-          {/* Sign Up Form */}
-          {/* <form onSubmit={handleSignUp} className="space-y-6"> */}
             <div>
               <input
                 type="text"
