@@ -55,7 +55,7 @@ function Login() {
               if (subscriptionType && subscriptionType === "FreeTrialStarted") {
                 window.location.href = "/demo";
               } else {
-                window.location.href = "/resume";
+                window.location.href = "/resume2";
               }
             } else {
               window.location.href = "/gemini";

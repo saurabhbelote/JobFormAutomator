@@ -71,7 +71,7 @@ const Gemini: React.FC = () => {
         // });
 
         // window.location.href = `/privacy`;
-        router.push('/privacy')
+        router.push('/resume2')
       } else {
         toast.error("Invalid API key");
       }
