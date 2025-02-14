@@ -5,11 +5,13 @@ import app from "@/firebase/config";
 import { toast } from "react-toastify";
 import { getDatabase, ref, update } from "firebase/database";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { useRouter } from "next/navigation";
 
 const Gemini: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [geminiKey, setGeminiKey] = useState<string>("");
   const db = getDatabase(app);
+  const router = useRouter()
 
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,33 +25,60 @@ const Gemini: React.FC = () => {
       const result = await model.generateContent(prompt);
       const response = result.response;
 
+      console.log(response)
+
       if (response) {
         toast.success("API Key Submitted Successfully");
         localStorage.setItem("api_key", geminiKey);
+        
+        function notifyExtensionOnGeminiKey(key) {
+          const event = new CustomEvent('geminiKeySubmitted', { detail: { key } });
+          document.dispatchEvent(event);
+      }
 
-        document.dispatchEvent(
-          new CustomEvent("geminiKeySubmitted", { detail: { key: geminiKey } })
-        );
+      notifyExtensionOnGeminiKey(geminiKey);
+
+
+        // document.dispatchEvent(
+        //   new CustomEvent("geminiKeySubmitted", { detail: { key: geminiKey } })
+        // );
 
         const userRef = ref(db, `user/${auth.currentUser?.uid}`);
         await update(userRef, { API: { apikey: geminiKey } });
 
         const currentDate = new Date().toISOString().replace("T", " ").split(".")[0];
-        await update(userRef, {
-          Payment: {
-            Status: "Free",
-            Start_Date: currentDate,
-            SubscriptionType: "GetResume",
-          },
-        });
 
-        window.location.href = `/home`;
+        try {
+          const newPaymentRef = ref(db, "user/" + auth.currentUser.uid);
+          await update(newPaymentRef, {
+              Payment: {
+                  Status: "Free",
+                  Start_Date: currentDate,
+                  SubscriptionType: "GetResume",
+              },
+          });
+          // console.log("Payment details updated successfully");
+      } catch (err) {
+          console.error(err);
+      }
+
+        // await update(userRef, {
+        //   Payment: {
+        //     Status: "Free",
+        //     Start_Date: currentDate,
+        //     SubscriptionType: "GetResume",
+        //   },
+        // });
+
+        // window.location.href = `/privacy`;
+        router.push('/privacy')
       } else {
         toast.error("Invalid API key");
       }
     } catch (error) {
       toast.error("Invalid API key!");
       console.error(error);
+      return;
     } finally {
       setLoading(false);
     }
