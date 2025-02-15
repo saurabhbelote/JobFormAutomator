@@ -2,39 +2,43 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { ref, getDatabase, update } from "firebase/database";
-import { getAuth } from "firebase/auth";
+import { getAuth, User } from "firebase/auth";
 import { pdfjs } from "react-pdf";
 import { toast } from "react-toastify";
 import { uploadBytes, getDownloadURL, ref as storageRef } from "firebase/storage";
-import { storage } from "@/firebase/config"; // Ensure storage and app are correctly initialized
+import { storage } from "@/firebase/config";
 import app from "@/firebase/config";
 
+pdfjs.GlobalWorkerOptions.workerSrc = `${process.env.NEXT_PUBLIC_PUBLIC_URL}/pdfjs/pdf.worker.min.js`;
 
-pdfjs.GlobalWorkerOptions.workerSrc = `${process.env.PUBLIC_URL}/pdfjs/pdf.worker.min.js`;
-
-const Resume = function () {
-  const [pdf, setPdf] = useState(null);
-  const [downloadUrl, setDownloadUrl] = useState("");
-  const [Currentctc, setCurrentctc] = useState("");
-  const [Expectedctc, setExpectedctc] = useState("");
-  const [NoticePeriod, setNoticePeriod] = useState("");
-  const [Resume, setResume] = useState("");
-  const [pdfText, setPdfText] = useState("");
-  const [Location, setLocation] = useState("");
-  const [user, setUser] = useState(null);
-  const [pdfName, setPdfName] = useState("");
-  const [isLoading, setIsLoading] = useState(false); // Loading state
-  const submitButtonRef = useRef(null); // Ref for the submit button
+const Resume: React.FC = () => {
+  const [pdf, setPdf] = useState<File | null>(null);
+  const [downloadUrl, setDownloadUrl] = useState<string>("");
+  const [Currentctc, setCurrentctc] = useState<string>("");
+  const [Expectedctc, setExpectedctc] = useState<string>("");
+  const [NoticePeriod, setNoticePeriod] = useState<string>("");
+  const [Resume, setResume] = useState<string>("");
+  const [pdfText, setPdfText] = useState<string>("");
+  const [Location, setLocation] = useState<string>("");
+  const [user, setUser] = useState<User | null>(null);
+  const [pdfName, setPdfName] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const submitButtonRef = useRef<HTMLButtonElement | null>(null);
   const auth = getAuth();
   const db = getDatabase(app);
 
+//   if(auth.currentUser){
+//     setUser(auth.currentUser);
+//   }
+//   console.log(user)
+
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user);
     });
+    return () => unsubscribe();
   }, [auth]);
 
-  // Automatically click the submit button after loading completes
   useEffect(() => {
     if (downloadUrl && pdfText && submitButtonRef.current) {
       submitButtonRef.current.click();
@@ -42,9 +46,9 @@ const Resume = function () {
   }, [downloadUrl, pdfText]);
 
   const handleFileUpload = async (event) => {
-    const file = event.target.files[0];
+    const file = event.target.files?.[0];
     if (file && file.type === "application/pdf") {
-      setIsLoading(true); // Start loading
+      setIsLoading(true);
       setPdfName(file.name);
       setPdf(file);
 
@@ -52,67 +56,56 @@ const Resume = function () {
 
       try {
         await uploadBytes(pdfStorageRef, file);
-        console.log("File uploaded successfully!");
-
         const url = await getDownloadURL(pdfStorageRef);
         setDownloadUrl(url);
-        console.log("Download URL:", url);
 
         const reader = new FileReader();
         reader.onload = async (e) => {
-          const typedarray = new Uint8Array(e.target.result);
+          if (!e.target?.result) return;
+          const typedarray = new Uint8Array(e.target.result as ArrayBuffer);
+          
           const pdfDocument = await pdfjs.getDocument(typedarray).promise;
           let fullText = "";
 
           for (let i = 1; i <= pdfDocument.numPages; i++) {
             const page = await pdfDocument.getPage(i);
             const textContent = await page.getTextContent();
-            const pageText = textContent.items.map((item) => item.str).join(" ");
+            const pageText = textContent.items.map((item) => (item as any).str).join(" ");
             fullText += pageText + "\n";
           }
           setPdfText(fullText);
           setResume(file.name);
-          setIsLoading(false); // Stop loading
+          setIsLoading(false);
         };
         reader.readAsArrayBuffer(file);
       } catch (error) {
         console.error("Error uploading file:", error);
         toast.error("Failed to upload the file. Please try again.");
-        setIsLoading(false); // Stop loading on error
+        setIsLoading(false);
       }
     } else {
       toast.error("Please upload a valid PDF file.");
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    function notifyExtensionOnResumeSubmit(urdData) {
-      const event = new CustomEvent('resumeSubmitted', {
-        detail: {
-          urdData: urdData,
-          subscriptionType: "FreeTrialStarted"
-        }
-      });
-      document.dispatchEvent(event);
-    }
-
     if (!pdfName) {
       toast.error("Please Provide Your Resume Before Submitting!");
       return;
     }
-
     if (!downloadUrl || !pdfText) {
       toast.warning("Your Resume is still being processed. Please wait a moment and try again.");
       return;
     }
+    if (!user) return;
 
-    const uid = auth.currentUser.uid;
-    const userRef = ref(db, "user/" + uid);
-
+    console.log(user)
+    
+    const uid = user.uid;
+    const userRef = ref(db, `user/${uid}`);
     const urdData = `${pdfText} currentCtc ${Currentctc}; ExpectedCtc ${Expectedctc}; NoticePeriod ${NoticePeriod}; Location ${Location}`;
-
+    
     try {
       await update(userRef, {
         forms: {
@@ -123,21 +116,12 @@ const Resume = function () {
         },
       });
       toast.success("Document uploaded successfully!");
-      console.log("Document uploaded successfully!");
-
-      // Notify the extension
-      notifyExtensionOnResumeSubmit(urdData)
- 
-
       localStorage.setItem("SubscriptionType", "FreeTrialStarted");
-      const getSubscription = ref(db, "user/" + user?.uid + "/Payment");
-      await update(getSubscription, {
-        SubscriptionType: "FreeTrialStarted",
-      });
-
+      const getSubscription = ref(db, `user/${uid}/Payment`);
+      await update(getSubscription, { SubscriptionType: "FreeTrialStarted" });
       window.location.href = "/home";
     } catch (err) {
-      toast.error(err.message || "An error occurred while submitting.");
+      toast.error(err instanceof Error ? err.message : "An error occurred while submitting.");
     }
   };
 

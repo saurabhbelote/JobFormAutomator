@@ -55,7 +55,7 @@ function Login() {
               if (subscriptionType && subscriptionType === "FreeTrialStarted") {
                 window.location.href = "/demo";
               } else {
-                window.location.href = "/resume2";
+                window.location.href = "/gemini";
               }
             } else {
               window.location.href = "/gemini";
@@ -86,6 +86,7 @@ function Login() {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       const user = auth.currentUser;
+      console.log(user);
       
       if (user && user.emailVerified) {
         localStorage.setItem("UID", user.uid);
