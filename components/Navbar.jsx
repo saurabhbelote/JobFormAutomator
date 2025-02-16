@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { auth } from "@/firebase/config";
 const Navbar = () => {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,6 +12,11 @@ const Navbar = () => {
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
+  };
+
+  const checkCurrentUser = () => {
+    const currentUser = auth.currentUser;
+    console.log("Current User:", currentUser);
   };
 
   return (
@@ -91,6 +97,9 @@ const Navbar = () => {
 
       {/* Auth Buttons */}
       <div className="hidden sm:flex items-center space-x-4">
+        <button className="text-sm sm:text-base hover:text-primary transform transition duration-200 hover:scale-105" onClick={checkCurrentUser}>
+          User
+        </button>
         <Link href="/sign-in">
           <button className="text-sm sm:text-base hover:text-primary transform transition duration-200 hover:scale-105">
             Login

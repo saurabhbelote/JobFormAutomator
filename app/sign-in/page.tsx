@@ -6,16 +6,16 @@ import app, { auth } from "@/firebase/config";
 import { toast } from "react-toastify";
 // import SignInwithGoogle from "./signInWIthGoogle";
 import { getDatabase, get, ref, set } from "firebase/database";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const db = getDatabase(app);
-  const router = useRouter()
+//   const router = useRouter()
 
-  function notifyExtensionOnLogin(uid) {
+  function notifyExtensionOnLogin(uid: string) {
     const event = new CustomEvent('userLoggedIn', { detail: { uid } });
     document.dispatchEvent(event);
   }
@@ -75,7 +75,7 @@ function Login() {
         }
       };
 
-      redirectUser();
+    //   redirectUser();
     }
   },[]);
 

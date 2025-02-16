@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { ref, getDatabase, update } from "firebase/database";
-import { getAuth, User } from "firebase/auth";
+import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 import { pdfjs } from "react-pdf";
 import { toast } from "react-toastify";
 import { uploadBytes, getDownloadURL, ref as storageRef } from "firebase/storage";
@@ -27,17 +27,24 @@ const Resume: React.FC = () => {
   const auth = getAuth();
   const db = getDatabase(app);
 
-//   if(auth.currentUser){
-//     setUser(auth.currentUser);
-//   }
-//   console.log(user)
-
+  // Ensure the user is authenticated before proceeding
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setUser(user);
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
+        console.log("User signed in:", currentUser); // Debugging user data
+      } else {
+        setUser(null);
+        console.log("No user signed in");
+        toast.error("You need to be signed in to upload your resume.");
+      }
     });
+
     return () => unsubscribe();
-  }, [auth]);
+  }, []);
+
+  console.log("User before uploading resume:", user);
+
 
   useEffect(() => {
     if (downloadUrl && pdfText && submitButtonRef.current) {
@@ -45,51 +52,59 @@ const Resume: React.FC = () => {
     }
   }, [downloadUrl, pdfText]);
 
-  const handleFileUpload = async (event) => {
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (file && file.type === "application/pdf") {
-      setIsLoading(true);
-      setPdfName(file.name);
-      setPdf(file);
+    if (!file) return;
 
-      const pdfStorageRef = storageRef(storage, `Resume/${file.name}`);
-
-      try {
-        await uploadBytes(pdfStorageRef, file);
-        const url = await getDownloadURL(pdfStorageRef);
-        setDownloadUrl(url);
-
-        const reader = new FileReader();
-        reader.onload = async (e) => {
-          if (!e.target?.result) return;
-          const typedarray = new Uint8Array(e.target.result as ArrayBuffer);
-          
-          const pdfDocument = await pdfjs.getDocument(typedarray).promise;
-          let fullText = "";
-
-          for (let i = 1; i <= pdfDocument.numPages; i++) {
-            const page = await pdfDocument.getPage(i);
-            const textContent = await page.getTextContent();
-            const pageText = textContent.items.map((item) => (item as any).str).join(" ");
-            fullText += pageText + "\n";
-          }
-          setPdfText(fullText);
-          setResume(file.name);
-          setIsLoading(false);
-        };
-        reader.readAsArrayBuffer(file);
-      } catch (error) {
-        console.error("Error uploading file:", error);
-        toast.error("Failed to upload the file. Please try again.");
-        setIsLoading(false);
-      }
-    } else {
+    if (file.type !== "application/pdf") {
       toast.error("Please upload a valid PDF file.");
+      return;
+    }
+
+    setIsLoading(true);
+    setPdfName(file.name);
+    setPdf(file);
+
+    const pdfStorageRef = storageRef(storage, `Resume/${file.name}`);
+
+    try {
+      await uploadBytes(pdfStorageRef, file);
+      const url = await getDownloadURL(pdfStorageRef);
+      setDownloadUrl(url);
+
+      const reader = new FileReader();
+      reader.onload = async (e) => {
+        if (!e.target?.result) return;
+
+        const typedarray = new Uint8Array(e.target.result as ArrayBuffer);
+        const pdfDocument = await pdfjs.getDocument(typedarray).promise;
+        let fullText = "";
+
+        for (let i = 1; i <= pdfDocument.numPages; i++) {
+          const page = await pdfDocument.getPage(i);
+          const textContent = await page.getTextContent();
+          const pageText = textContent.items.map((item) => (item as any).str).join(" ");
+          fullText += pageText + "\n";
+        }
+
+        setPdfText(fullText);
+        setResume(file.name);
+        setIsLoading(false);
+      };
+
+      reader.readAsArrayBuffer(file);
+    } catch (error) {
+      console.error("Error uploading file:", error);
+      toast.error("Failed to upload the file. Please try again.");
+      setIsLoading(false);
     }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    console.log("User before submitting:", user); // Debugging user data before submission
+
     if (!pdfName) {
       toast.error("Please Provide Your Resume Before Submitting!");
       return;
@@ -98,14 +113,15 @@ const Resume: React.FC = () => {
       toast.warning("Your Resume is still being processed. Please wait a moment and try again.");
       return;
     }
-    if (!user) return;
+    if (!user) {
+      toast.error("User is not authenticated. Please sign in again.");
+      return;
+    }
 
-    console.log(user)
-    
     const uid = user.uid;
     const userRef = ref(db, `user/${uid}`);
     const urdData = `${pdfText} currentCtc ${Currentctc}; ExpectedCtc ${Expectedctc}; NoticePeriod ${NoticePeriod}; Location ${Location}`;
-    
+
     try {
       await update(userRef, {
         forms: {
@@ -115,10 +131,13 @@ const Resume: React.FC = () => {
           },
         },
       });
+
       toast.success("Document uploaded successfully!");
       localStorage.setItem("SubscriptionType", "FreeTrialStarted");
+
       const getSubscription = ref(db, `user/${uid}/Payment`);
       await update(getSubscription, { SubscriptionType: "FreeTrialStarted" });
+
       window.location.href = "/home";
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "An error occurred while submitting.");

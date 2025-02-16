@@ -6,12 +6,16 @@ import { toast } from "react-toastify";
 import { getDatabase, ref, update } from "firebase/database";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { useRouter } from "next/navigation";
+// import { getAuth, onAuthStateChanged, User} from 'firebase/auth'
 
 const Gemini: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [geminiKey, setGeminiKey] = useState<string>("");
   const db = getDatabase(app);
   const router = useRouter()
+  // const [user, setUser] = useState<User | null>(null);
+  
+  // console.log(user);
 
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,6 +48,8 @@ const Gemini: React.FC = () => {
         // );
 
         const userRef = ref(db, `user/${auth.currentUser?.uid}`);
+        console.log(userRef);
+
         await update(userRef, { API: { apikey: geminiKey } });
 
         const currentDate = new Date().toISOString().replace("T", " ").split(".")[0];
