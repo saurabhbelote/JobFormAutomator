@@ -12,7 +12,7 @@ function Register() {
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
 
-  const handleRegister = async (e) => {
+  const handleRegister = async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const auth = getAuth();
     const displayName = `${fname} ${lname}`;
@@ -33,8 +33,12 @@ function Register() {
         toast.success("User Registered Successfully!!", { position: "top-center" });
         toast.success("Email Verification Link Sent Successfully: Please check your email!", { position: "top-center" });
       }
-    } catch (error) {
-      toast.error(error.message, { position: "bottom-center" });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        toast.error(error.message, { position: "bottom-center" });
+      } else {
+        toast.error("An unknown error occurred", { position: "bottom-center" });
+      }
     }
   };
 

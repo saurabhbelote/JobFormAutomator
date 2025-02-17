@@ -1,9 +1,9 @@
 import * as React from "react"
-
+// removed classname from the code to remove error
 const Card = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
+>(({  ...props }, ref) => (
   <div
     ref={ref}
     className="rounded-lg border border-gray-200 bg-white shadow-sm"
@@ -15,7 +15,7 @@ Card.displayName = "Card"
 const CardHeader = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
+>(({ ...props }, ref) => (
   <div
     ref={ref}
     className="flex flex-col space-y-1.5 p-6"
@@ -27,7 +27,7 @@ CardHeader.displayName = "CardHeader"
 const CardTitle = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLHeadingElement>
->(({ className, ...props }, ref) => (
+>(({  ...props }, ref) => (
   <h3
     ref={ref}
     className="text-2xl font-semibold leading-none tracking-tight"
@@ -39,7 +39,7 @@ CardTitle.displayName = "CardTitle"
 const CardContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
+>(({ ...props }, ref) => (
   <div ref={ref} className="p-6 pt-0" {...props} />
 ))
 CardContent.displayName = "CardContent"

@@ -5,7 +5,11 @@ import { ref, getDatabase, update } from "firebase/database";
 import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 import { pdfjs } from "react-pdf";
 import { toast } from "react-toastify";
-import { uploadBytes, getDownloadURL, ref as storageRef } from "firebase/storage";
+import {
+  uploadBytes,
+  getDownloadURL,
+  ref as storageRef,
+} from "firebase/storage";
 import { storage } from "@/firebase/config";
 import app from "@/firebase/config";
 
@@ -45,14 +49,15 @@ const Resume: React.FC = () => {
 
   console.log("User before uploading resume:", user);
 
-
   useEffect(() => {
     if (downloadUrl && pdfText && submitButtonRef.current) {
       submitButtonRef.current.click();
     }
   }, [downloadUrl, pdfText]);
 
-  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
@@ -83,12 +88,15 @@ const Resume: React.FC = () => {
         for (let i = 1; i <= pdfDocument.numPages; i++) {
           const page = await pdfDocument.getPage(i);
           const textContent = await page.getTextContent();
-          const pageText = textContent.items.map((item) => (item as any).str).join(" ");
+          const pageText = textContent.items
+            .map((item) => (item as { str: string }).str) //possibility of error
+            .join(" ");
           fullText += pageText + "\n";
         }
 
         setPdfText(fullText);
         setResume(file.name);
+        setIsLoading(false);
         setIsLoading(false);
       };
 
@@ -110,7 +118,9 @@ const Resume: React.FC = () => {
       return;
     }
     if (!downloadUrl || !pdfText) {
-      toast.warning("Your Resume is still being processed. Please wait a moment and try again.");
+      toast.warning(
+        "Your Resume is still being processed. Please wait a moment and try again."
+      );
       return;
     }
     if (!user) {
@@ -140,7 +150,11 @@ const Resume: React.FC = () => {
 
       window.location.href = "/home";
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "An error occurred while submitting.");
+      toast.error(
+        err instanceof Error
+          ? err.message
+          : "An error occurred while submitting."
+      );
     }
   };
 
@@ -149,21 +163,81 @@ const Resume: React.FC = () => {
       {isLoading && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="spinner border-t-4 border-blue-500 border-solid rounded-full w-12 h-12 animate-spin"></div>
-          <p className="ml-4 text-white text-lg">Processing your resume... Please wait.</p>
+          <p className="ml-4 text-white text-lg">
+            Processing your resume... Please wait.
+          </p>
         </div>
       )}
       <div className="bg-white shadow-lg rounded-lg p-6 max-w-lg w-full">
-        <h1 className="text-2xl font-bold text-gray-800 text-center">Last Step</h1>
-        <p className="text-center text-gray-600 mb-4">Start Auto-applying now!</p>
+        <h1 className="text-2xl font-bold text-gray-800 text-center">
+          Last Step
+        </h1>
+        <p className="text-center text-gray-600 mb-4">
+          Start Auto-applying now!
+        </p>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <input type="text" placeholder="Current CTC" className="w-full p-3 border rounded-lg" required onChange={(e) => setCurrentctc(e.target.value)} />
-          <input type="text" placeholder="Expected CTC" className="w-full p-3 border rounded-lg" required onChange={(e) => setExpectedctc(e.target.value)} />
-          <input type="text" placeholder="Notice Period" className="w-full p-3 border rounded-lg" required onChange={(e) => setNoticePeriod(e.target.value)} />
-          <input type="text" placeholder="Preferred Locations" className="w-full p-3 border rounded-lg" required onChange={(e) => setLocation(e.target.value)} />
-          <label htmlFor="file-upload" className="block w-full text-center p-3 border rounded-lg cursor-pointer bg-blue-500 text-white">Upload Resume</label>
-          <input id="file-upload" type="file" className="hidden" accept="application/pdf" onChange={handleFileUpload} />
-          <p className="text-center text-gray-700">{pdfName || "No file selected"}</p>
-          <button ref={submitButtonRef} type="submit" className="w-full bg-green-500 text-white py-3 rounded-lg font-bold hover:bg-green-600 transition" disabled={isLoading}>Submit</button>
+          <input
+            type="text"
+            placeholder="Current CTC"
+            className="w-full p-3 border rounded-lg"
+            required
+            onChange={(e) => setCurrentctc(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Expected CTC"
+            className="w-full p-3 border rounded-lg"
+            required
+            onChange={(e) => setExpectedctc(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Notice Period"
+            className="w-full p-3 border rounded-lg"
+            required
+            onChange={(e) => setNoticePeriod(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Preferred Locations"
+            className="w-full p-3 border rounded-lg"
+            required
+            onChange={(e) => setLocation(e.target.value)}
+          />
+          <label
+            htmlFor="file-upload"
+            className="block w-full text-center p-3 border rounded-lg cursor-pointer bg-blue-500 text-white"
+          >
+            Upload Resume
+          </label>
+          <input
+            id="file-upload"
+            type="file"
+            className="hidden"
+            accept="application/pdf"
+            onChange={handleFileUpload}
+          />
+          <p className="text-center text-gray-700">
+            {pdfName || "No file selected"}
+          </p>
+          <button
+            ref={submitButtonRef}
+            type="submit"
+            className="w-full bg-green-500 text-white py-3 rounded-lg font-bold hover:bg-green-600 transition"
+            disabled={isLoading}
+          >
+            Submit
+          </button>
+          {/* need to be removed */}
+          <p>Selected File: {Resume}</p>
+          {pdf && (
+            <iframe
+              src={URL.createObjectURL(pdf)}
+              width="100%"
+              height="500px"
+              title="PDF Viewer"
+            />
+          )}
         </form>
       </div>
     </div>
