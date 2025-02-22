@@ -12,11 +12,11 @@ export default function Home() {
     const router= useRouter();
     console.log(user)
 
-    useEffect(() => {
-    if (!user) {
-      router.push("/sign-up");
-    }
-  }, [user, router]);
+  //   useEffect(() => {
+  //   if (!user) {
+  //     router.push("/sign-up");
+  //   }
+  // }, [user, router]);
   return (
     <>
     <section className="bg-[#f1f3f5] text-black">
