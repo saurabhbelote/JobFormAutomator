@@ -2,14 +2,15 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { ref, getDatabase, update } from "firebase/database";
-import { getAuth, onAuthStateChanged, User } from "firebase/auth";
+import { getAuth, User } from "firebase/auth";
 import { pdfjs } from "react-pdf";
 import { toast } from "react-toastify";
 import { uploadBytes, getDownloadURL, ref as storageRef } from "firebase/storage";
-import { storage } from "@/firebase/config";
+import { storage } from "@/firebase/config"; // Ensure storage and app are correctly initialized
 import app from "@/firebase/config";
+import './styles.css';
 
-pdfjs.GlobalWorkerOptions.workerSrc = `${process.env.NEXT_PUBLIC_PUBLIC_URL}/pdfjs/pdf.worker.min.js`;
+pdfjs.GlobalWorkerOptions.workerSrc = `${process.env.PUBLIC_URL}/pdfjs/pdf.worker.min.js`;
 
 const Resume: React.FC = () => {
   const [pdf, setPdf] = useState<File | null>(null);
@@ -27,24 +28,12 @@ const Resume: React.FC = () => {
   const auth = getAuth();
   const db = getDatabase(app);
 
-  // Ensure the user is authenticated before proceeding
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        setUser(currentUser);
-        console.log("User signed in:", currentUser); // Debugging user data
-      } else {
-        setUser(null);
-        console.log("No user signed in");
-        toast.error("You need to be signed in to upload your resume.");
-      }
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user);
     });
-
     return () => unsubscribe();
-  }, []);
-
-  console.log("User before uploading resume:", user);
-
+  }, [auth]);
 
   useEffect(() => {
     if (downloadUrl && pdfText && submitButtonRef.current) {
@@ -54,72 +43,64 @@ const Resume: React.FC = () => {
 
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (!file) return;
-
-    if (file.type !== "application/pdf") {
-      toast.error("Please upload a valid PDF file.");
-      return;
-    }
-
-    setIsLoading(true);
-    setPdfName(file.name);
-    setPdf(file);
-
-    const pdfStorageRef = storageRef(storage, `Resume/${file.name}`);
-
-    try {
-      await uploadBytes(pdfStorageRef, file);
-      const url = await getDownloadURL(pdfStorageRef);
-      setDownloadUrl(url);
-
-      const reader = new FileReader();
-      reader.onload = async (e) => {
-        if (!e.target?.result) return;
-
-        const typedarray = new Uint8Array(e.target.result as ArrayBuffer);
-        const pdfDocument = await pdfjs.getDocument(typedarray).promise;
-        let fullText = "";
-
-        for (let i = 1; i <= pdfDocument.numPages; i++) {
-          const page = await pdfDocument.getPage(i);
-          const textContent = await page.getTextContent();
-          const pageText = textContent.items.map((item) => (item as any).str).join(" ");
-          fullText += pageText + "\n";
-        }
-
-        setPdfText(fullText);
-        setResume(file.name);
+    if (file && file.type === "application/pdf") {
+      setIsLoading(true);
+      setPdfName(file.name);
+      setPdf(file);
+      
+      const pdfStorageRef = storageRef(storage, `Resume/${file.name}`);
+      
+      try {
+        await uploadBytes(pdfStorageRef, file);
+        const url = await getDownloadURL(pdfStorageRef);
+        setDownloadUrl(url);
+        
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+          if (e.target?.result) {
+            const typedarray = new Uint8Array(e.target.result as ArrayBuffer);
+            const pdfDocument = await pdfjs.getDocument(typedarray).promise;
+            let fullText = "";
+            
+            for (let i = 1; i <= pdfDocument.numPages; i++) {
+              const page = await pdfDocument.getPage(i);
+              const textContent = await page.getTextContent();
+              const pageText = textContent.items.map((item) => (item as any).str).join(" ");
+              fullText += pageText + "\n";
+            }
+            setPdfText(fullText);
+            setResume(file.name);
+          }
+          setIsLoading(false);
+        };
+        reader.readAsArrayBuffer(file);
+      } catch (error) {
+        console.error("Error uploading file:", error);
+        toast.error("Failed to upload the file. Please try again.");
         setIsLoading(false);
-      };
-
-      reader.readAsArrayBuffer(file);
-    } catch (error) {
-      console.error("Error uploading file:", error);
-      toast.error("Failed to upload the file. Please try again.");
-      setIsLoading(false);
+      }
+    } else {
+      toast.error("Please upload a valid PDF file.");
     }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log("User before submitting:", user); // Debugging user data before submission
-
     if (!pdfName) {
       toast.error("Please Provide Your Resume Before Submitting!");
       return;
     }
+
     if (!downloadUrl || !pdfText) {
       toast.warning("Your Resume is still being processed. Please wait a moment and try again.");
       return;
     }
-    if (!user) {
-      toast.error("User is not authenticated. Please sign in again.");
-      return;
-    }
 
-    const uid = user.uid;
+    const uid = auth.currentUser?.uid;
+    if (!uid) return;
     const userRef = ref(db, `user/${uid}`);
+
     const urdData = `${pdfText} currentCtc ${Currentctc}; ExpectedCtc ${Expectedctc}; NoticePeriod ${NoticePeriod}; Location ${Location}`;
 
     try {
@@ -131,41 +112,57 @@ const Resume: React.FC = () => {
           },
         },
       });
-
       toast.success("Document uploaded successfully!");
+
       localStorage.setItem("SubscriptionType", "FreeTrialStarted");
-
       const getSubscription = ref(db, `user/${uid}/Payment`);
-      await update(getSubscription, { SubscriptionType: "FreeTrialStarted" });
+      await update(getSubscription, {
+        SubscriptionType: "FreeTrialStarted",
+      });
 
-      window.location.href = "/home";
-    } catch (err) {
-      toast.error(err instanceof Error ? err.message : "An error occurred while submitting.");
+      window.location.href = "/demo";
+    } catch (err: any) {
+      toast.error(err.message || "An error occurred while submitting.");
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 py-6 px-4">
+    <div>
       {isLoading && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="spinner border-t-4 border-blue-500 border-solid rounded-full w-12 h-12 animate-spin"></div>
-          <p className="ml-4 text-white text-lg">Processing your resume... Please wait.</p>
+        <div className="loading-overlay">
+          <div className="spinner"></div>
+          <p>Processing your resume... Please wait.</p>
         </div>
       )}
-      <div className="bg-white shadow-lg rounded-lg p-6 max-w-lg w-full">
-        <h1 className="text-2xl font-bold text-gray-800 text-center">Last Step</h1>
-        <p className="text-center text-gray-600 mb-4">Start Auto-applying now!</p>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input type="text" placeholder="Current CTC" className="w-full p-3 border rounded-lg" required onChange={(e) => setCurrentctc(e.target.value)} />
-          <input type="text" placeholder="Expected CTC" className="w-full p-3 border rounded-lg" required onChange={(e) => setExpectedctc(e.target.value)} />
-          <input type="text" placeholder="Notice Period" className="w-full p-3 border rounded-lg" required onChange={(e) => setNoticePeriod(e.target.value)} />
-          <input type="text" placeholder="Preferred Locations" className="w-full p-3 border rounded-lg" required onChange={(e) => setLocation(e.target.value)} />
-          <label htmlFor="file-upload" className="block w-full text-center p-3 border rounded-lg cursor-pointer bg-blue-500 text-white">Upload Resume</label>
-          <input id="file-upload" type="file" className="hidden" accept="application/pdf" onChange={handleFileUpload} />
-          <p className="text-center text-gray-700">{pdfName || "No file selected"}</p>
-          <button ref={submitButtonRef} type="submit" className="w-full bg-green-500 text-white py-3 rounded-lg font-bold hover:bg-green-600 transition" disabled={isLoading}>Submit</button>
-        </form>
-      </div>
+      <main>
+        <h1>Last Step</h1>
+        <div className="contact-container">
+          <div className="message-section">
+            <h2>Start Auto-applying now!</h2>
+            <p>Achieve career success with Job Form Automator! Start Auto-applying now!</p>
+          </div>
+          <div className="form-section">
+            <form onSubmit={handleSubmit}>
+              <p>Current CTC in your local currency?</p>
+              <input type="text" placeholder="Current CTC" required onChange={(e) => setCurrentctc(e.target.value)} />
+              <p>Expected CTC in your local currency?</p>
+              <input type="text" placeholder="Expected CTC" required onChange={(e) => setExpectedctc(e.target.value)} />
+              <p>What is your notice period in days?</p>
+              <input type="text" placeholder="Notice Period" required onChange={(e) => setNoticePeriod(e.target.value)} />
+              <p>Your preferred locations for jobs?</p>
+              <input type="text" placeholder="Preferred Locations" required onChange={(e) => setLocation(e.target.value)} />
+              <label htmlFor="file-upload" className="custom-file-upload">
+                Upload Resume
+              </label>
+              <input id="file-upload" type="file" accept="application/pdf" onChange={handleFileUpload} />
+              <p>{pdfName || ""}</p>
+              <button ref={submitButtonRef} type="submit" disabled={isLoading}>
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+      </main>
     </div>
   );
 };
