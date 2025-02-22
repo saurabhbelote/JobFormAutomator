@@ -28,19 +28,25 @@ const Resume: React.FC = () => {
   const auth = getAuth();
   const db = getDatabase(app);
 
+  
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user);
     });
     return () => unsubscribe();
   }, [auth]);
-
+  
   useEffect(() => {
     if (downloadUrl && pdfText && submitButtonRef.current) {
       submitButtonRef.current.click();
     }
   }, [downloadUrl, pdfText]);
+  
+  console.log(pdf);
+  console.log(Resume);
+  console.log(user);
 
+  
   const handleFileUpload = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -67,6 +73,7 @@ const Resume: React.FC = () => {
             for (let i = 1; i <= pdfDocument.numPages; i++) {
               const page = await pdfDocument.getPage(i);
               const textContent = await page.getTextContent();
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               const pageText = textContent.items.map((item) => (item as any).str).join(" ");
               fullText += pageText + "\n";
             }
@@ -125,6 +132,7 @@ const Resume: React.FC = () => {
       });
 
       window.location.href = "/demo";
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       toast.error(err.message || "An error occurred while submitting.");
     }
