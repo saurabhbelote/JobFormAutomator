@@ -41,7 +41,9 @@ const Resume: React.FC = () => {
     }
   }, [downloadUrl, pdfText]);
 
-  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files?.[0];
     if (file && file.type === "application/pdf") {
       setIsLoading(true);
@@ -93,7 +95,9 @@ const Resume: React.FC = () => {
     }
 
     if (!downloadUrl || !pdfText) {
-      toast.warning("Your Resume is still being processed. Please wait a moment and try again.");
+      toast.warning(
+        "Your Resume is still being processed. Please wait a moment and try again."
+      );
       return;
     }
 

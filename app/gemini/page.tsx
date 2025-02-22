@@ -6,16 +6,13 @@ import { toast } from "react-toastify";
 import { getDatabase, ref, update } from "firebase/database";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { useRouter } from "next/navigation";
-// import { getAuth, onAuthStateChanged, User} from 'firebase/auth'
+
 
 const Gemini: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [geminiKey, setGeminiKey] = useState<string>("");
   const db = getDatabase(app);
   const router = useRouter()
-  // const [user, setUser] = useState<User | null>(null);
-  
-  // console.log(user);
 
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,17 +32,12 @@ const Gemini: React.FC = () => {
         toast.success("API Key Submitted Successfully");
         localStorage.setItem("api_key", geminiKey);
         
-        function notifyExtensionOnGeminiKey(key) {
-          const event = new CustomEvent('geminiKeySubmitted', { detail: { key } });
+        function notifyExtensionOnGeminiKey(key: string): void {
+          const event = new CustomEvent<{ key: string }>('geminiKeySubmitted', { detail: { key } });
           document.dispatchEvent(event);
-      }
+            }
 
       notifyExtensionOnGeminiKey(geminiKey);
-
-
-        // document.dispatchEvent(
-        //   new CustomEvent("geminiKeySubmitted", { detail: { key: geminiKey } })
-        // );
 
         const userRef = ref(db, `user/${auth.currentUser?.uid}`);
         console.log(userRef);
@@ -55,28 +47,21 @@ const Gemini: React.FC = () => {
         const currentDate = new Date().toISOString().replace("T", " ").split(".")[0];
 
         try {
-          const newPaymentRef = ref(db, "user/" + auth.currentUser.uid);
-          await update(newPaymentRef, {
-              Payment: {
-                  Status: "Free",
-                  Start_Date: currentDate,
-                  SubscriptionType: "GetResume",
-              },
-          });
-          // console.log("Payment details updated successfully");
+          if (auth.currentUser) {
+            const newPaymentRef = ref(db, "user/" + auth.currentUser.uid);
+            await update(newPaymentRef, {
+                Payment: {
+                    Status: "Free",
+                    Start_Date: currentDate,
+                    SubscriptionType: "GetResume",
+                },
+            });
+          } else {
+            console.error("No authenticated user found.");
+          }
       } catch (err) {
           console.error(err);
       }
-
-        // await update(userRef, {
-        //   Payment: {
-        //     Status: "Free",
-        //     Start_Date: currentDate,
-        //     SubscriptionType: "GetResume",
-        //   },
-        // });
-
-        // window.location.href = `/privacy`;
         router.push('/resume2')
       } else {
         toast.error("Invalid API key");

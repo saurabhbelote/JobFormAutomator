@@ -1,85 +1,71 @@
 "use client";
 
 import { signInWithEmailAndPassword } from "firebase/auth";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import app, { auth } from "@/firebase/config";
 import { toast } from "react-toastify";
-// import SignInwithGoogle from "./signInWIthGoogle";
 import { getDatabase, get, ref, set } from "firebase/database";
-// import { useRouter } from "next/navigation";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const db = getDatabase(app);
-//   const router = useRouter()
+
 
   function notifyExtensionOnLogin(uid: string) {
     const event = new CustomEvent('userLoggedIn', { detail: { uid } });
     document.dispatchEvent(event);
   }
 
-  useEffect(() => {
-    const uid =  localStorage.getItem("UID");
-    const apiKey =  localStorage.getItem("api_key");
-    const IsLogin =  localStorage.getItem("IsLogin")
-    console.log(IsLogin, "login", !IsLogin, "uid", uid)
+  // useEffect(() => {
+  //   const uid =  localStorage.getItem("UID");
+  //   const apiKey =  localStorage.getItem("api_key");
+  //   const IsLogin =  localStorage.getItem("IsLogin")
+  //   console.log(IsLogin, "login", !IsLogin, "uid", uid)
 
 
-    const subscriptionType = localStorage.getItem("SubscriptionType");
+  //   const subscriptionType = localStorage.getItem("SubscriptionType");
     
-    console.log(uid,"user Id",typeof(uid))
+  //   console.log(uid,"user Id",typeof(uid))
 
 
-    if (uid) {
-      const redirectUser = async () => {
-        try {
-          const user = auth.currentUser;
-          // console.log(user, uid)
+  //   if (uid) {
+  //     const redirectUser = async () => {
+  //       try {
+  //         const user = auth.currentUser;
+  //         if (uid && IsLogin) {
+  //           notifyExtensionOnLogin(uid);
+  //           if (user && !user.emailVerified) {
+  //             toast.error("Email is not verified.Please Verify your email, then try to login again!", {
+  //               position: "bottom-center",
+  //             });
+  //             return;
+  //           }
+  //           if (apiKey !== 'null' && apiKey !== null) {
+  //             if (subscriptionType && subscriptionType === "FreeTrialStarted") {
+  //               window.location.href = "/demo";
+  //             } else {
+  //               window.location.href = "/gemini";
+  //             }
+  //           } else {
+  //             window.location.href = "/gemini";
+  //           }
+  //         } else {
+  //         }
+  //       } 
+  //       catch (error) {
+  //         console.error("Error fetching data from Firebase:", error);
+  //         toast.error("An error occurred. Please try again.", {
+  //           position: "bottom-center",
+  //         });
+  //       }
+  //     };
 
-          if (uid && IsLogin) {
-            // console.log("hi")
-            notifyExtensionOnLogin(uid);
-            if (user && !user.emailVerified) {
-              toast.error("Email is not verified.Please Verify your email, then try to login again!", {
-                position: "bottom-center",
-              });
-              // window.location.href = "/login";
-              return;
-            }
+  //   }
+  // },[]);
 
-
-
-            if (apiKey !== 'null' && apiKey !== null) {
-              if (subscriptionType && subscriptionType === "FreeTrialStarted") {
-                window.location.href = "/demo";
-              } else {
-                window.location.href = "/gemini";
-              }
-            } else {
-              window.location.href = "/gemini";
-              // console.log("gemini")
-
-            }
-          } else {
-            // window.location.href = "/login";
-            // console.log("login")
-
-          }
-        } catch (error) {
-          console.error("Error fetching data from Firebase:", error);
-          toast.error("An error occurred. Please try again.", {
-            position: "bottom-center",
-          });
-        }
-      };
-
-    //   redirectUser();
-    }
-  },[]);
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
 
@@ -90,8 +76,10 @@ function Login() {
       
       if (user && user.emailVerified) {
         localStorage.setItem("UID", user.uid);
-        localStorage.setItem("IsLogin", true);
-        localStorage.setItem("UserName", user.displayName);
+        localStorage.setItem("IsLogin", 'true');
+        if (user.displayName) {
+          localStorage.setItem("UserName", user.displayName);
+        }
 
         notifyExtensionOnLogin(user.uid);
 
@@ -105,7 +93,10 @@ function Login() {
 
         const currentDate = new Date();
         const formattedDateTime = currentDate.toISOString().replace("T", " ").split(".")[0];
-        let currentUser = auth.currentUser.uid;
+        const currentUser = auth.currentUser ? auth.currentUser.uid : null;
+        if (!currentUser) {
+          throw new Error("User is not authenticated");
+        }
 
         if (referralCode) {
             console.log("Save in database/firebase")
@@ -152,24 +143,17 @@ function Login() {
           toast.error("Email is not verified.Please Verify your email, then try to login again!", { position: "bottom-center" });
         }
       } catch (error) {
-        console.error("Login error:", error.message);
-        toast.error(error.message, { position: "bottom-center" });
+        if (error instanceof Error) {
+            console.error("Login error:", error.message);
+            toast.error(error.message, { position: "bottom-center" });
+        } else {
+            console.error("Unexpected error:", error);
+            toast.error("An unexpected error occurred", { position: "bottom-center" });
+        }
       } finally {
         setLoading(false);
       }
     };
-//         setEmail('');
-//         setPassword('');
-//         router.push('/gemini');
-//       } else {
-//         toast.error("Email is not verified. Please verify your email, then try to login again!", { position: "bottom-center" });
-//       }
-//     } catch (error) {
-//       toast.error(error.message, { position: "bottom-center" });
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
@@ -210,7 +194,7 @@ function Login() {
           {/* <SignInwithGoogle /> */}
         </form>
         <p className="text-center text-gray-600 mt-4">
-          Don't have an account? <a href="/sign-up" className="text-purple-600 hover:underline">Sign up</a>
+          Don&apos;t have an account? <a href="/sign-up" className="text-purple-600 hover:underline">Sign up</a>
         </p>
       </div>
     </main>
