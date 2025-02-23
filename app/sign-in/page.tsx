@@ -156,7 +156,7 @@ function Login() {
     };
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
+    <main className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6 text-black">
       <div className="absolute top-0 left-0 w-32 h-32 bg-purple-500 rounded-full opacity-30"></div>
       <div className="absolute bottom-0 right-0 w-40 h-40 bg-blue-500 rounded-full opacity-30"></div>
       

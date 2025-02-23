@@ -149,9 +149,7 @@ export default function Celibi () {
           <section className="mb-8">
             <h3 className="text-lg font-bold border-b-2 border-gray-800 mb-4">OBJECTIVE</h3>
             <p className="text-sm">
-              To obtain a job within my chosen field that will challenge me and allow me to use my education, skills
-              and past experiences in a way that is mutually beneficial to both myself and my employer and allow
-              for future growth and advancement.
+              {personalData.summary}
             </p>
           </section>
 

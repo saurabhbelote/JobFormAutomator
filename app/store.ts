@@ -2,7 +2,7 @@ import {create} from 'zustand';
 import React from 'react';
 //change the personal data
 type PersonalData = {
-    name: string;
+    name:string;
     headline:string;
     summary: string;
     profile: string;
