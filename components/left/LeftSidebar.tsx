@@ -1,43 +1,31 @@
 "use client";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent } from "react";
 import { usePersonalDataStore } from "@/app/store";
 import { GoPerson } from "react-icons/go";
-import { BsJournals,BsFillPersonLinesFill } from "react-icons/bs";
-import { MdWork } from "react-icons/md";
-import { GiAchievement } from "react-icons/gi";
-import { PiCertificateLight } from "react-icons/pi";
-import { FaLanguage } from "react-icons/fa";
-import { BiBook,BiWorld } from "react-icons/bi";
-import { MdInterests, MdVolunteerActivism } from "react-icons/md";
+import {  BiWorld } from "react-icons/bi";
 import { AiOutlineLink, AiOutlineMail } from "react-icons/ai";
 import { FiPhone } from "react-icons/fi";
 import EducationInput from "./sections/EducationInput";
+import ExperienceInput from "./sections/ExperienceInput";
+import AchievementInput from "./sections/AchievementInput";
+import CertificationInput from "./sections/CertificationInput";
+import ProjectInput from "./sections/ProjectInput";
+import SkillsInput from "./sections/SkillsInput";
+import LanguageInput from "./sections/LanguageInput";
 
 export default function LeftSidebar() {
   const { personalData, updatePersonalData } = usePersonalDataStore();
-  const [experience, setExperience] = useState<number[]>([]);
-  const [projects, setProjects] = useState<number[]>([]);
-  const [skills, setSkills] = useState<number[]>([]);
-  const [languages, setLanguages] = useState<number[]>([]);
-  const [awards, setAwards] = useState<number[]>([]);
-  const [certifications, setCertifications] = useState<number[]>([]);
-  const [interests, setInterests] = useState<number[]>([]);
-  const [publications, setPublications] = useState<number[]>([]);
-  const [volunteering, setVolunteering] = useState<number[]>([]);
-  const [references, setReferences] = useState<number[]>([]);
-
-  const handleChangePersonal = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChangePersonal = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     updatePersonalData(name, value);
-  };
-
-  const addItem = (setter: React.Dispatch<React.SetStateAction<number[]>>) => {
-    setter((prev) => [...prev, prev.length + 1]);
   };
 
   return (
     <div className="w-full h-[1000px] overflow-scroll scrollbar-hidden bg-white text-black">
       {/* Basics Section */}
+
       <section className="p-6 border-b">
         <div className="flex items-center gap-2 mb-6">
           <GoPerson className="text-xl" />
@@ -179,393 +167,20 @@ export default function LeftSidebar() {
         </div>
       </section>
 
-      <section className="p-6 border-b">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
-            <BsJournals className="text-xl" />
-            <h2 className="text-xl font-bold">Summary</h2>
-          </div>
-          <button className="p-2 hover:bg-gray-100 rounded-md">
-            <span className="sr-only">Toggle</span>
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </button>
-        </div>
+      <ExperienceInput />
 
-        {/* Rich Text Editor Toolbar */}
-        <div className="flex flex-wrap gap-2 mb-4 p-2 border rounded-md">
-          <button className="p-2 hover:bg-gray-100 rounded">B</button>
-          <button className="p-2 hover:bg-gray-100 rounded italic">I</button>
-          <button className="p-2 hover:bg-gray-100 rounded line-through">
-            S
-          </button>
-          <button className="p-2 hover:bg-gray-100 rounded">A</button>
-          <button className="p-2 hover:bg-gray-100 rounded">@</button>
-          <button className="p-2 hover:bg-gray-100 rounded">🔗</button>
-          <button className="p-2 hover:bg-gray-100 rounded">&lt;/&gt;</button>
-        </div>
+      <EducationInput /> 
 
-        <textarea
-          className="w-full p-3 border rounded-md min-h-[150px]"
-          name="summary"
-          value={personalData.summary}
-          onChange={handleChangePersonal}
-          placeholder="Write your professional summary..."
-        />
-      </section>
-      <section className="p-6 border-b">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
-            <MdWork className="text-xl" />
-            <h2 className="text-xl font-bold">Experience</h2>
-          </div>
-          <button className="p-2 hover:bg-gray-100 rounded-md">
-            <span className="sr-only">Toggle</span>
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </button>
-        </div>
-        <button
-          onClick={() => addItem(setExperience)}
-          className="w-full p-3 border-2 border-dashed rounded-md text-gray-500 hover:bg-gray-50 transition-colors"
-        >
-          + Add a new item
-        </button>
-        {experience.map((id) => (
-          <div key={id} className="mt-4 p-4 border rounded-md"></div>
-        ))}
-      </section>
+      <SkillsInput/>
 
-      <EducationInput/>
+      <AchievementInput />
 
-      <section className="p-6 border-b">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
-            <GiAchievement className="text-xl" />
-            <h2 className="text-xl font-bold">Skills</h2>
-          </div>
-          <button className="p-2 hover:bg-gray-100 rounded-md">
-            <span className="sr-only">Toggle</span>
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </button>
-        </div>
-        <button
-          onClick={() => addItem(setSkills)}
-          className="w-full p-3 border-2 border-dashed rounded-md text-gray-500 hover:bg-gray-50 transition-colors"
-        >
-          + Add a new item
-        </button>
-        {skills.map((id) => (
-          <div key={id} className="mt-4 p-4 border rounded-md"></div>
-        ))}
-      </section>
+      <CertificationInput />
 
-      <section className="p-6 border-b">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
-            <FaLanguage className="text-xl" />
-            <h2 className="text-xl font-bold">Languages</h2>
-          </div>
-          <button className="p-2 hover:bg-gray-100 rounded-md">
-            <span className="sr-only">Toggle</span>
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </button>
-        </div>
-        <button
-          onClick={() => addItem(setLanguages)}
-          className="w-full p-3 border-2 border-dashed rounded-md text-gray-500 hover:bg-gray-50 transition-colors"
-        >
-          + Add a new item
-        </button>
-        {languages.map((id) => (
-          <div key={id} className="mt-4 p-4 border rounded-md"></div>
-        ))}
-      </section>
+      <ProjectInput/>
 
-      <section className="p-6 border-b">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
-            <GiAchievement className="text-xl" />
-            <h2 className="text-xl font-bold">Awards</h2>
-          </div>
-          <button className="p-2 hover:bg-gray-100 rounded-md">
-            <span className="sr-only">Toggle</span>
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </button>
-        </div>
-        <button
-          onClick={() => addItem(setAwards)}
-          className="w-full p-3 border-2 border-dashed rounded-md text-gray-500 hover:bg-gray-50 transition-colors"
-        >
-          + Add a new item
-        </button>
-        {awards.map((id) => (
-          <div key={id} className="mt-4 p-4 border rounded-md"></div>
-        ))}
-      </section>
+      <LanguageInput/>
 
-      <section className="p-6 border-b">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
-            <PiCertificateLight className="text-xl" />
-            <h2 className="text-xl font-bold">Certifications</h2>
-          </div>
-          <button className="p-2 hover:bg-gray-100 rounded-md">
-            <span className="sr-only">Toggle</span>
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </button>
-        </div>
-        <button
-          onClick={() => addItem(setCertifications)}
-          className="w-full p-3 border-2 border-dashed rounded-md text-gray-500 hover:bg-gray-50 transition-colors"
-        >
-          + Add a new item
-        </button>
-        {certifications.map((id) => (
-          <div key={id} className="mt-4 p-4 border rounded-md"></div>
-        ))}
-      </section>
-
-      <section className="p-6 border-b">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
-            <MdInterests className="text-xl" />
-            <h2 className="text-xl font-bold">Interests</h2>
-          </div>
-          <button className="p-2 hover:bg-gray-100 rounded-md">
-            <span className="sr-only">Toggle</span>
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </button>
-        </div>
-        <button
-          onClick={() => addItem(setInterests)}
-          className="w-full p-3 border-2 border-dashed rounded-md text-gray-500 hover:bg-gray-50 transition-colors"
-        >
-          + Add a new item
-        </button>
-        {interests.map((id) => (
-          <div key={id} className="mt-4 p-4 border rounded-md"></div>
-        ))}
-      </section>
-
-      {/* Projects section  */}
-      <section className="p-6 border-b">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
-            <BiBook className="text-xl" />
-            <h2 className="text-xl font-bold">Projects</h2>
-          </div>
-          <button className="p-2 hover:bg-gray-100 rounded-md">
-            <span className="sr-only">Toggle</span>
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </button>
-        </div>
-        <button
-          onClick={() => addItem(setProjects)}
-          className="w-full p-3 border-2 border-dashed rounded-md text-gray-500 hover:bg-gray-50 transition-colors"
-        >
-          + Add a new item
-        </button>
-        {projects.map((id) => (
-          <div key={id} className="mt-4 p-4 border rounded-md"></div>
-        ))}
-      </section>
-      {/* end  */}
-      <section className="p-6 border-b">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
-            <BsJournals className="text-xl" />
-            <h2 className="text-xl font-bold">Publications</h2>
-          </div>
-          <button className="p-2 hover:bg-gray-100 rounded-md">
-            <span className="sr-only">Toggle</span>
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </button>
-        </div>
-        <button
-          onClick={() => addItem(setPublications)}
-          className="w-full p-3 border-2 border-dashed rounded-md text-gray-500 hover:bg-gray-50 transition-colors"
-        >
-          + Add a new item
-        </button>
-        {publications.map((id) => (
-          <div key={id} className="mt-4 p-4 border rounded-md"></div>
-        ))}
-      </section>
-
-      <section className="p-6 border-b">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
-            <MdVolunteerActivism className="text-xl" />
-            <h2 className="text-xl font-bold">Volunteering</h2>
-          </div>
-          <button className="p-2 hover:bg-gray-100 rounded-md">
-            <span className="sr-only">Toggle</span>
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </button>
-        </div>
-        <button
-          onClick={() => addItem(setVolunteering)}
-          className="w-full p-3 border-2 border-dashed rounded-md text-gray-500 hover:bg-gray-50 transition-colors"
-        >
-          + Add a new item
-        </button>
-        {volunteering.map((id) => (
-          <div key={id} className="mt-4 p-4 border rounded-md"></div>
-        ))}
-      </section>
-
-      <section className="p-6 border-b">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
-            <BsFillPersonLinesFill className="text-xl" />
-            <h2 className="text-xl font-bold">References</h2>
-          </div>
-          <button className="p-2 hover:bg-gray-100 rounded-md">
-            <span className="sr-only">Toggle</span>
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </button>
-        </div>
-        <button
-          onClick={() => addItem(setReferences)}
-          className="w-full p-3 border-2 border-dashed rounded-md text-gray-500 hover:bg-gray-50 transition-colors"
-        >
-          + Add a new item
-        </button>
-        {references.map((id) => (
-          <div key={id} className="mt-4 p-4 border rounded-md"></div>
-        ))}
-      </section>
     </div>
   );
 }

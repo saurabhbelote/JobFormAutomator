@@ -1,16 +1,16 @@
 "use client";
 import { useState } from "react";
 import { FaTimes, FaTag } from "react-icons/fa";
-import { BiBook } from "react-icons/bi";
-import { useProjectStore } from "@/app/store";
-export default function ProjectInput() {
+import { GiAchievement } from "react-icons/gi";
+export default function SkillsInput() {
   const [isOpen, setIsOpen] = useState(false);
-  const {addProject} = useProjectStore();
   const [formData, setFormData] = useState({
-    name: "",
-    date: "",
+    company: "",
+    position: "",
+    dateRange: "March 2023 - Present",
+    location: "",
     website: "",
-    description: "",
+    summary: "",
   });
 
   const handleChange = (
@@ -18,13 +18,12 @@ export default function ProjectInput() {
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  
   return (
     <section className="p-6 border-b">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <BiBook className="text-xl" />
-          <h2 className="text-xl font-bold">Projects</h2>
+          <GiAchievement className="text-xl" />
+          <h2 className="text-xl font-bold">Skills</h2>
         </div>
         <button className="p-2 hover:bg-gray-100 rounded-md">
           <span className="sr-only">Toggle</span>
@@ -67,18 +66,33 @@ export default function ProjectInput() {
               <div className="grid grid-cols-2 gap-4 mb-4">
                 <input
                   type="text"
-                  name="name"
-                  placeholder="Project Name"
+                  name="company"
+                  placeholder="Company"
                   className="w-full p-2 bg-black border rounded-md"
-                  value={formData.name}
+                  value={formData.company}
+                  onChange={handleChange}
+                />
+                <input
+                  type="text"
+                  name="position"
+                  placeholder="Position"
+                  className="w-full p-2 bg-black border rounded-md"
+                  value={formData.position}
                   onChange={handleChange}
                 />
                 <input
                   type="text"
                   name="dateRange"
                   className="w-full p-2 bg-black border rounded-md"
-                  value={formData.date}
-                   placeholder="Date"
+                  value={formData.dateRange}
+                  readOnly
+                />
+                <input
+                  type="text"
+                  name="location"
+                  placeholder="Location"
+                  className="w-full p-2 bg-black border rounded-md"
+                  value={formData.location}
                   onChange={handleChange}
                 />
               </div>
@@ -86,7 +100,7 @@ export default function ProjectInput() {
               {/* Website Field */}
               <div className="mb-4 relative">
                 <input
-                  type="url"
+                  type="text"
                   name="website"
                   placeholder="Website"
                   className="w-full p-2 bg-black border rounded-md"
@@ -99,13 +113,13 @@ export default function ProjectInput() {
               {/* Summary Editor (Basic Textarea for now) */}
               <div className="mb-4">
                 <label className="block text-sm font-medium mb-2">
-                  Description
+                  Summary
                 </label>
                 <textarea
-                  name="description"
+                  name="summary"
                   className="w-full p-3 bg-black border rounded-md min-h-[150px]"
-                  placeholder="mention the points comma separated..."
-                  value={formData.description}
+                  placeholder="Write your professional summary..."
+                  value={formData.summary}
                   onChange={handleChange}
                 />
               </div>

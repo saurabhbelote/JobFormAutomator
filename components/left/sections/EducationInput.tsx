@@ -1,17 +1,17 @@
 "use client";
 import { useState } from "react";
-import { FaTimes, FaTag } from "react-icons/fa";
+import { FaTimes } from "react-icons/fa";
 import { GiGraduateCap } from "react-icons/gi";
 
 export default function EducationInput() {
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
-    company: "",
-    position: "",
-    dateRange: "March 2023 - Present",
+    institute: "",
+    areaofstudy: "",
+    typeofstudy: "",
+    dateRange: "",
+    score: "",
     location: "",
-    website: "",
-    summary: "",
   });
 
   const handleChange = (
@@ -57,7 +57,7 @@ export default function EducationInput() {
             <div className="bg-[#141414] text-white p-6 rounded-lg w-[600px] shadow-lg">
               {/* Header */}
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-lg font-semibold">Create a new item</h2>
+                <h2 className="text-lg font-semibold">Add Education</h2>
                 <button onClick={() => setIsOpen(false)}>
                   <FaTimes size={18} />
                 </button>
@@ -67,26 +67,46 @@ export default function EducationInput() {
               <div className="grid grid-cols-2 gap-4 mb-4">
                 <input
                   type="text"
-                  name="company"
-                  placeholder="Company"
+                  name="institute" // Corrected to match formData key
+                  placeholder="Institute"
                   className="w-full p-2 bg-black border rounded-md"
-                  value={formData.company}
+                  value={formData.institute}
+                  onChange={handleChange}
+                />
+
+                <input
+                  type="text"
+                  name="typeofstudy" // Corrected to match formData key
+                  placeholder="Type of Study"
+                  className="w-full p-2 bg-black border rounded-md"
+                  value={formData.typeofstudy}
+                  onChange={handleChange}
+                />
+
+                <input
+                  type="text"
+                  name="areaofstudy" // Corrected to match formData key
+                  placeholder="Area of Study"
+                  className="w-full p-2 bg-black border rounded-md"
+                  value={formData.areaofstudy}
                   onChange={handleChange}
                 />
                 <input
-                  type="text"
-                  name="position"
-                  placeholder="Position"
+                  type="number"
+                  name="score"
+                  placeholder="Score"
                   className="w-full p-2 bg-black border rounded-md"
-                  value={formData.position}
+                  value={formData.score}
                   onChange={handleChange}
+                  step="0.01" // Allows decimal values
                 />
                 <input
                   type="text"
                   name="dateRange"
                   className="w-full p-2 bg-black border rounded-md"
                   value={formData.dateRange}
-                  readOnly
+                  placeholder="Date Range"
+                  onChange={handleChange}
                 />
                 <input
                   type="text"
@@ -97,34 +117,6 @@ export default function EducationInput() {
                   onChange={handleChange}
                 />
               </div>
-
-              {/* Website Field */}
-              <div className="mb-4 relative">
-                <input
-                  type="text"
-                  name="website"
-                  placeholder="Website"
-                  className="w-full p-2 bg-black border rounded-md"
-                  value={formData.website}
-                  onChange={handleChange}
-                />
-                <FaTag className="absolute right-3 top-3 text-gray-400" />
-              </div>
-
-              {/* Summary Editor (Basic Textarea for now) */}
-              <div className="mb-4">
-                <label className="block text-sm font-medium mb-2">
-                  Summary
-                </label>
-                <textarea
-                  name="summary"
-                  className="w-full p-3 bg-black border rounded-md min-h-[150px]"
-                  placeholder="Write your professional summary..."
-                  value={formData.summary}
-                  onChange={handleChange}
-                />
-              </div>
-
               {/* Footer */}
               <div className="flex justify-end">
                 <button className="px-4 py-2 bg-white text-black rounded-md">
