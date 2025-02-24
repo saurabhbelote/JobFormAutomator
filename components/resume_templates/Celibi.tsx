@@ -11,7 +11,7 @@ export default function Celibi () {
       <header className="flex items-start gap-8 mb-8">
         <div className="w-32 h-32">
           <Image
-            src="/api/placeholder/128/128"
+            src="/images/avatar.png"
             alt="Profile"
             height={128}
             width={128}

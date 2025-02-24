@@ -2,22 +2,19 @@
 import React, { ChangeEvent, useState } from "react";
 import { usePersonalDataStore } from "@/app/store";
 import { GoPerson } from "react-icons/go";
-import { BsJournals } from "react-icons/bs";
+import { BsJournals,BsFillPersonLinesFill } from "react-icons/bs";
 import { MdWork } from "react-icons/md";
-import { GiAchievement, GiGraduateCap } from "react-icons/gi";
+import { GiAchievement } from "react-icons/gi";
 import { PiCertificateLight } from "react-icons/pi";
 import { FaLanguage } from "react-icons/fa";
-import { BiBook } from "react-icons/bi";
+import { BiBook,BiWorld } from "react-icons/bi";
 import { MdInterests, MdVolunteerActivism } from "react-icons/md";
-import { BsFillPersonLinesFill } from "react-icons/bs";
 import { AiOutlineLink, AiOutlineMail } from "react-icons/ai";
-import { BiWorld } from "react-icons/bi";
 import { FiPhone } from "react-icons/fi";
-import "./scroll.css";
+import EducationInput from "./sections/EducationInput";
 
 export default function LeftSidebar() {
   const { personalData, updatePersonalData } = usePersonalDataStore();
-  const [education, setEducation] = useState<number[]>([]);
   const [experience, setExperience] = useState<number[]>([]);
   const [projects, setProjects] = useState<number[]>([]);
   const [skills, setSkills] = useState<number[]>([]);
@@ -261,39 +258,7 @@ export default function LeftSidebar() {
         ))}
       </section>
 
-      <section className="p-6 border-b">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
-            <GiGraduateCap className="text-xl" />
-            <h2 className="text-xl font-bold">Education</h2>
-          </div>
-          <button className="p-2 hover:bg-gray-100 rounded-md">
-            <span className="sr-only">Toggle</span>
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </button>
-        </div>
-        <button
-          onClick={() => addItem(setEducation)}
-          className="w-full p-3 border-2 border-dashed rounded-md text-gray-500 hover:bg-gray-50 transition-colors"
-        >
-          + Add a new item
-        </button>
-        {education.map((id) => (
-          <div key={id} className="mt-4 p-4 border rounded-md"></div>
-        ))}
-      </section>
+      <EducationInput/>
 
       <section className="p-6 border-b">
         <div className="flex items-center justify-between mb-4">

@@ -1,25 +1,21 @@
-
 import LeftSidebar from "@/components/left/LeftSidebar";
 import Rightsidebar from '@/components/right/Rightsidebar';
 import Celibi from "@/components/resume_templates/Celibi";
 
 export default function CreateResume() {
   return (
-    <div className="flex overflow-scroll scrollbar-hidden">
-      <div className="w-3/12 h-[1000px]">
+    <div className="flex h-screen overflow-hidden">
+      <div className="w-3/12 h-screen overflow-y-auto scrollbar-hidden">
         <LeftSidebar />
       </div>
-     
-      <div className="w-[714px] h-[1000px] mx-auto overflow-scroll scrollbar-hidden p-4">
+
+      <div className="w-[714px] h-screen mx-auto p-4 overflow-y-auto scrollbar-hidden">
         <Celibi />
       </div>
 
-      <div className="w-3/12 h-[1000px] overflow-scroll scrollbar-hidden">
+      <div className="w-3/12 h-screen overflow-y-auto scrollbar-hidden">
         <Rightsidebar />
       </div>
     </div>
   );
 }
-
-
-
