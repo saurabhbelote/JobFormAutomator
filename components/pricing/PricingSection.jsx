@@ -77,6 +77,12 @@ const PricingSection = () => {
         .forEach((card) => observer.unobserve(card));
     };
   }, []);
+  function handlePyment(name,price) {
+    if (name != "Basic") {
+      window.location.href = `/payment?plan=${encodeURIComponent(name)}&price=${encodeURIComponent(price)}`;
+
+    }
+  }
 
   return (
     <div className="text-white py-16 px-4 ">
@@ -100,15 +106,13 @@ const PricingSection = () => {
             <div
               key={index}
               ref={(el) => (cardRefs.current[index] = el)}
-              className={`p-6 rounded-2xl shadow-md relative border-[1px]  backdrop-blur-3xl transition-all duration-500 ease-in-out transform ${
-                isInView
+              className={`p-6 rounded-2xl shadow-md relative border-[1px]  backdrop-blur-3xl transition-all duration-500 ease-in-out transform ${isInView
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-10"
-              } ${
-                plan.bestSeller
+                } ${plan.bestSeller
                   ? "border-[#0FAE96] bg-gradient-to-bl from-[#0fae965a]  via-[#11011E] to-[#11011E] "
                   : "border-[#ffffff17] "
-              }`}
+                }`}
             >
               {/* Best Seller Badge */}
               <div className=" flex justify-between">
@@ -125,6 +129,7 @@ const PricingSection = () => {
               </div>
               <button
                 className={`mt-6 px-4 py-2 rounded-xl ${plan.buttonStyle} w-full`}
+                onClick={() => handlePyment(plan.name, plan.price)}
               >
                 {plan.buttonText}
               </button>

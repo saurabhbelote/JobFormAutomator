@@ -1,10 +1,13 @@
 "use client";
-
-import { signInWithEmailAndPassword } from "firebase/auth";
-import React, { useState } from "react";
+import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import React, { useState,useEffect } from "react";
 import app, { auth } from "@/firebase/config";
 import { toast } from "react-toastify";
 import { getDatabase, get, ref, set } from "firebase/database";
+import SignInwithGoogle from "../loginwithgoogle/page";
+import PasswordReset from "../passwordreset/page";
+
+
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -14,56 +17,56 @@ function Login() {
 
 
   function notifyExtensionOnLogin(uid: string) {
+    console.log("called")
     const event = new CustomEvent('userLoggedIn', { detail: { uid } });
     document.dispatchEvent(event);
   }
 
-  // useEffect(() => {
-  //   const uid =  localStorage.getItem("UID");
-  //   const apiKey =  localStorage.getItem("api_key");
-  //   const IsLogin =  localStorage.getItem("IsLogin")
-  //   console.log(IsLogin, "login", !IsLogin, "uid", uid)
+  useEffect(() => {
+    const checkAuthState = async () => {
+      const uid = localStorage.getItem("UID");
+      const apiKey = localStorage.getItem("api_key");
+      const isLogin = localStorage.getItem("IsLogin");
+      const subscriptionType = localStorage.getItem("SubscriptionType");
+  
+      console.log("Checking login state:", { uid, isLogin, apiKey, subscriptionType });
 
-
-  //   const subscriptionType = localStorage.getItem("SubscriptionType");
-    
-  //   console.log(uid,"user Id",typeof(uid))
-
-
-  //   if (uid) {
-  //     const redirectUser = async () => {
-  //       try {
-  //         const user = auth.currentUser;
-  //         if (uid && IsLogin) {
-  //           notifyExtensionOnLogin(uid);
-  //           if (user && !user.emailVerified) {
-  //             toast.error("Email is not verified.Please Verify your email, then try to login again!", {
-  //               position: "bottom-center",
-  //             });
-  //             return;
-  //           }
-  //           if (apiKey !== 'null' && apiKey !== null) {
-  //             if (subscriptionType && subscriptionType === "FreeTrialStarted") {
-  //               window.location.href = "/demo";
-  //             } else {
-  //               window.location.href = "/gemini";
-  //             }
-  //           } else {
-  //             window.location.href = "/gemini";
-  //           }
-  //         } else {
-  //         }
-  //       } 
-  //       catch (error) {
-  //         console.error("Error fetching data from Firebase:", error);
-  //         toast.error("An error occurred. Please try again.", {
-  //           position: "bottom-center",
-  //         });
-  //       }
-  //     };
-
-  //   }
-  // },[]);
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+         await notifyExtensionOnLogin(user.uid)
+        }
+        
+      })
+  
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // Ensure Firebase initializes
+      const user = auth.currentUser;
+  
+      if (user && isLogin === "true") {
+        // notifyExtensionOnLogin(uid || "");
+  
+        if (!user.emailVerified) {
+          toast.error("Email not verified. Please verify before logging in.", {
+            position: "bottom-center",
+          });
+          return;
+        }
+  
+        if (apiKey !== 'null'  && apiKey!== null) {
+          if(subscriptionType === "FreeTrialStarted" || subscriptionType ==="Premium"){
+            window.location.href="/home"
+          }
+          else{
+            window.location.href="/resume2"
+          }
+        } else {
+          window.location.href = "/gemini";
+        }
+      }
+    };
+  
+    checkAuthState();
+  }, []);
+  
 
   const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -123,18 +126,23 @@ function Login() {
         const subscriptionType = subscriptionSnapshot.val();
         localStorage.setItem("SubscriptionType", subscriptionType);
 
+        const apiRef1 = ref(db, `user/${user.uid}/API/apiKey`);
+        const apiRef2 = ref(db, `user/${user.uid}/API/apikey`)
+        const apiSnapshot1 = await get(apiRef1);
+        const apiSnapshot2 = await get(apiRef2)
 
-        const apiRef = ref(db, `user/${user.uid}/API/apikey`);
-        const apiSnapshot = await get(apiRef);
-        const apiKey = apiSnapshot.val();
+
+        let apiKey = "";
+        apiSnapshot1.exists()?apiKey=apiSnapshot1.val():apiKey=apiSnapshot2.val()
+        console.log(apiKey,"from submit")
         localStorage.setItem("api_key", apiKey);
 
-
+        console.log(subscriptionType,apiKey)
         if (apiKey) {
             if (subscriptionType === "FreeTrialStarted" || subscriptionType === "Premium") {
-              window.location.href = "/demo";
+              window.location.href = "/home";
             } else {
-              window.location.href = "/resume";
+              window.location.href = "/resume2";
             }
           } else {
             window.location.href = "/gemini";
@@ -174,6 +182,7 @@ function Login() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             disabled={loading}
+            style={{color:'red'}}
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
           />
           <input
@@ -186,12 +195,12 @@ function Login() {
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
           />
           <div className="flex justify-between items-center text-sm text-gray-600">
-            <a href="/passwordReset" className="text-purple-600 hover:underline">Forgot password?</a>
+            <a href="/passwordreset" className="text-purple-600 hover:underline">Forgot password?</a>
           </div>
           <button type="submit" disabled={loading} className="w-full bg-purple-600 text-white p-3 rounded-lg hover:bg-purple-700 transition">
             {loading ? "Signing in..." : "Sign in"}
           </button>
-          {/* <SignInwithGoogle /> */}
+          <SignInwithGoogle />
         </form>
         <p className="text-center text-gray-600 mt-4">
           Don&apos;t have an account? <a href="/sign-up" className="text-purple-600 hover:underline">Sign up</a>

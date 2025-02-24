@@ -1,22 +1,84 @@
 /** @format */
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { auth } from "@/firebase/config";
+import app from "@/firebase/config";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { getDatabase,ref,get } from "firebase/database";
+
 const Navbar = () => {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const [isLogin, setIsLogin] = useState(null);
+  const [fullName, setFullName] = useState("");
+  const db =getDatabase(app)
+
+  useEffect(() => {
+    // Track authentication state
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+
+    return () => unsubscribe();
+  }, []);
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const loginStatus = localStorage.getItem("IsLogin");
+      setIsLogin(loginStatus);
+
+      const userId = localStorage.getItem("UID");
+      if (userId) {
+        const findUser = ref(db, `user/${userId}`);
+        get(findUser).then((snapshot) => {
+          let Name = snapshot.val()?.name;
+          let fname = snapshot.val()?.fname;
+          let lname = snapshot.val()?.lname;
+          let user = "";
+          console.log(fname,lname,"navbar")
+          if (Name) {
+            user = Name;
+            const cleanedName = user.replace(/\s/g, "");
+            setFullName(user);
+          } else {
+            user = fname + " " + lname;
+            const cleanedName = user.replace(/\s/g, "");
+            setFullName(user);
+          }
+        });
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+
   const isActive = (path) => pathname === path;
+  const toggleMenu = () => setIsMenuOpen((prev) => !prev);
 
-  const toggleMenu = () => {
-    setIsMenuOpen((prev) => !prev);
-  };
+  const handleLogout = async () => {
+    try {
+      await auth.signOut();
+      localStorage.clear()
+      console.log("logout")
+      window.location.href = "/sign-in";
+      // console.log("User logged out successfully!");
+      //Event Listner
+      function notifyExtensionOnLogout() {
+        const event = new CustomEvent('onLogout');
+        document.dispatchEvent(event);
+      }
 
-  const checkCurrentUser = () => {
-    const currentUser = auth.currentUser;
-    console.log("Current User:", currentUser);
+      // Call this function after successful login
+      notifyExtensionOnLogout();  // userUID is the UID of the logged-in user
+
+
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
   };
 
   return (
@@ -37,9 +99,8 @@ const Navbar = () => {
         ].map((item) => (
           <li
             key={item.path}
-            className={`${
-              isActive(item.path) ? "text-primary" : "hover:text-[#0FAE96]"
-            } transition duration-200 transform hover:scale-105`}>
+            className={`${isActive(item.path) ? "text-primary" : "hover:text-[#0FAE96]"
+              } transition duration-200 transform hover:scale-105`}>
             <Link href={item.path}>{item.label}</Link>
           </li>
         ))}
@@ -47,32 +108,24 @@ const Navbar = () => {
 
       {/* Mobile Menu Toggle */}
       <div className="sm:hidden flex items-center">
-        <button
-          onClick={toggleMenu}
-          className="text-[#0FAE96] focus:outline-none">
+        <button onClick={toggleMenu} className="text-[#0FAE96] focus:outline-none">
           {/* Hamburger Icon */}
           <svg
-            className={`w-6 h-6 transform transition-transform duration-300 ${
-              isMenuOpen ? "rotate-90" : ""
-            }`}
+            className={`w-6 h-6 transform transition-transform duration-300 ${isMenuOpen ? "rotate-90" : ""
+              }`}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4 6h16M4 12h16m-7 6h7"></path>
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
           </svg>
         </button>
       </div>
 
       {/* Mobile Dropdown Menu */}
       <div
-        className={`sm:hidden absolute top-16 left-0 bg-background w-full py-4 px-6 shadow-lg transform transition-all duration-300 ${
-          isMenuOpen ? "opacity-100 scale-y-100" : "opacity-0 scale-y-0"
-        } origin-top`}>
+        className={`sm:hidden absolute top-16 left-0 bg-background w-full py-4 px-6 shadow-lg transform transition-all duration-300 ${isMenuOpen ? "opacity-100 scale-y-100" : "opacity-0 scale-y-0"
+          } origin-top`}>
         <ul className="space-y-4">
           {[
             { label: "Home", path: "/" },
@@ -80,38 +133,51 @@ const Navbar = () => {
             { label: "About", path: "/about" },
             { label: "Policy", path: "/policy" },
             { label: "ATS Resume", path: "/ats-resume" },
-            { label: "Login / Sign Up", path: "/auth" },
           ].map((item) => (
             <li
               key={item.path}
-              className={`${
-                isActive(item.path) ? "text-primary" : "hover:text-[#0FAE96]"
-              } transition duration-200 transform hover:scale-105`}>
+              className={`${isActive(item.path) ? "text-primary" : "hover:text-[#0FAE96]"
+                } transition duration-200 transform hover:scale-105`}>
               <Link href={item.path} onClick={() => setIsMenuOpen(false)}>
                 {item.label}
               </Link>
             </li>
           ))}
+          {!isLogin && (
+            <li className="hover:text-[#0FAE96] transition duration-200 transform hover:scale-105">
+              <Link href="/auth" onClick={() => setIsMenuOpen(false)}>Login / Sign Up</Link>
+            </li>
+          )}
         </ul>
       </div>
 
       {/* Auth Buttons */}
       <div className="hidden sm:flex items-center space-x-4">
-        <button className="text-sm sm:text-base hover:text-primary transform transition duration-200 hover:scale-105" onClick={checkCurrentUser}>
-          User
-        </button>
-        <Link href="/sign-in">
-          <button className="text-sm sm:text-base hover:text-primary transform transition duration-200 hover:scale-105">
-            Login
-          </button>
-        </Link >
-        <Link href= "sign-up">
-        <button className="bg-primary text-black px-4 py-2 rounded-md hover:bg-[#0FAE96CC] transform transition duration-200 hover:scale-105 text-sm sm:text-base">
-          Sign Up
-        </button>        
-        </Link>
+        {isLogin ? (
+          <>
+            <button className="text-sm sm:text-base text-primary transform transition duration-200 hover:scale-105">
+              {fullName}
+            </button>
+            <button onClick={handleLogout} className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transform transition duration-200 hover:scale-105 text-sm sm:text-base">
+              Logout
+            </button>
+          </>
+        ) : (
+          <>
+            <Link href="/sign-in">
+              <button className="text-sm sm:text-base hover:text-primary transform transition duration-200 hover:scale-105">
+                Login
+              </button>
+            </Link>
+            <Link href="/sign-up">
+              <button className="bg-primary text-black px-4 py-2 rounded-md hover:bg-[#0FAE96CC] transform transition duration-200 hover:scale-105 text-sm sm:text-base">
+                Sign Up
+              </button>
+            </Link>
+          </>
+        )}
       </div>
-  </nav>
+    </nav>
   );
 };
 

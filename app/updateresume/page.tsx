@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState, useEffect, useRef } from "react";
 import { ref, getDatabase, update } from "firebase/database";
 import { getAuth, onAuthStateChanged, User } from "firebase/auth";
@@ -112,15 +113,14 @@ const Resume: React.FC = () => {
 
     console.log("User before submitting:", user); // Debugging user data before submission
     function notifyExtensionOnResumeSubmit(urdData:any) {
-      const event = new CustomEvent('resumeSubmitted', {
+      const event = new CustomEvent('resumeUpdated', {
         detail: {
-          urdData: urdData,
+          urd : urdData,
           subscriptionType: "FreeTrialStarted"
         }
       });
       document.dispatchEvent(event);
     }
-
 
     if (!pdfName) {
       toast.error("Please Provide Your Resume Before Submitting!");
@@ -151,9 +151,11 @@ const Resume: React.FC = () => {
         },
       });
 
-      toast.success("Document uploaded successfully!");
-      notifyExtensionOnResumeSubmit(urdData)
+      toast.success("Document updtate successfully!");
+      
       localStorage.setItem("SubscriptionType", "FreeTrialStarted");
+
+      notifyExtensionOnResumeSubmit(urdData)
 
       const getSubscription = ref(db, `user/${uid}/Payment`);
       await update(getSubscription, { SubscriptionType: "FreeTrialStarted" });

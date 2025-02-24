@@ -36,29 +36,24 @@ const GeminiPage: React.FC = () => {
       const response = result.response;
 
       if (response) {
-        toast.success("API Key Submitted Successfully");
+        toast.success("API Key Updation Successfully");
         localStorage.setItem("api_key", geminiKey);
 
-        function notifyExtensionOnGeminiKey(key: string): void {
-          const event = new CustomEvent<{ key: string }>("geminiKeySubmitted", { detail: { key } });
+        function notifyExtensionOnUpdateGeminiKey(key: string): void {
+          const event = new CustomEvent<{ key: string }>("geminiKeyUpdated", { detail: { key } });
           document.dispatchEvent(event);
         }
-        notifyExtensionOnGeminiKey(geminiKey);
+        notifyExtensionOnUpdateGeminiKey(geminiKey);
+        window.location.href = `/home`;
 
-        const currentDate = new Date().toISOString().replace("T", " ").split(".")[0];
+
 
         await Promise.all([
           update(userRef, { API: { apikey: geminiKey } }).catch((err) =>
             console.error("Error updating API key:", err)
           ),
-          update(paymentRef, {
-            Status: "Free",
-            Start_Date: currentDate,
-            SubscriptionType: "GetResume",
-          }).catch((err) => console.error("Error updating payment details:", err)),
         ]);
 
-        router.push("/resume2");
       }
     } catch (error) {
       toast.error("Invalid API key!");
