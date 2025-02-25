@@ -15,8 +15,8 @@ const BuilderArea = () => {
 
       <div className="border-4 border-blue-50 w-6/12">
         {/* <Celibi/> */}
-        {/* <Pikachu/> */}
-        <Glalie/>
+        <Pikachu/>
+        {/* <Glalie/> */}
       </div>
 
       {/* Right Sidebar */}
