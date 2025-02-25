@@ -1,154 +1,187 @@
 import React from 'react';
 
-const AtsScorePage: React.FC = () => {
+const ResumeAnalyzerPage: React.FC = () => {
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-      {/* Header Section */}
-      <div className="bg-white p-4 rounded-lg shadow-md">
-        <h1 className="text-3xl font-bold text-center">Your Score</h1>
-        <p className="text-5xl font-bold text-center my-4">60/100</p>
-        <p className="text-lg text-center text-gray-600">23 Issues</p>
-      </div>
+    <div className="bg-[#1a0e2e] min-h-screen text-black">
+      <div className="container mx-auto p-4 flex flex-wrap">
+        {/* Left Column - Score Card */}
+        <div className="w-full md:w-1/4 p-4">
+          <div className="bg-[#1a112e] rounded-lg p-6 text-white">
+            <h2 className="text-center font-semibold mb-2">Your Score</h2>
+            <div className="text-center font-bold text-2xl text-[#f59e0b]">70/100</div>
+            <div className="text-center text-sm mb-6">23 Issues</div>
+            
+            <hr className="border-gray-700 my-4" />
+            
+            {/* Content Section */}
+            <div className="mb-4">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-sm uppercase font-semibold">Content</span>
+                <div className="bg-[#f59e0b] text-xs rounded-full px-2 py-0.5">PASS</div>
+              </div>
+              <div className="space-y-2">
+                <div className="flex items-center">
+                  <span className="text-sm flex-grow">ATS Parse Rate</span>
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+                <div className="flex items-center">
+                  <span className="text-sm flex-grow">Quantifying Impact</span>
+                </div>
+                <div className="flex items-center">
+                  <span className="text-sm flex-grow">Repetition</span>
+                  <svg className="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <div className="flex items-center">
+                  <span className="text-sm flex-grow">Spelling & Grammar</span>
+                </div>
+              </div>
+            </div>
+            
+            {/* Format Section */}
+            <div className="mb-4">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-sm uppercase font-semibold">Format</span>
+                <div className="bg-[#f59e0b] text-xs rounded-full px-2 py-0.5">PASS</div>
+              </div>
+            </div>
+            
+            {/* Sections */}
+            <div className="mb-4">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-sm uppercase font-semibold">Sections</span>
+                <div className="bg-[#f59e0b] text-xs rounded-full px-2 py-0.5">PASS</div>
+              </div>
+            </div>
+            
+            {/* Skills */}
+            <div className="mb-4">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-sm uppercase font-semibold">Skills</span>
+                <div className="bg-green-500 text-xs rounded-full px-2 py-0.5">PASS</div>
+              </div>
+            </div>
+            
+            {/* Style */}
+            <div className="mb-4">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-sm uppercase font-semibold">Style</span>
+                <div className="bg-[#f59e0b] text-xs rounded-full px-2 py-0.5">PASS</div>
+              </div>
+            </div>
+            
+            {/* Unlock Button */}
+            <button className="w-full bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2 px-4 rounded-md flex items-center justify-center mt-4">
+              <span>Unlock Full Report</span>
+              <svg className="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+            </button>
+          </div>
+        </div>
 
-      {/* ATS Parse Rate Section */}
-      <div className="mt-8 bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold">ATS PARSE RATE</h2>
-        <p className="mt-2 text-gray-700">
-          An Applicant Tracking System commonly referred to as ATS is a system used by employers and recruiters to quickly scan a large number of job applications.
-        </p>
-        <p className="mt-2 text-gray-700">
-          A high parse rate of your resume ensures that the ATS can read your resume, experience, and skills. This increases the chance of getting your resume seen by recruiters.
-        </p>
-      </div>
-
-      {/* Quantifying Impact Section */}
-      <div className="mt-8 bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold">Quantifying Impact</h2>
-        <p className="mt-2 text-gray-700">
-          Any good resume will show the impact you've had in previous positions you've held. Quantifying your impact on your resume is the key to building a strong application that will get recruiters to pick up the phone and invite you to an interview.
-        </p>
-        <p className="mt-4 text-red-500 font-semibold">Oh, no! Your experience section lacks quantifiable achievements from previous positions you've held.</p>
-      </div>
-
-      {/* Repetition Section */}
-      <div className="mt-8 bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold">Repetition</h2>
-        <p className="mt-2 text-gray-700">
-          Using the same words over and over again in your resume can be perceived as a sign of poor language understanding. Instead, use synonyms and active verbs that increase the impact of your achievements.
-        </p>
-        <p className="mt-4 text-green-500 font-semibold">Good job! No frequently repeated words found in your resume.</p>
-      </div>
-
-      {/* Spelling & Grammar Section */}
-      <div className="mt-8 bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold">Spelling & Grammar</h2>
-        <p className="mt-2 text-gray-700">
-          Having an error-free resume is key to making a good first impression on the hiring manager. Ensure that your resume is free from spelling and grammatical errors by reading it aloud a few times.
-        </p>
-        <p className="mt-4 text-red-500 font-semibold">We found the following spelling mistakes in your resume:</p>
-      </div>
-
-      {/* Format & Brevity Section */}
-      <div className="mt-8 bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold">Format & Brevity</h2>
-        <p className="mt-2 text-gray-700">
-          When you're uploading your resume in platforms like Indeed, you're likely to meet a file size limit. Ideally, your resume should be less than 2MB in size. Anything larger will most likely not be accepted on majority of platforms.
-        </p>
-        <p className="mt-4 text-green-500 font-semibold">Good job! Your resume file is 52 KB and your file type is PDF.</p>
-      </div>
-
-      {/* Resume Length Section */}
-      <div className="mt-8 bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold">Resume Length</h2>
-        <p className="mt-2 text-gray-700">
-          The length of your resume should be based on the relevant experience you have for a job, the number of years of experience, and the job you're applying for.
-        </p>
-        <p className="mt-4 text-red-500 font-semibold">Oh, no! Your resume is too short. The ideal resume size is between 400 and 800 words, anything below 400 is considered too short.</p>
-      </div>
-
-      {/* Style Section */}
-      <div className="mt-8 bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold">Style</h2>
-        <p className="mt-2 text-gray-700">
-          The design of your resume is crucial. Well-designed resume templates give you the opportunity to communicate information in different ways - graphs, bullets, achievements, and more.
-        </p>
-        <p className="mt-4 text-red-500 font-semibold">Oh, no! Your resume is using a generic layout and has little chance of standing out.</p>
-      </div>
-
-      {/* Email Address Section */}
-      <div className="mt-8 bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold">Email Address</h2>
-        <p className="mt-4 text-green-500 font-semibold">Good job! Your email address seems professional.</p>
-      </div>
-
-      {/* Active Voice Section */}
-      <div className="mt-8 bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold">Active Voice</h2>
-        <p className="mt-4 text-green-500 font-semibold">Good job! You're using active voice in your experience section.</p>
-      </div>
-
-      {/* Buzzwords & Cliches Section */}
-      <div className="mt-8 bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold">Buzzwords & Cliches</h2>
-        <p className="mt-4 text-red-500 font-semibold">Oh, no! We've found some bullets containing buzzwords and cliches in your resume.</p>
-      </div>
-
-      {/* Contact Information Section */}
-      <div className="mt-8 bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold">Contact Information</h2>
-        <p className="mt-4 text-red-500 font-semibold">Although, you are missing essential contact information: LinkedIn</p>
-      </div>
-
-      {/* Essential Sections Section */}
-      <div className="mt-8 bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold">Essential Sections</h2>
-        <p className="mt-2 text-gray-700">We've found the following essential sections in your resume:</p>
-      </div>
-
-      {/* Personality Section */}
-      <div className="mt-8 bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold">Personality</h2>
-        <p className="mt-4 text-red-500 font-semibold">We couldn't find any personality sections in your resume.</p>
-      </div>
-
-      {/* Hard Skills Section */}
-      <div className="mt-8 bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold">Hard Skills</h2>
-        <p className="mt-2 text-gray-700">We've found the following hard skills in your resume:</p>
-        <ul className="list-disc list-inside mt-2 text-gray-700">
-          <li>algorithms</li>
-          <li>artificial intelligence</li>
-          <li>chrome</li>
-          <li>computer vision</li>
-          <li>css</li>
-          <li>django</li>
-          <li>docker</li>
-          <li>excel</li>
-          <li>html</li>
-          <li>javascript</li>
-          <li>keras</li>
-          <li>machine learning</li>
-          <li>numpy</li>
-          <li>pandas</li>
-          <li>python</li>
-          <li>pytorch</li>
-          <li>rest</li>
-          <li>scikit-learn</li>
-          <li>selenium</li>
-          <li>tensorflow</li>
-        </ul>
-      </div>
-
-      {/* Soft Skills Section */}
-      <div className="mt-8 bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold">Soft Skills</h2>
-        <p className="mt-2 text-gray-700">We've found the following soft skills in your resume:</p>
-        <ul className="list-disc list-inside mt-2 text-gray-700">
-          <li>innovation</li>
-        </ul>
+        {/* Right Column - Main Content */}
+        <div className="w-full md:w-3/4 p-4">
+          {/* ATS Parse Rate Section */}
+          <div className="bg-[#1a112e] rounded-lg p-6 mb-6 text-white">
+            <h2 className="text-xl font-semibold mb-4">CONTENT</h2>
+            <div className="bg-white text-xs rounded-full px-2 py-0.5 float-right">10 ISSUES FOUND</div>
+            <div className="clear-both"></div>
+            
+            <h3 className="text-xl font-semibold mt-6">ATS PARSE RATE</h3>
+            <p className="mt-4 text-sm">
+              An <strong>Applicant Tracking System</strong> commonly referred to as <strong>ATS</strong> is a system used by employers and recruiters to quickly scan a large number of job applications.
+            </p>
+            <p className="mt-4 text-sm">
+              A high parse rate of your resume ensures that the ATS can read your resume, experience, and skills. This increases the chance of getting your resume seen by recruiters.
+            </p>
+            
+            {/* Progress Bar */}
+            <div className="mt-8 relative">
+              <div className="h-2 bg-gray-700 rounded-full">
+                <div className="h-2 bg-teal-500 rounded-full w-full"></div>
+              </div>
+              <div className="absolute right-0 -top-1">
+                <div className="bg-teal-500 w-6 h-6 rounded-full flex items-center justify-center">
+                  <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            
+            {/* Success Message */}
+            <div className="text-center mt-8">
+              <h3 className="text-xl font-semibold">Great!</h3>
+              <p className="mt-2">
+                We parsed 100% of your resume successfully using our industry-leading ATS.
+              </p>
+            </div>
+            
+            {/* Call to Action */}
+            <div className="mt-8 bg-teal-50 rounded-lg p-6">
+              <h3 className="text-center text-teal-800 font-semibold">Job-Winning Resume In Minutes</h3>
+              <div className="flex justify-center mt-4">
+                <button className="bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2 px-4 rounded-md">
+                  Create an Enhance Resume
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          {/* FAQs */}
+          <div className="bg-[#1a112e] rounded-lg p-6 text-white">
+            <h2 className="text-xl font-semibold mb-6">FAQs</h2>
+            
+            <div className="mb-6">
+              <div className="flex">
+                <div className="flex-shrink-0 mt-1">
+                  <div className="bg-teal-500 w-6 h-6 rounded-full flex items-center justify-center">
+                    <span className="text-white text-xs">1</span>
+                  </div>
+                </div>
+                <div className="ml-4">
+                  <h3 className="font-semibold text-teal-400">What is an ATS-compliant resume?</h3>
+                  <p className="mt-2 text-sm">
+                    An ATS-compliant resume is one that can be easily scanned and interpreted by an applicant tracking system (ATS). This means that your resume should be formatted clearly, with relevant keywords included.
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="mb-6">
+              <div className="flex">
+                <div className="flex-shrink-0 mt-1">
+                  <div className="bg-teal-500 w-6 h-6 rounded-full flex items-center justify-center">
+                    <span className="text-white text-xs">2</span>
+                  </div>
+                </div>
+                <div className="ml-4">
+                  <h3 className="font-semibold text-teal-400">How do I make an ATS-compatible resume?</h3>
+                </div>
+              </div>
+            </div>
+            
+            <div className="mb-6">
+              <div className="flex">
+                <div className="flex-shrink-0 mt-1">
+                  <div className="bg-teal-500 w-6 h-6 rounded-full flex items-center justify-center">
+                    <span className="text-white text-xs">3</span>
+                  </div>
+                </div>
+                <div className="ml-4">
+                  <h3 className="font-semibold text-teal-400">What if my resume is not parsed properly?</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
-export default AtsScorePage;
+export default ResumeAnalyzerPage;
