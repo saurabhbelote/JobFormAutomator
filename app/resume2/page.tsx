@@ -40,6 +40,7 @@ const Resume: React.FC = () => {
         setUser(null);
         console.log("No user signed in");
         toast.error("You need to be signed in to upload your resume.");
+        window.location.href = "/sign-in"
       }
     });
 

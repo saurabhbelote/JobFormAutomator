@@ -1,17 +1,31 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { auth } from "@/firebase/config";
 import app from "@/firebase/config";
 import { toast } from "react-toastify";
 import { getDatabase, ref, update } from "firebase/database";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { useRouter } from "next/navigation";
+import { onAuthStateChanged } from "firebase/auth";
 
 const GeminiPage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [geminiKey, setGeminiKey] = useState<string>("");
   const db = getDatabase(app);
   const router = useRouter();
+
+    useEffect(() => {
+      const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+        if (currentUser) {
+          console.log("User signed in:", currentUser); // Debugging user 
+        } else {
+          toast.error("You need to be signed in to upload your gemini kay!");
+          window.location.href = "/sign-in"
+        }
+      });
+  
+      return () => unsubscribe();
+    }, []);
 
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();

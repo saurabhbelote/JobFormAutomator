@@ -39,8 +39,8 @@ const Resume: React.FC = () => {
         console.log("User signed in:", currentUser); // Debugging user data
       } else {
         setUser(null);
-        console.log("No user signed in");
         toast.error("You need to be signed in to upload your resume.");
+        window.location.href = "/sign-in"
       }
     });
 

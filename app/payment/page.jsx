@@ -8,9 +8,10 @@ import { useSearchParams } from "next/navigation";
 // import mastercard from "./image/mastercard.svg"
 // import upi from "./image/upi.svg";
 // import visa from "./image/visa.svg"
-import { get, ref, getDatabase,update } from "firebase/database";
-import app,{auth} from "@/firebase/config";
+import { get, ref, getDatabase, update } from "firebase/database";
+import app, { auth } from "@/firebase/config";
 import { toast } from "react-toastify";
+import { onAuthStateChanged } from "firebase/auth";
 
 
 const Payment = function () {
@@ -26,17 +27,29 @@ const Payment = function () {
     const [country_name, setCountryname] = useState("")
     const receiptId = "qwsaq1";
     const db = getDatabase(app);
-    let final_amount =0;
-    console.log(plan,price)
+    let final_amount = 0;
+    console.log(plan, price)
 
     useEffect(() => {
+
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            if (currentUser) {
+                console.log("User signed in:", currentUser); // Debugging user 
+            } else {
+                toast.error("You need to be signed in!");
+                window.location.href = "/sign-in"
+            }
+        });
+
+        
+
         // Detect user's country and set currency
         fetch("https://ipapi.co/json/")
             .then((response) => response.json())
             .then((data) => {
                 setCountry(data.country);
                 setCountryname(data.country_name);
-    
+
                 if (data.country === "IN") {
                     setCurrency('INR');
                     setAmount(1);
@@ -45,7 +58,7 @@ const Payment = function () {
                     setAmount(20);
                 }
             });
-    
+
         // Load Razorpay script dynamically
         const script = document.createElement("script");
         script.src = "https://checkout.razorpay.com/v1/checkout.js";
@@ -57,8 +70,9 @@ const Payment = function () {
             console.error("Razorpay script failed to load");
         };
         document.body.appendChild(script);
+        return () => unsubscribe();
     }, []);
-    
+
 
     const handlePaymentINR = async (e) => {
         e.preventDefault();
@@ -98,8 +112,8 @@ const Payment = function () {
             headers: {
                 "Content-Type": "application/json",
             },
-            
-            
+
+
         });
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -109,9 +123,9 @@ const Payment = function () {
     }
 
     const initiateRazorpay = (order, currency) => {
-        
+
         var options = {
-            key: process.env.REACT_APP_API_KEY ,
+            key: process.env.REACT_APP_API_KEY,
             amount: order.amount,
             currency,
             name: "JobForm Automator",
@@ -147,38 +161,38 @@ const Payment = function () {
                 await validateRes.json().then((status) => {
                     if (status.msg === "success") {
                         function notifyExtensionOnPayment(uid) {
-                            console.log("payment successfull","even listner call")
+                            console.log("payment successfull", "even listner call")
 
                             const event = new CustomEvent('paymentSuccessfull', { detail: { uid } });
                             document.dispatchEvent(event);
                         }
-                        console.log(auth?.currentUser?.uid,"uid")
+                        console.log(auth?.currentUser?.uid, "uid")
                         notifyExtensionOnPayment(auth?.currentUser?.uid)
-                       //**REFERRAL CODE UPDATE */
-                       const currentDate = new Date();
-                       const formattedDateTime = currentDate.toISOString().replace("T", " ").split(".")[0];
-                       const getReferralCodeFromCookie = () => {
-                        const cookie = document.cookie.split('; ').find(row => row.startsWith('referral='));
-                        return cookie ? cookie.split('=')[1] : null;
-                      };
-                      const referralCode = getReferralCodeFromCookie();
-                      console.log(auth.currentUser,"user");
-                      const currentUser = auth?.currentUser?.uid
-                     
-                       // Path: /referrals/<referralCode>/<currentUser>
-                       const userRef = ref(db, `/referrals/${referralCode}/${currentUser}`);
-                     
-                       // Update amount and paymentDate
-                       update(userRef, {
-                         amount:final_amount/100, // Set the new amount
-                         paymentDate: formattedDateTime // Set the payment date
-                       })
-                       .then(() => {
-                         console.log("Amount and payment date updated successfully!");
-                       })
-                       .catch((error) => {
-                         console.error("Error updating data:", error);
-                       });
+                        //**REFERRAL CODE UPDATE */
+                        const currentDate = new Date();
+                        const formattedDateTime = currentDate.toISOString().replace("T", " ").split(".")[0];
+                        const getReferralCodeFromCookie = () => {
+                            const cookie = document.cookie.split('; ').find(row => row.startsWith('referral='));
+                            return cookie ? cookie.split('=')[1] : null;
+                        };
+                        const referralCode = getReferralCodeFromCookie();
+                        console.log(auth.currentUser, "user");
+                        const currentUser = auth?.currentUser?.uid
+
+                        // Path: /referrals/<referralCode>/<currentUser>
+                        const userRef = ref(db, `/referrals/${referralCode}/${currentUser}`);
+
+                        // Update amount and paymentDate
+                        update(userRef, {
+                            amount: final_amount / 100, // Set the new amount
+                            paymentDate: formattedDateTime // Set the payment date
+                        })
+                            .then(() => {
+                                console.log("Amount and payment date updated successfully!");
+                            })
+                            .catch((error) => {
+                                console.error("Error updating data:", error);
+                            });
 
                     }
                 })

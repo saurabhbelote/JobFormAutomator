@@ -59,25 +59,11 @@ const Navbar = () => {
   const isActive = (path) => pathname === path;
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
 
-  const handleLogout = async () => {
+  const handleSettings = async () => {
     try {
-      await auth.signOut();
-      localStorage.clear()
-      console.log("logout")
-      window.location.href = "/sign-in";
-      // console.log("User logged out successfully!");
-      //Event Listner
-      function notifyExtensionOnLogout() {
-        const event = new CustomEvent('onLogout');
-        document.dispatchEvent(event);
-      }
-
-      // Call this function after successful login
-      notifyExtensionOnLogout();  // userUID is the UID of the logged-in user
-
-
+      window.location.href = "/settings";
     } catch (error) {
-      console.error("Error logging out:", error);
+      console.error("Error :", error);
     }
   };
 
@@ -158,8 +144,8 @@ const Navbar = () => {
             <button className="text-sm sm:text-base text-primary transform transition duration-200 hover:scale-105">
               {fullName}
             </button>
-            <button onClick={handleLogout} className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transform transition duration-200 hover:scale-105 text-sm sm:text-base">
-              Logout
+            <button onClick={handleSettings} className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transform transition duration-200 hover:scale-105 text-sm sm:text-base">
+              Settings
             </button>
           </>
         ) : (
