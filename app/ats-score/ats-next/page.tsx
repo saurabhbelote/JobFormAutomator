@@ -1,4 +1,6 @@
 import React from 'react';
+import Image from 'next/image';
+
 
 const ResumeAnalyzerPage: React.FC = () => {
   return (
@@ -541,7 +543,213 @@ const ResumeAnalyzerPage: React.FC = () => {
         </div>
       </div>
     </div>
+    <div className="min-h-screen bg-[#1A0B2E] text-white p-4">
+      <div className="max-w-2xl mx-auto">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center">
+            <span className="mr-2">📝</span>
+            <h1 className="text-lg font-medium">SPELLING & GRAMMAR</h1>
+          </div>
+          <div className="bg-orange-400 text-white rounded-full px-3 py-1 flex items-center text-sm">
+            <span className="mr-1">✨</span>
+            <span>PREMIUM</span>
+          </div>
+        </div>
+
+        {/* Description */}
+        <p className="text-sm mb-3">
+          Having an error-free resume is key to making a good first impression on the hiring manager. Ensure that your resume is free from spelling and grammatical errors by reading it aloud a few times.
+        </p>
+        <p className="text-sm mb-6">
+          For an extra layer of security, use the Enhancv resume builder and let the content checker do the heavy lifting for you.
+        </p>
+
+        {/* Error card */}
+        <div className="bg-[#2D1B48] rounded-lg p-6 mb-6">
+          <div className="flex flex-col items-center mb-6">
+            <div className="bg-[#E55B77] h-16 w-16 rounded-lg flex items-center justify-center mb-4">
+              <div className="relative">
+                <div className="text-xl font-bold">abc</div>
+                <div className="absolute -top-1 -right-2 bg-white text-[#E55B77] rounded-full h-5 w-5 flex items-center justify-center text-xs font-bold">?</div>
+              </div>
+            </div>
+            <p className="text-center font-medium">Oh, no!</p>
+            <p className="text-center">We found the following spelling mistakes in your resume:</p>
+          </div>
+
+          {/* Resume preview with errors */}
+          <div className="relative mb-6">
+            <div className="bg-white rounded p-4 relative">
+              {/* Error markers */}
+              <div className="absolute -left-4 top-6 bg-red-400 text-white rounded-full h-6 w-6 flex items-center justify-center">✕</div>
+              <div className="absolute -left-4 top-20 bg-red-400 text-white rounded-full h-6 w-6 flex items-center justify-center">✕</div>
+              <div className="absolute -left-4 top-36 bg-red-400 text-white rounded-full h-6 w-6 flex items-center justify-center">✕</div>
+              
+              {/* PRO overlay */}
+              <div className="bg-[#b8f3ed] text-[#077665] p-4 text-center rounded">
+                <p className="font-medium mb-2">Fix my spelling & grammar mistakes with Enhancv PRO</p>
+                <button className="bg-[#0DBF9B] text-white px-4 py-2 rounded">Fix Mistakes</button>
+              </div>
+            </div>
+          </div>
+
+          {/* PRO features */}
+          <div className="bg-[#F8E3C5] text-black rounded-lg p-4 flex">
+            <div className="flex-1">
+              <div className="flex items-center mb-2">
+                <span className="bg-black text-white p-1 rounded mr-2 text-xs">🔥</span>
+                <p className="font-medium">With Enhancv's PRO report, you get:</p>
+              </div>
+              <ul className="text-sm space-y-1 mb-2">
+                <li className="flex items-start">
+                  <span className="mr-2 text-orange-500">•</span>
+                  <span>A complete professional-grade resume checker report</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="mr-2 text-orange-500">•</span>
+                  <span>Ready to use suggestions for improving your resume</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="mr-2 text-orange-500">•</span>
+                  <span>Over 1000 industry-leading resume templates and samples</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="mr-2 text-orange-500">•</span>
+                  <span>Enhancv's resume and cover letter builder</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="mr-2 text-orange-500">•</span>
+                  <span>Resume tailoring based on a job ad you provide</span>
+                </li>
+              </ul>
+            </div>
+            <div className="w-24 flex items-end">
+              <Image 
+                src="/illustration.png" 
+                alt="Person illustration"
+                width={100}
+                height={100}
+                className="object-contain"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* FAQs */}
+        <div className="bg-[#2D1B48] rounded-lg p-6">
+          <h2 className="text-lg font-medium mb-4">FAQs</h2>
+          
+          <div className="mb-4">
+            <div className="flex mb-2">
+              <div className="bg-teal-500 text-white rounded-full h-6 w-6 flex items-center justify-center mr-2">1</div>
+              <p className="font-medium text-teal-400">Is incorrect spelling unprofessional?</p>
+            </div>
+            <p className="text-sm pl-8">
+              With modern technology and all the spellcheckers out there, having a spelling mistake on your resume can be interpreted as an unprofessional and sometimes disrespectful thing. Make sure you use a real-time content analyzer to prevent making mistakes on your resume. Enhancv's resume builder analyses and shows your mistakes at the moment of their appearance to avoid you sending an unprofessional resume.
+            </p>
+          </div>
+          
+          <div>
+            <div className="flex mb-2">
+              <div className="bg-teal-500 text-white rounded-full h-6 w-6 flex items-center justify-center mr-2">2</div>
+              <p className="font-medium text-teal-400">How many spelling errors are acceptable on a resume?</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+    <div className="min-h-screen bg-[#1A0B2E] text-white p-4">
+      <div className="max-w-2xl mx-auto">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center">
+            <div className="bg-blue-500 rounded-full h-6 w-6 flex items-center justify-center mr-2">
+              <span className="text-xs">📄</span>
+            </div>
+            <h1 className="text-lg font-medium">FORMAT & BREVITY</h1>
+          </div>
+          <div className="bg-white text-black rounded-full px-4 py-1 text-sm">
+            1 ISSUE FOUND
+          </div>
+        </div>
+
+        {/* File Format & Size Section */}
+        <div className="mb-6">
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="font-medium">📃FILE FORMAT & SIZE</h2>
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 9l-7 7-7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+          
+          <p className="text-sm mb-3">
+            When you're uploading your resume in platforms like Indeed, you're likely to meet a file size limit. Ideally, your resume should be less than 2MB in size. Anything larger will most likely not be accepted on majority of platforms.
+          </p>
+          <p className="text-sm mb-6">
+            Your file type also plays an important role in ATS screening. PDF files are preferred as the text can be easily read by the applicant tracking system. Avoid DOCX, PNG or JPG files.
+          </p>
+        </div>
+
+        {/* Success Card */}
+        <div className="bg-[#2D1B48] rounded-lg p-6 mb-6">
+          <div className="flex flex-col items-center mb-6">
+            <div className="mb-4">
+              <div className="relative">
+                <div className="w-16 h-16">
+                  <div className="absolute inset-0">
+                    <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="10" y="8" width="40" height="50" rx="2" fill="#FFFFFF" />
+                      <rect x="16" y="16" width="28" height="2" rx="1" fill="#E0E0E0" />
+                      <rect x="16" y="22" width="28" height="2" rx="1" fill="#E0E0E0" />
+                      <rect x="16" y="28" width="20" height="2" rx="1" fill="#E0E0E0" />
+                    </svg>
+                  </div>
+                  <div className="absolute -right-2 -bottom-2 bg-green-400 rounded-full w-8 h-8 flex items-center justify-center">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M3 8L7 12L13 4" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p className="text-center font-medium">Good job!</p>
+            <p className="text-center">Your resume file is 52 KB and your file type is PDF.</p>
+          </div>
+
+          {/* Create Resume CTA */}
+          <div className="bg-[#b8f3ed] text-black p-4 text-center rounded">
+            <p className="font-medium mb-4">Job-Winning Resume In Minutes</p>
+            <button className="bg-[#0DBF9B] text-white px-6 py-2 rounded w-56">
+              Create an Enhancv Resume
+            </button>
+          </div>
+        </div>
+
+        {/* FAQs */}
+        <div className="bg-[#2D1B48] rounded-lg p-6">
+          <h2 className="text-lg font-medium mb-4">FAQs</h2>
+          
+          <div className="mb-6">
+            <div className="flex mb-2">
+              <div className="bg-teal-500 text-white rounded-full h-6 w-6 flex items-center justify-center mr-2">●</div>
+              <p className="font-medium text-teal-400">What's the maximum size I can use for my resume file?</p>
+            </div>
+            <p className="text-sm pl-8">
+              The common file size limit for website uploads is under 2MB. If your resume is too large, we recommend using a platform like Enhancv that will compress the visual elements and produce a low-size, high-quality result.
+            </p>
+          </div>
+          
+          <div>
+            <div className="flex mb-2">
+              <div className="bg-teal-500 text-white rounded-full h-6 w-6 flex items-center justify-center mr-2">●</div>
+              <p className="font-medium text-teal-400">Why is PDF the preferred format?</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>//
   );
 };
 
