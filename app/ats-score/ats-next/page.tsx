@@ -88,7 +88,7 @@ const ResumeAnalyzerPage: React.FC = () => {
           {/* ATS Parse Rate Section */}
           <div className="bg-[#1a112e] rounded-lg p-6 mb-6 text-white">
             <h2 className="text-xl font-semibold mb-4">CONTENT</h2>
-            <div className="bg-white text-xs rounded-full px-2 py-0.5 float-right">10 ISSUES FOUND</div>
+            <div className="bg-white text-xs rounded-full px-2 py-0.5 float-right text-black">10 ISSUES FOUND</div>
             <div className="clear-both"></div>
             
             <h3 className="text-xl font-semibold mt-6">ATS PARSE RATE</h3>
