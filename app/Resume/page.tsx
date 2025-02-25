@@ -3,6 +3,7 @@ import LeftSidebar from "@/components/left/LeftSidebar";
 import Rightsidebar from '@/components/right/Rightsidebar';
 import Celibi from "@/components/resume_templates/Celibi";
 import Pikachu from "@/components/resume_templates/pikachu";
+import Glalie from "@/components/resume_templates/glalie"
 
 const BuilderArea = () => {
   return (
@@ -14,7 +15,8 @@ const BuilderArea = () => {
 
       <div className="border-4 border-blue-50 w-6/12">
         {/* <Celibi/> */}
-        <Pikachu/>
+        {/* <Pikachu/> */}
+        <Glalie/>
       </div>
 
       {/* Right Sidebar */}
