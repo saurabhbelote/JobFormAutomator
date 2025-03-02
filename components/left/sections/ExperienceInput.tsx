@@ -2,7 +2,9 @@
 import { useState } from "react";
 import { MdWork } from "react-icons/md";
 import { FaTimes } from "react-icons/fa";
+import { useExperienceStore } from "@/app/store";
 export default function ExperienceInput() {
+  const {experiences, addExperience} = useExperienceStore();
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
     company: "",
@@ -16,6 +18,17 @@ export default function ExperienceInput() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    addExperience(
+      formData.company,
+      formData.position,
+      formData.dateRange,
+      formData.location,
+      formData.description,
+    );
+    setFormData({ company: "", position: "", dateRange: "", location:"", description: "" }); // Reset form after submission
   };
   return (
     <section className="p-6 border-b">
@@ -41,6 +54,15 @@ export default function ExperienceInput() {
           </svg>
         </button>
       </div>
+      {experiences.length > 0 && (
+        <div>
+          {experiences.map((experience) => (
+            <div key={experience.id}>
+              <span>{experience.company}</span>
+            </div>
+          ))}
+        </div>
+      )}
       <button
         onClick={() => {
           setIsOpen(true);
@@ -113,7 +135,7 @@ export default function ExperienceInput() {
 
               {/* Footer */}
               <div className="flex justify-end">
-                <button className="px-4 py-2 bg-white text-black rounded-md">
+                <button className="px-4 py-2 bg-white text-black rounded-md" onClick={handleSubmit}>
                   Create
                 </button>
               </div>

@@ -1,8 +1,10 @@
 "use client";
+import { useCertificateStore } from "@/app/store";
 import { useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { PiCertificateLight } from "react-icons/pi";
 export default function CertificationInput() {
+  const {certificates, addCertificate} = useCertificateStore();
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
@@ -14,6 +16,16 @@ export default function CertificationInput() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    addCertificate(
+      formData.title,
+      formData.awarder,
+      formData.date,
+      formData.link,
+    );
+    setFormData({ title: "", awarder: "", date: "", link: "" }); // Reset form after submission
   };
   return (
     <section className="p-6 border-b">
@@ -39,6 +51,15 @@ export default function CertificationInput() {
           </svg>
         </button>
       </div>
+      {certificates.length > 0 && (
+        <div>
+          {certificates.map((certificate) => (
+            <div key={certificate.id}>
+              <span>{certificate.title}</span>
+            </div>
+          ))}
+        </div>
+      )}
       <button
         onClick={() => {
           setIsOpen(true);
@@ -78,7 +99,7 @@ export default function CertificationInput() {
                   onChange={handleChange}
                 />
                 <input
-                  type="date"
+                  type="text"
                   name="date"
                   className="w-full p-2 bg-black border rounded-md"
                   value={formData.date}
@@ -96,7 +117,7 @@ export default function CertificationInput() {
 
               {/* Footer */}
               <div className="flex justify-end">
-                <button className="px-4 py-2 bg-white text-black rounded-md">
+                <button className="px-4 py-2 bg-white text-black rounded-md" onClick={handleSubmit}>
                   Create
                 </button>
               </div>

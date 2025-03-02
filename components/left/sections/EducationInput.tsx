@@ -1,9 +1,11 @@
 "use client";
+import { useEducationStore } from "@/app/store";
 import { useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { GiGraduateCap } from "react-icons/gi";
 
 export default function EducationInput() {
+  const {educations, addEducation} = useEducationStore(); 
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
     institute: "",
@@ -18,6 +20,17 @@ export default function EducationInput() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    addEducation(
+      formData.institute,
+      formData.areaofstudy,
+      formData.typeofstudy,
+      formData.dateRange,
+      formData.score,
+    );
+    setFormData({ institute: "", dateRange: "", areaofstudy: "", typeofstudy: "", score: "", location:"" }); // Reset form after submission
   };
   return (
     <section className="p-6 border-b">
@@ -43,6 +56,15 @@ export default function EducationInput() {
           </svg>
         </button>
       </div>
+      {educations.length > 0 && (
+        <div>
+          {educations.map((education) => (
+            <div key={education.id}>
+              <span>{education.institute}</span>
+            </div>
+          ))}
+        </div>
+      )}
       <button
         onClick={() => {
           setIsOpen(true);
@@ -119,7 +141,7 @@ export default function EducationInput() {
               </div>
               {/* Footer */}
               <div className="flex justify-end">
-                <button className="px-4 py-2 bg-white text-black rounded-md">
+                <button className="px-4 py-2 bg-white text-black rounded-md" onClick={handleSubmit}>
                   Create
                 </button>
               </div>

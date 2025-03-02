@@ -5,7 +5,7 @@ import { BiBook } from "react-icons/bi";
 import { useProjectStore } from "@/app/store";
 export default function ProjectInput() {
   const [isOpen, setIsOpen] = useState(false);
-  const {addProject} = useProjectStore();
+  const { projects, addProject } = useProjectStore();
   const [formData, setFormData] = useState({
     name: "",
     date: "",
@@ -18,7 +18,18 @@ export default function ProjectInput() {
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    addProject(
+      formData.name,
+      formData.description,
+      formData.website,
+      formData.date,
+    );
+    setFormData({ name: "", date: "", website: "", description: "" }); // Reset form after submission
+  };
+
   return (
     <section className="p-6 border-b">
       <div className="flex items-center justify-between mb-4">
@@ -43,6 +54,15 @@ export default function ProjectInput() {
           </svg>
         </button>
       </div>
+      {projects.length > 0 && (
+        <div>
+          {projects.map((project) => (
+            <div key={project.id}>
+              <span>{project.name}</span>
+            </div>
+          ))}
+        </div>
+      )}
       <button
         onClick={() => {
           setIsOpen(true);
@@ -75,10 +95,10 @@ export default function ProjectInput() {
                 />
                 <input
                   type="text"
-                  name="dateRange"
+                  name="date"
                   className="w-full p-2 bg-black border rounded-md"
                   value={formData.date}
-                   placeholder="Date"
+                  placeholder="Date"
                   onChange={handleChange}
                 />
               </div>
@@ -112,7 +132,10 @@ export default function ProjectInput() {
 
               {/* Footer */}
               <div className="flex justify-end">
-                <button className="px-4 py-2 bg-white text-black rounded-md">
+                <button
+                  className="px-4 py-2 bg-white text-black rounded-md"
+                  onClick={handleSubmit}
+                >
                   Create
                 </button>
               </div>

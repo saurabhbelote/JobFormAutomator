@@ -1,21 +1,29 @@
 "use client";
+import { useAchievementStore } from "@/app/store";
 import { useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { GiAchievement } from "react-icons/gi";
 
 export default function AchievementInput() {
+  const {achievements, addAchievement} = useAchievementStore();
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
-    title: "",
-    awarder: "",
-    date: "",
-    link:""
+    name: "",
+    details: "",
   });
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    addAchievement(
+      formData.name,
+      formData.details,
+    );
+    setFormData({ name: "", details: "",  }); // Reset form after submission
   };
   return (
     <section className="p-6 border-b">
@@ -41,6 +49,15 @@ export default function AchievementInput() {
           </svg>
         </button>
       </div>
+      {achievements.length > 0 && (
+        <div>
+          {achievements.map((achievement) => (
+            <div key={achievement.id}>
+              <span>{achievement.name}</span>
+            </div>
+          ))}
+        </div>
+      )}
       <button
         onClick={() => {
           setIsOpen(true);
@@ -65,39 +82,25 @@ export default function AchievementInput() {
               <div className="grid grid-cols-2 gap-4 mb-4">
                 <input
                   type="text"
-                  name="title"
+                  name="name"
                   placeholder="Title"
                   className="w-full p-2 bg-black border rounded-md"
-                  value={formData.title}
+                  value={formData.name}
                   onChange={handleChange}
                 />
                 <input
                   type="text"
-                  name="awarder"
-                  placeholder="Awarded By"
+                  name="details"
+                  placeholder="Add description"
                   className="w-full p-2 bg-black border rounded-md"
-                  value={formData.awarder}
+                  value={formData.details}
                   onChange={handleChange}
                 />
-                <input
-                  type="date"
-                  name="date"
-                  className="w-full p-2 bg-black border rounded-md"
-                  value={formData.date}
-                  onChange={handleChange}
-                />
-                <input
-                  type="url"
-                  name="link"
-                  placeholder="Certificate Link"
-                  className="w-full p-2 bg-black border rounded-md"
-                  value={formData.link}
-                  onChange={handleChange}
-                />
+                
               </div>
               {/* Footer */}
               <div className="flex justify-end">
-                <button className="px-4 py-2 bg-white text-black rounded-md">
+                <button className="px-4 py-2 bg-white text-black rounded-md" onClick={handleSubmit}>
                   Create
                 </button>
               </div>
