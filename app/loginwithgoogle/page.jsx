@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { getDatabase, ref, set, get } from "firebase/database";
 import google from "./igoogle.svg"
 import Image from "next/image";
+import axios from "axios";
 function SignInwithGoogle() {
   function googleLogin() {
     const provider = new GoogleAuthProvider();
@@ -129,6 +130,7 @@ function SignInwithGoogle() {
 
         }
         else {
+          console.log("user creating")
           const newDocRef = ref(db, "user/" + auth.currentUser.uid)
           set(newDocRef, {
             name: name,
@@ -137,7 +139,18 @@ function SignInwithGoogle() {
 
 
           }).then(async () => {
-            toast.success("User logged in Successfully", {
+            await axios.post("http://localhost:3001/send-email", {
+              email: email,
+              name: name|| "User",
+            }).then(()=>{
+
+            }).catch((err)=>{
+              toast.error(err.message)
+            });
+           
+      
+            // setMessage("Login successful! Welcome email sent.");
+            toast.success("Registered!", {
               position: "top-center",
 
             });

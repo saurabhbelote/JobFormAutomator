@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import app, { auth } from "@/firebase/config";
 import { getDatabase, ref, set } from "firebase/database";
 import { Auth } from "firebase/auth";
-
+import axios from "axios";
 function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -36,11 +36,17 @@ function Register() {
         const newDocRef = ref(db, "user/" + user.uid);
 
         await set(newDocRef, { fname, lname, email, password }).then(() => {
-          toast.success("User Registered Successfully!!", { position: "top-center" });
-          toast.success("Email Verification Link Sent Successfully: Please check your email!", { position: "top-center" });
+          toast.success("Registered! Check email for verification.", { position: "top-center" });
         }).catch((err) => {
           toast.error(err.message)
         })
+        await axios.post("http://localhost:3001/send-email", {
+          email: email,
+          name: fname + " " + lname || "User",
+        }).then(() => {
+        }).catch((err) => {
+          toast.error(err.message)
+        });
 
 
       }
@@ -102,7 +108,7 @@ function Register() {
             className="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition-all"
             disabled={loading}
           >
-            {loading? "Signing up...":"Sign up"}
+            {loading ? "Signing up..." : "Sign up"}
           </button>
         </form>
 
