@@ -2,7 +2,7 @@ import {create} from 'zustand';
 import React from 'react';
 //change the personal data
 type PersonalData = {
-    name: string;
+    name:string;
     headline:string;
     summary: string;
     profile: string;
@@ -52,23 +52,28 @@ export const usePersonalDataStore = create<PersonalDataStore>((set) => ({
 type Project = {
     id: string; 
     name: string;
-    details: string;
+    description: string;
+    date:string;
+    website:string;
+
 };
 
 type ProjectStore = {
     projects: Project[];
-    addProject: (name: string, details: string) => void;
+    addProject: (name: string, details: string, date:string, website:string) => void;
     updateProject: (id: string, name: string, details: string) => void;
     deleteProject: (id: string) => void;
 };
 
 export const useProjectStore = create<ProjectStore>((set) => ({
     projects: [],
-    addProject: (name, details) => {
+    addProject: (name, description, website, date) => {
         const newProject: Project = {
             id: Date.now().toString(), // Use a timestamp as a unique ID
             name,
-            details,
+            description,
+            website,
+            date
         };
         set((state) => ({
             projects: [...state.projects, newProject],
@@ -89,20 +94,19 @@ export const useProjectStore = create<ProjectStore>((set) => ({
 }));
 
 
-//change the education data
 type Education = {
     id: string; 
-    name: string; 
-    details: string; 
-    startDate: string; 
-    endDate: string; 
-    cgpa: string;
+    institute: string; 
+    areaofstudy: string; 
+    typeofstudy: string; 
+    dateRange: string; 
+    score: string;
 };
 
 type EducationStore = {
     educations: Education[]; 
-    addEducation: (name: string, details: string, startDate: string, endDate: string, cgpa: string) => void; // Add education
-    updateEducation: (id: string, name: string, details: string, startDate: string, endDate: string, cgpa: string) => void; // Update education
+    addEducation: (institute: string, areaofstudy: string, typeofstudy: string, dateRange: string, score: string) => void; // Add education
+    updateEducation: (id: string, institute: string, areaofstudy: string, typeofstudy: string, dateRange: string, score: string) => void; // Update education
     deleteEducation: (id: string) => void; 
 };
 
@@ -110,14 +114,14 @@ export const useEducationStore = create<EducationStore>((set) => ({
     educations: [],
 
     // Add a new education entry
-    addEducation: (name, details, startDate, endDate, cgpa) => {
+    addEducation: (institute, areaofstudy, typeofstudy, dateRange, score) => {
         const newEducation: Education = {
             id: Date.now().toString(), // Generate unique ID using timestamp
-            name,
-            details,
-            startDate,
-            endDate,
-            cgpa,
+            institute,
+            areaofstudy,
+            typeofstudy,
+            dateRange,
+            score,
         };
         set((state) => ({
             educations: [...state.educations, newEducation],
@@ -125,11 +129,11 @@ export const useEducationStore = create<EducationStore>((set) => ({
     },
 
     // Update an existing education entry
-    updateEducation: (id, name, details, startDate, endDate, cgpa) => {
+    updateEducation: (id, institute, areaofstudy, typeofstudy, dateRange, score) => {
         set((state) => ({
             educations: state.educations.map((education) =>
                 education.id === id
-                    ? { ...education, name, details, startDate, endDate, cgpa }
+                    ? { ...education, institute, areaofstudy, typeofstudy, dateRange, score }
                     : education
             ),
         }));
@@ -145,28 +149,30 @@ export const useEducationStore = create<EducationStore>((set) => ({
 
 //change the certificate data
 type Certificate = {
-    id: string; 
-    name: string; 
-    details: string; 
-    link: string
+    id: string;
+    title: string;
+    awarder: string;
+    date: string;
+    link: string;
 };
 
 type CertificateStore = {
-    certificates: Certificate[]; 
-    addCertificate: (name: string, details: string, link: string) => void; // Add certificate
-    updateCertificate: (id: string, name: string, details: string, link: string) => void; // Update education
-    deleteCertificate: (id: string) => void; 
+    certificates: Certificate[];
+    addCertificate: (title: string, awarder: string, date: string, link: string) => void; // Add certificate
+    updateCertificate: (id: string, title: string, awarder: string, date: string, link: string) => void; // Update certificate
+    deleteCertificate: (id: string) => void;
 };
 
 export const useCertificateStore = create<CertificateStore>((set) => ({
     certificates: [],
 
     // Add a new certificate entry
-    addCertificate: (name, details, link) => {
+    addCertificate: (title, awarder, date, link) => {
         const newCertificate: Certificate = {
             id: Date.now().toString(), // Generate unique ID using timestamp
-            name,
-            details,
+            title,
+            awarder,
+            date,
             link,
         };
         set((state) => ({
@@ -175,17 +181,17 @@ export const useCertificateStore = create<CertificateStore>((set) => ({
     },
 
     // Update an existing certificate entry
-    updateCertificate: (id, name, details, link) => {
+    updateCertificate: (id, title, awarder, date, link) => {
         set((state) => ({
             certificates: state.certificates.map((certificate) =>
                 certificate.id === id
-                    ? { ...certificate, name, details, link}
+                    ? { ...certificate, title, awarder, date, link }
                     : certificate
             ),
         }));
     },
 
-    // Delete an certificate entry
+    // Delete a certificate entry
     deleteCertificate: (id) => {
         set((state) => ({
             certificates: state.certificates.filter((certificate) => certificate.id !== id),
@@ -195,49 +201,57 @@ export const useCertificateStore = create<CertificateStore>((set) => ({
 
 //change the work experience
 type Experience = {
-    id:string;
-    name:string;
-    details:string;
-    startDate:string;
-    endDate:string;
-}
+    id: string;
+    company: string;
+    position: string;
+    dateRange: string;
+    location: string;
+    description: string;
+};
+
 type ExperienceStore = {
     experiences: Experience[];
-    addExperience: (name:string, details:string, startDate: string, endDate:string) => void;
-    updateExperience: (id:string, name: string, details:string, startDate:string, endDate:string) => void;
-    deleteExperience:(id:string) =>void;
-}
-export const useExperienceStore = create<ExperienceStore>((set) =>({
-    experiences:[], 
+    addExperience: (company: string, position: string, dateRange: string, location: string, description: string) => void; // Add experience
+    updateExperience: (id: string, company: string, position: string, dateRange: string, location: string, description: string) => void; // Update experience
+    deleteExperience: (id: string) => void;
+};
 
-    addExperience: (name, details, startDate, endDate) => {
+export const useExperienceStore = create<ExperienceStore>((set) => ({
+    experiences: [],
+
+    // Add a new experience entry
+    addExperience: (company, position, dateRange, location, description) => {
         const newExperience: Experience = {
             id: Date.now().toString(), // Generate unique ID
-            name,
-            details,
-            startDate,
-            endDate,
+            company,
+            position,
+            dateRange,
+            location,
+            description,
         };
         set((state) => ({
             experiences: [...state.experiences, newExperience],
         }));
     },
-    updateExperience: (id, name, details, startDate, endDate) => {
+
+    // Update an existing experience entry
+    updateExperience: (id, company, position, dateRange, location, description) => {
         set((state) => ({
             experiences: state.experiences.map((experience) =>
                 experience.id === id
-                    ? { ...experience, name, details, startDate, endDate }
+                    ? { ...experience, company, position, dateRange, location, description }
                     : experience
             ),
         }));
     },
+
+    // Delete an experience entry
     deleteExperience: (id) => {
         set((state) => ({
             experiences: state.experiences.filter((experience) => experience.id !== id),
         }));
     },
-
-}))
+}));
 
 //change the achievements
 type Achievement = {

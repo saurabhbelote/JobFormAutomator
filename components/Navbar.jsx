@@ -1,9 +1,10 @@
-/** @format */
+
 "use client";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { auth } from "@/firebase/config";
 const Navbar = () => {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,7 +13,6 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
   };
-
   return (
     <nav className="bg-[#11011E] text-white py-4 px-6 sm:px-12 flex items-center justify-between z-50 fixed w-full shadow-md">
       {/* Logo */}

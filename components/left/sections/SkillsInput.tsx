@@ -1,38 +1,29 @@
 "use client";
-import { useCertificateStore } from "@/app/store";
 import { useState } from "react";
-import { FaTimes } from "react-icons/fa";
-import { PiCertificateLight } from "react-icons/pi";
-export default function CertificationInput() {
-  const {certificates, addCertificate} = useCertificateStore();
+import { FaTimes, FaTag } from "react-icons/fa";
+import { GiAchievement } from "react-icons/gi";
+export default function SkillsInput() {
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
-    title: "",
-    awarder: "",
-    date: "",
-    link: "",
+    company: "",
+    position: "",
+    dateRange: "March 2023 - Present",
+    location: "",
+    website: "",
+    summary: "",
   });
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    addCertificate(
-      formData.title,
-      formData.awarder,
-      formData.date,
-      formData.link,
-    );
-    setFormData({ title: "", awarder: "", date: "", link: "" }); // Reset form after submission
-  };
   return (
     <section className="p-6 border-b">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <PiCertificateLight className="text-xl" />
-          <h2 className="text-xl font-bold">Certifications</h2>
+          <GiAchievement className="text-xl" />
+          <h2 className="text-xl font-bold">Skills</h2>
         </div>
         <button className="p-2 hover:bg-gray-100 rounded-md">
           <span className="sr-only">Toggle</span>
@@ -51,15 +42,6 @@ export default function CertificationInput() {
           </svg>
         </button>
       </div>
-      {certificates.length > 0 && (
-        <div>
-          {certificates.map((certificate) => (
-            <div key={certificate.id}>
-              <span>{certificate.title}</span>
-            </div>
-          ))}
-        </div>
-      )}
       <button
         onClick={() => {
           setIsOpen(true);
@@ -84,40 +66,67 @@ export default function CertificationInput() {
               <div className="grid grid-cols-2 gap-4 mb-4">
                 <input
                   type="text"
-                  name="title"
-                  placeholder="Title"
+                  name="company"
+                  placeholder="Company"
                   className="w-full p-2 bg-black border rounded-md"
-                  value={formData.title}
+                  value={formData.company}
                   onChange={handleChange}
                 />
                 <input
                   type="text"
-                  name="awarder"
-                  placeholder="Awarded By"
+                  name="position"
+                  placeholder="Position"
                   className="w-full p-2 bg-black border rounded-md"
-                  value={formData.awarder}
+                  value={formData.position}
                   onChange={handleChange}
                 />
                 <input
                   type="text"
-                  name="date"
+                  name="dateRange"
                   className="w-full p-2 bg-black border rounded-md"
-                  value={formData.date}
-                  onChange={handleChange}
+                  value={formData.dateRange}
+                  readOnly
                 />
                 <input
-                  type="url"
-                  name="link"
-                  placeholder="Certificate Link"
+                  type="text"
+                  name="location"
+                  placeholder="Location"
                   className="w-full p-2 bg-black border rounded-md"
-                  value={formData.link}
+                  value={formData.location}
+                  onChange={handleChange}
+                />
+              </div>
+
+              {/* Website Field */}
+              <div className="mb-4 relative">
+                <input
+                  type="text"
+                  name="website"
+                  placeholder="Website"
+                  className="w-full p-2 bg-black border rounded-md"
+                  value={formData.website}
+                  onChange={handleChange}
+                />
+                <FaTag className="absolute right-3 top-3 text-gray-400" />
+              </div>
+
+              {/* Summary Editor (Basic Textarea for now) */}
+              <div className="mb-4">
+                <label className="block text-sm font-medium mb-2">
+                  Summary
+                </label>
+                <textarea
+                  name="summary"
+                  className="w-full p-3 bg-black border rounded-md min-h-[150px]"
+                  placeholder="Write your professional summary..."
+                  value={formData.summary}
                   onChange={handleChange}
                 />
               </div>
 
               {/* Footer */}
               <div className="flex justify-end">
-                <button className="px-4 py-2 bg-white text-black rounded-md" onClick={handleSubmit}>
+                <button className="px-4 py-2 bg-white text-black rounded-md">
                   Create
                 </button>
               </div>

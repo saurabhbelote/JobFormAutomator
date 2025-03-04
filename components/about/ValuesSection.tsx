@@ -1,6 +1,4 @@
-/** @format */
 "use client";
-
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
@@ -32,8 +30,8 @@ const ValuesSection = () => {
     },
   ];
 
-  const valueRefs = useRef([]);
-  const [isInView, setIsInView] = useState([]);
+  const valueRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [isInView, setIsInView] = useState<boolean[]>(new Array(values.length).fill(false));
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -67,7 +65,9 @@ const ValuesSection = () => {
         {values.map((value, index) => (
           <div
             key={index}
-            ref={(el) => (valueRefs.current[index] = el)}
+            ref={(el) => {
+              valueRefs.current[index] = el;
+            }}
             className={`bg-[#1A1125] border-[1px] border-[#ffffff17] backdrop-blur-3xl p-6 md:p-8 rounded-lg shadow-lg transition-all duration-700 ease-in-out transform ${
               isInView[index] ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}

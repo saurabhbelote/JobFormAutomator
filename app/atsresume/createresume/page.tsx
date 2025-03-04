@@ -1,25 +1,23 @@
-// import Artboard from '@/components/center/Artboard'
-// import LeftSidebar from "@/components/left/LeftSidebar";
-import Rightsidebar from '@/components/right/Rightsidebar';
+"use client";
+import React, { useRef } from "react";
+import LeftSidebar from "@/components/left/LeftSidebar";
 import Celibi from "@/components/resume_templates/Celibi";
+import { useReactToPrint } from "react-to-print";
 
-export default function CreateResume() {
+const CreateResume: React.FC = () => {
+  const contentRef = useRef<HTMLDivElement>(null);
+  const reactToPrintFn = useReactToPrint({ contentRef });
   return (
-    <div className="flex h-fit overflow-scroll scrollbar-hidden">
-      {/* <div className="w-3/12 h-[100px]">
+    <div className="flex h-screen overflow-hidden">
+      <div className="w-3/12 h-screen overflow-y-auto scrollbar-hidden">
         <LeftSidebar />
-      </div> */}
-     
-      <div className="w-[714px] h-[1000px] mx-auto overflow-scroll scrollbar-hidden p-4">
+      </div>
+      <div ref={contentRef} className="w-[714px] h-screen p-4 overflow-y-auto scrollbar-hidden">
         <Celibi />
       </div>
-
-      <div className="w-3/12 h-[1000px] overflow-scroll scrollbar-hidden">
-        <Rightsidebar />
-      </div>
+      <button className="w-4 h-4" onClick={() => reactToPrintFn()}>print</button>
     </div>
   );
-}
+};
 
-
-
+export default CreateResume;
