@@ -13,12 +13,6 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
   };
-
-  const checkCurrentUser = () => {
-    const currentUser = auth.currentUser;
-    console.log("Current User:", currentUser);
-  };
-
   return (
     <nav className="bg-[#11011E] text-white py-4 px-6 sm:px-12 flex items-center justify-between z-50 fixed w-full shadow-md">
       {/* Logo */}
@@ -97,9 +91,6 @@ const Navbar = () => {
 
       {/* Auth Buttons */}
       <div className="hidden sm:flex items-center space-x-4">
-        <button className="text-sm sm:text-base hover:text-primary transform transition duration-200 hover:scale-105" onClick={checkCurrentUser}>
-          User
-        </button>
         <Link href="/sign-in">
           <button className="text-sm sm:text-base hover:text-primary transform transition duration-200 hover:scale-105">
             Login
