@@ -63,7 +63,7 @@ const FeaturesSection = () => {
   }, []);
 
   return (
-    <div className="text-white py-16 px-4">
+    <div className="text-white  py-16 px-4">
       <div className="max-w-6xl space-y-4 mx-auto flex flex-col items-center">
         {/* Section Header */}
         <div className="px-4 py-2 space-x-3 border-[1px] border-[#FFFFFF0D] rounded-full flex items-center bg-[#FFFFFF05]">

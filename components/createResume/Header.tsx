@@ -20,26 +20,7 @@ const Header = () => {
              
               <span className="text-2xl font-bold">Resumes</span>
             </div>
-            <div className="flex items-center space-x-4">
-              <button
-                onClick={() => setViewMode("grid")}
-                className={`p-2 rounded-md ${
-                  viewMode === "grid" ? "bg-[#ffffff1a]" : (
-                    "hover:bg-[#ffffff0f]"
-                  )
-                }`}>
-                <BsGrid size={20} />
-              </button>
-              <button
-                onClick={() => setViewMode("list")}
-                className={`p-2 rounded-md ${
-                  viewMode === "list" ? "bg-[#ffffff1a]" : (
-                    "hover:bg-[#ffffff0f]"
-                  )
-                }`}>
-                <BsList size={20} />
-              </button>
-            </div>
+           
           </div>
         </div>
       </div>

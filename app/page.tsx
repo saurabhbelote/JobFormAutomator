@@ -32,7 +32,7 @@ export default function Mainpage() {
 
  // console.log(user); 
   return (
-    <>
+    <div className='bg-[#11011E]'>
       <HeroSection />
       <FeaturesSection />
       <CompaniesSection />
@@ -40,6 +40,6 @@ export default function Mainpage() {
       <ResumeATSChecker />
       <FAQSection />
       {/* <SignupPage/> */}
-    </>
+    </div>
   );
 }

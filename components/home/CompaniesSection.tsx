@@ -1,12 +1,31 @@
-
 import Image from "next/image";
 
 const CompaniesSection = () => {
     const companies = [
-      { name: "Microsoft", logo: "/images/microsoft.png" }, // Replace with actual logo paths
-      { name: "Netflix", logo: "/images/netflix.png" },
-      { name: "Flipkart", logo: "/images/flipkart.png" },
-      { name: "Swiggy", logo: "/images/swiggy.png" },
+      { 
+        name: "Microsoft", 
+        logo: "/images/microsoft.png",
+        width: 120,
+        height: 40
+      },
+      { 
+        name: "Netflix", 
+        logo: "/images/netflix.png",
+        width: 120,
+        height: 40
+      },
+      { 
+        name: "Flipkart", 
+        logo: "/images/flipkart.png",
+        width: 120,
+        height: 40
+      },
+      { 
+        name: "Swiggy", 
+        logo: "/images/swiggy.png",
+        width: 120,
+        height: 40
+      },
     ];
   
     return (
@@ -17,13 +36,15 @@ const CompaniesSection = () => {
           </h3>
           <div className="flex flex-wrap justify-center items-center gap-6 mt-6">
             {companies.map((company, index) => (
-              <div key={index} className="w-24 sm:w-28 lg:w-32">
+              <div key={index} className="relative w-24 sm:w-28 lg:w-32 h-12">
                 <Image
                   src={company.logo}
                   alt={`${company.name} logo`}
-                  className="w-full h-auto object-contain"
-                  width={10}
-                  height={10}
+                  fill
+                  sizes="(max-width: 640px) 96px, (max-width: 1024px) 112px, 128px"
+                  priority={index < 2}
+                  quality={90}  // Set quality per image
+                  className="object-contain"
                 />
               </div>
             ))}
@@ -31,7 +52,6 @@ const CompaniesSection = () => {
         </div>
       </div>
     );
-  };
-  
-  export default CompaniesSection;
-  
+};
+
+export default CompaniesSection;

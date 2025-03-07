@@ -39,7 +39,7 @@ const Footer = () => {
   return (
     <footer
       ref={footerRef} // Assign the ref to the footer
-      className={`text-gray-400 py-10 transition-all duration-700 ease-in-out ${
+      className={`text-gray-400 py-10 transition-all duration-700 ease-in-out bg-[#11011E] ${
         isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
       }`}
     >

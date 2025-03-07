@@ -9,20 +9,46 @@ interface TeamCardProps {
 
 const TeamCard = ({ name, role, linkedin, twitter }: TeamCardProps) => (
   <div className="rounded-lg text-center pb-8 border-[1px] border-[#FFFFFF17] bg-[#FFFFFF06] animate-fade-in-up p-4">
-    <Image
-      width={100} height={100}
-      src="/images/user.png"
-      alt={name}
-      className="mx-auto   object-cover"
-    />
+    <div className="relative w-32 h-32 mx-auto">
+      <Image
+        src="/images/user.png"
+        alt={name}
+        fill
+        sizes="(max-width: 768px) 100px, 128px"
+        className="rounded-full object-cover"
+        priority
+      />
+    </div>
     <h3 className="mt-4 text-lg sm:text-xl font-semibold">{name}</h3>
     <p className="text-sm sm:text-base text-gray-300">{role}</p>
     <div className="flex justify-center gap-4 mt-4">
-      <a href={linkedin} target="_blank" rel="noreferrer">
-        <Image src="/images/linkedin-icon.png" alt="LinkedIn"  width={8} height={8} className=" sm:w-10 sm:h-10" />
+      <a 
+        href={linkedin} 
+        target="_blank" 
+        rel="noreferrer"
+        className="relative w-8 h-8 sm:w-10 sm:h-10"
+      >
+        <Image 
+          src="/images/linkedin-icon.png" 
+          alt="LinkedIn" 
+          fill
+          sizes="(max-width: 768px) 32px, 40px"
+          className="object-contain"
+        />
       </a>
-      <a href={twitter} target="_blank" rel="noreferrer">
-        <Image src="/images/twitter-icon.png" alt="Twitter"  width={8} height={8} className="sm:w-10 sm:h-10" />
+      <a 
+        href={twitter} 
+        target="_blank" 
+        rel="noreferrer"
+        className="relative w-8 h-8 sm:w-10 sm:h-10"
+      >
+        <Image 
+          src="/images/twitter-icon.png" 
+          alt="Twitter" 
+          fill
+          sizes="(max-width: 768px) 32px, 40px"
+          className="object-contain"
+        />
       </a>
     </div>
   </div>

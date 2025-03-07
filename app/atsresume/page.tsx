@@ -5,7 +5,7 @@ import Header from "@/components/createResume/Header";
 export default function AtsResume() {
   const router = useRouter();
   return (
-    <div>
+    <div className="bg-[#11011E]">
       <Header />
       <div className=" flex p-6 h-[100vh] gap-10 bg-gradient-to-b pt-5 from-[#11011E] via-[#35013e] to-[#11011E] bg-[#11011E] text-white">
         {/* Create new resume card */}
