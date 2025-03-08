@@ -4,6 +4,7 @@ import { FaTimes, FaTag } from "react-icons/fa";
 import { GiAchievement } from "react-icons/gi";
 export default function SkillsInput() {
   const [isOpen, setIsOpen] = useState(false);
+  const {skills, addSkill} = useSkillStore();
   const [formData, setFormData] = useState({
     company: "",
     position: "",

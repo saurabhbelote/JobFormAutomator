@@ -252,6 +252,7 @@ export const useExperienceStore = create<ExperienceStore>((set) => ({
         }));
     },
 }));
+
 type Skill = {
     id: string;
     heading: string;
@@ -296,7 +297,7 @@ type Skill = {
       }));
     },
   }));
-  
+
 //change the achievements
 type Achievement = {
     id:string;
