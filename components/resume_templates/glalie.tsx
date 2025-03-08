@@ -5,20 +5,20 @@ import Image from "next/image";
 import {
   usePersonalDataStore,
   useCertificateStore,
-  useAchievementStore,
+  // useAchievementStore,
   useExperienceStore,
   useEducationStore,
   useProjectStore,
 } from "@/app/store";
-import exp from "constants";
-const inter = Inter({ subsets: ["latin"] });
-const { personalData } = usePersonalDataStore();
-const { certificates } = useCertificateStore();
-const { achievements } = useAchievementStore();
-const { experiences } = useExperienceStore();
-const { educations } = useEducationStore();
-const { projects } = useProjectStore();
-export default function Home() {
+
+export default function Glallie() {
+  const inter = Inter({ subsets: ["latin"] });
+  const { personalData } = usePersonalDataStore();
+  const { certificates } = useCertificateStore();
+  // const { achievements } = useAchievementStore();
+  const { experiences } = useExperienceStore();
+  const { educations } = useEducationStore();
+  const { projects } = useProjectStore();
   return (
     <>
       <Head>
@@ -144,7 +144,7 @@ export default function Home() {
               <h2 className="text-xl font-bold text-purple-700 uppercase border-b-2 border-purple-700 pb-1 mb-4">
                 EDUCATION
               </h2>
-              educations.map((education, index) => (
+              {educations.map((education, index) => (
                 <div key={index}>
                   <div className="flex justify-between mb-1">
                     <div>
@@ -162,36 +162,6 @@ export default function Home() {
                   </div>
                 </div>
               ))}
-
-              <div className="mb-4">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="font-bold">
-                      The City College of New York, NYC, NY
-                    </h3>
-                    <p className="text-sm">Masters Computer Science</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm">(September 2001 — August 2002)</p>
-                    <p className="font-bold">7.2 CGPA</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mb-4">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="font-bold">
-                      University of California, Berkeley, CA
-                    </h3>
-                    <p className="text-sm">Bachelors Computer Science</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm">(September 1997 — August 2001)</p>
-                    <p className="font-bold">8.4 CGPA</p>
-                  </div>
-                </div>
-              </div>
             </div>
 
             {/* Skills section */}
@@ -233,44 +203,18 @@ export default function Home() {
               <h2 className="text-xl font-bold text-purple-700 uppercase border-b-2 border-purple-700 pb-1 mb-4">
                 PROJECTS
               </h2>
-
-              <div className="mb-4">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="font-bold">Reactive Resume</h3>
-                    <p className="text-sm">
-                      https://github.com/AmruthPillai/Reactive-Resume
-                    </p>
+              {projects.map((project, index) => (
+                <div key={index} className="mb-4">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h3 className="font-bold">{project.name}</h3>
+                      <p className="text-sm">{project.website}</p>
+                    </div>
+                    <p className="text-sm">{project.date}</p>
                   </div>
-                  <p className="text-sm">July 2020</p>
+                  <p className="mt-2">{project.description}</p>
                 </div>
-                <p className="mt-2">
-                  Reactive Resume, a free and open-source resume builder that
-                  works for you. A few of the important features that make it
-                  awesome are minimalistic UI/UX, extensive customizability,
-                  portability, regularly updated templates, etc.
-                  <br />
-                  For more information, check out rxresu.me
-                </p>
-              </div>
-
-              <div className="mb-4">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="font-bold">Resume on the Web</h3>
-                    <p className="text-sm">https://amruthpillai.com</p>
-                  </div>
-                  <p className="text-sm">April 2020</p>
-                </div>
-                <p className="mt-2">
-                  Resume on the Web has been a project that I've been focused on
-                  since the early 2014s. I didn't want my information to be
-                  displayed on just a sheet of paper that only HRs or Talent
-                  Scouts had the privilege of reading, I wanted it to be
-                  accessible to everyone. And that's how this project was
-                  conceptualized.
-                </p>
-              </div>
+              ))}
             </div>
 
             {/* Languages section */}
@@ -356,30 +300,17 @@ export default function Home() {
             <h2 className="text-xl font-bold text-purple-700 uppercase border-b-2 border-purple-700 pb-1 mb-4">
               CERTIFICATIONS
             </h2>
-
-            <div className="flex justify-between items-start mb-2">
-              <div>
-                <h3 className="font-bold">CCNP</h3>
-                <p className="text-sm">Cisco Systems</p>
+            {certificates.map((certificate, index) => (
+              <div key={index}>
+                <div className="flex justify-between items-start mb-2">
+                  <div>
+                    <h3 className="font-bold">{certificate.title}</h3>
+                    <p className="text-sm">{certificate.awarder}</p>
+                  </div>
+                  <p className="text-sm">{certificate.date}</p>
+                </div>
               </div>
-              <p className="text-sm">February 2018</p>
-            </div>
-
-            <div className="flex justify-between items-start mb-2">
-              <div>
-                <h3 className="font-bold">VCP6-DCV</h3>
-                <p className="text-sm">VMWare</p>
-              </div>
-              <p className="text-sm">June 2019</p>
-            </div>
-
-            <div className="flex justify-between items-start mb-2">
-              <div>
-                <h3 className="font-bold">DCUCI 642-999</h3>
-                <p className="text-sm">Cisco Systems</p>
-              </div>
-              <p className="text-sm">April 2014</p>
-            </div>
+            ))}
           </div>
         </div>
 

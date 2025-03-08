@@ -252,7 +252,51 @@ export const useExperienceStore = create<ExperienceStore>((set) => ({
         }));
     },
 }));
-
+type Skill = {
+    id: string;
+    heading: string;
+    items: string[]; // Ensure it's an array of strings
+  };
+  
+  type SkillStore = {
+    skills: Skill[];
+    addSkill: (heading: string, items: string[]) => void;
+    updateSkill: (id: string, heading: string, items: string[]) => void;
+    deleteSkill: (id: string) => void;
+  };
+  
+  export const useSkillStore = create<SkillStore>((set) => ({
+    skills: [],
+  
+    // Add a new skill entry
+    addSkill: (heading, items) => {
+      const newSkill: Skill = {
+        id: Date.now().toString(), // Generate unique ID
+        heading,
+        items,
+      };
+      set((state) => ({
+        skills: [...state.skills, newSkill], // Fix incorrect reference to 'experiences'
+      }));
+    },
+  
+    // Update an existing skill entry
+    updateSkill: (id, heading, items) => {
+      set((state) => ({
+        skills: state.skills.map((skill) =>
+          skill.id === id ? { ...skill, heading, items } : skill
+        ),
+      }));
+    },
+  
+    // Delete a skill entry
+    deleteSkill: (id) => {
+      set((state) => ({
+        skills: state.skills.filter((skill) => skill.id !== id),
+      }));
+    },
+  }));
+  
 //change the achievements
 type Achievement = {
     id:string;
