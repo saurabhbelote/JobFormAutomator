@@ -198,8 +198,8 @@ export default function Celibi() {
 
                   {experience.description && (
                     <ul className="list-disc list-inside text-sm space-y-1 mb-2">
-                      {experience.description.split("\n").map((detail, i) => (
-                        <li key={i}>{detail}</li> // ✅ Each `li` dynamically generated
+                      {experience.description.split(",").map((detail, i) => (
+                        <li key={i}>{detail}</li> 
                       ))}
                     </ul>
                   )}
