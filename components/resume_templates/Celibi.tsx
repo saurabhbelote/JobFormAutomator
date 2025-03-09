@@ -70,7 +70,7 @@ export default function Celibi() {
                 >
                   Phone
                 </h4>
-                <p className="text-sm">+91 {personalData.phone}</p>
+                <p className="text-sm">{"+91 " + personalData.phone}</p>
               </div>
               <div>
                 <h4
@@ -156,7 +156,9 @@ export default function Celibi() {
           </section>
 
           <section>
-            <h3 className="text-lg font-bold border-b-2 border-gray-800 mb-4">
+            <h3 className={`text-lg font-bold border-b-2 border-gray-800 mb-4 ${
+                languages.length ? "visible" : "hidden"
+              }`}>
               LANGUAGES
             </h3>
             <div className="space-y-2">
@@ -234,7 +236,9 @@ export default function Celibi() {
           </section>
 
           <section className="mb-8">
-            <h3 className="text-lg font-bold border-b-2 border-gray-800 mb-4">
+            <h3 className={`text-lg font-bold border-b-2 border-gray-800 mb-4 ${
+                skills.length ? "visible" : "hidden"
+              }`}>
               SKILLS
             </h3>
             <div className="grid grid-cols-2 gap-4">
