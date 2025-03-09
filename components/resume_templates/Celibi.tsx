@@ -70,7 +70,7 @@ export default function Celibi() {
                 >
                   Phone
                 </h4>
-                <p className="text-sm">{"+91 " + personalData.phone}</p>
+                <p className="text-sm">{personalData.phone}</p>
               </div>
               <div>
                 <h4
