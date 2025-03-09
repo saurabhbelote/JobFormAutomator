@@ -8,6 +8,8 @@ import {
   useExperienceStore,
   useEducationStore,
   useProjectStore,
+  useLanguageStore,
+  useSkillStore,
 } from "@/app/store";
 export default function Celibi() {
   const { personalData } = usePersonalDataStore();
@@ -16,6 +18,9 @@ export default function Celibi() {
   const { experiences } = useExperienceStore();
   const { educations } = useEducationStore();
   const { projects } = useProjectStore();
+  const { languages } = useLanguageStore();
+  const { skills } = useSkillStore();
+
   return (
     <div className="max-w-5xl mx-auto p-8 bg-white text-gray-800">
       {/* Header Section */}
@@ -111,7 +116,11 @@ export default function Celibi() {
           </section>
 
           <section>
-            <h3 className={`text-lg font-bold border-b-2 border-gray-800 mb-4 ${achievements.length ? "visible" : "hidden"}`}>
+            <h3
+              className={`text-lg font-bold border-b-2 border-gray-800 mb-4 ${
+                achievements.length ? "visible" : "hidden"
+              }`}
+            >
               AWARDS
             </h3>
             <div className="space-y-4">
@@ -126,7 +135,11 @@ export default function Celibi() {
             </div>
           </section>
           <section>
-            <h3 className={`text-lg font-bold border-b-2 border-gray-800 mb-4 ${certificates.length ? "visible" : "hidden"}`}>
+            <h3
+              className={`text-lg font-bold border-b-2 border-gray-800 mb-4 ${
+                certificates.length ? "visible" : "hidden"
+              }`}
+            >
               CERTIFICATIONS
             </h3>
             <div className="space-y-4">
@@ -147,42 +160,24 @@ export default function Celibi() {
               LANGUAGES
             </h3>
             <div className="space-y-2">
-              <div>
-                <p className="font-semibold">English</p>
-                <p className="text-sm">Very Fluent</p>
-              </div>
-              <div>
-                <p className="font-semibold">Tamil</p>
-                <p className="text-sm">Native Tongue</p>
-              </div>
-              <div>
-                <p className="font-semibold">Kannada</p>
-                <p className="text-sm">Native Tongue</p>
-              </div>
-              <div>
-                <p className="font-semibold">German</p>
-                <p className="text-sm">Learning on Duolingo</p>
-              </div>
+              {languages.map((language, index) => (
+                <div key={index}>
+                  <h3 className="font-semibold">{language.heading}</h3>
+                  <p className="text-sm">{language.option}</p>
+                </div>
+              ))}
             </div>
-          </section>
-
-          <section>
-            <h3 className="text-lg font-bold border-b-2 border-gray-800 mb-4">
-              HOBBIES
-            </h3>
-            <ul className="space-y-1 text-sm">
-              <li>Poetry</li>
-              <li>Travelling</li>
-              <li>Photography</li>
-              <li>Playing Badminton</li>
-            </ul>
           </section>
         </aside>
 
         {/* Main Content */}
         <main className="flex-1">
           <section className="mb-8">
-            <h3 className={`text-lg font-bold border-b-2 border-gray-800 mb-4 ${experiences.length ? "visible" : "hidden"}`}>
+            <h3
+              className={`text-lg font-bold border-b-2 border-gray-800 mb-4 ${
+                experiences.length ? "visible" : "hidden"
+              }`}
+            >
               WORK EXPERIENCE
             </h3>
             <div className="space-y-6">
@@ -199,7 +194,7 @@ export default function Celibi() {
                   {experience.description && (
                     <ul className="list-disc list-inside text-sm space-y-1 mb-2">
                       {experience.description.split(",").map((detail, i) => (
-                        <li key={i}>{detail}</li> 
+                        <li key={i}>{detail}</li>
                       ))}
                     </ul>
                   )}
@@ -209,7 +204,11 @@ export default function Celibi() {
           </section>
 
           <section className="mb-8">
-            <h3 className={`text-lg font-bold border-b-2 border-gray-800 mb-4 ${educations.length ? "visible" : "hidden"}`}>    
+            <h3
+              className={`text-lg font-bold border-b-2 border-gray-800 mb-4 ${
+                educations.length ? "visible" : "hidden"
+              }`}
+            >
               EDUCATION
             </h3>
             <div className="space-y-4">
@@ -239,35 +238,26 @@ export default function Celibi() {
               SKILLS
             </h3>
             <div className="grid grid-cols-2 gap-4">
-              <div>
-                <h4 className="font-semibold">Customer Service Expertise</h4>
-                <p className="text-sm">Advanced</p>
-              </div>
-              <div>
-                <h4 className="font-semibold">High-Volume Call Center</h4>
-                <p className="text-sm">Intermediate</p>
-              </div>
-              <div>
-                <h4 className="font-semibold">Team Leader/Problem Solver</h4>
-                <p className="text-sm">Intermediate</p>
-              </div>
-              <div>
-                <h4 className="font-semibold">Call Center Management</h4>
-                <p className="text-sm">Novice</p>
-              </div>
-              <div>
-                <h4 className="font-semibold">Teambuilding & Training</h4>
-                <p className="text-sm">Novice</p>
-              </div>
-              <div>
-                <h4 className="font-semibold">Continuous Improvement</h4>
-                <p className="text-sm">Fundamental Awareness</p>
-              </div>
+              {skills.map((skill, index) => (
+                <div key={index}>
+                  <h4 className="font-semibold">{skill.heading}</h4>
+                  {skill.items &&
+                    skill.items.split(",").map((detail, i) => (
+                      <p key={i} className="text-sm">
+                        {detail}
+                      </p>
+                    ))}
+                </div>
+              ))}
             </div>
           </section>
 
           <section>
-            <h3 className={`text-lg font-bold border-b-2 border-gray-800 mb-4 ${projects.length ? "visible" : "hidden"}`}>
+            <h3
+              className={`text-lg font-bold border-b-2 border-gray-800 mb-4 ${
+                projects.length ? "visible" : "hidden"
+              }`}
+            >
               PROJECTS
             </h3>
             <div className="space-y-6">

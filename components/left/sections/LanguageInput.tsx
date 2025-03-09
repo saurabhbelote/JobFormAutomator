@@ -5,9 +5,7 @@ import { useLanguageStore } from "@/app/store";
 
 export default function LanguageInput() {
   const fluency = ["native language", "proficient", "advanced", "intermediate", "conversational", "elementary"];
-  
-  // Zustand store usage
-
+  const { addLanguage } = useLanguageStore();
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
     language:  "",

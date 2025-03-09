@@ -9,7 +9,7 @@ interface FormData {
   jobType: string;
   phoneNumber: string;
   recruiterEmailTemplate: string;
-  examEmailTemplate?: string;
+  examEmailTemplate: string;
   coverLetter: string;
 }
 

@@ -202,7 +202,7 @@ const ResumeAnalyzerPage: React.FC = () => {
             </div>
           </div>
           <p className="text-white text-sm mb-2">
-            Any good resume will show the impact you've had in previous positions you've held.
+            Any good resume will show the impact you have had in previous positions you have held.
           </p>
           <p className="text-white text-sm">
             Quantifying your impact on your resume is the key to building a strong application that will get recruiters to pick up the phone and invite you to an interview.
@@ -224,7 +224,7 @@ const ResumeAnalyzerPage: React.FC = () => {
             <h3 className="font-bold">Oh, no!</h3>
             <p className="font-medium">Your experience section lacks quantifiable achievements</p>
             <p className="text-sm">from</p>
-            <p className="font-medium">previous positions you've held.</p>
+            <p className="font-medium">previous positions you have held.</p>
           </div>
 
           {/* Bullet Points */}
@@ -236,12 +236,12 @@ const ResumeAnalyzerPage: React.FC = () => {
 
             <div className="bg-white rounded p-3 text-black text-sm flex">
               <div className="text-red-500 mr-2">✕</div>
-              <p>Implemented cutting-edge machine learning algorithms to improve prediction accuracy, contributing to the company's goal of providing advanced technology solutions.</p>
+              <p>Implemented cutting-edge machine learning algorithms to improve prediction accuracy, contributing to the company&apos;s goal of providing advanced technology solutions.</p>
             </div>
 
             <div className="bg-white rounded p-3 text-black text-sm flex">
               <div className="text-red-500 mr-2">✕</div>
-              <p>Collaborated with cross-functional teams to integrate computer vision technologies into the company's platform, increasing seamless functionality and user interaction.</p>
+              <p>Collaborated with cross-functional teams to integrate computer vision technologies into the company&apos;s platform, increasing seamless functionality and user interaction.</p>
             </div>
 
             <div className="bg-white rounded p-3 text-black text-sm flex">
@@ -317,7 +317,7 @@ const ResumeAnalyzerPage: React.FC = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <p className="font-semibold">With Enhancv's PRO report, you get:</p>
+              <p className="font-semibold">With Enhancv&apos;s PRO report, you get:</p>
             </div>
             <ul className="list-none space-y-1 ml-4">
               <li className="flex items-start">
@@ -334,7 +334,7 @@ const ResumeAnalyzerPage: React.FC = () => {
               </li>
               <li className="flex items-start">
                 <span className="text-yellow-700 mr-2">•</span>
-                <span className="text-sm">Enhancv's resume and cover letter builder</span>
+                <span className="text-sm">Enhancv&apos;s resume and cover letter builder</span>
               </li>
               <li className="flex items-start">
                 <span className="text-yellow-700 mr-2">•</span>
@@ -434,16 +434,16 @@ const ResumeAnalyzerPage: React.FC = () => {
                   </div>
                 </div>
                 <div className="ml-3">
-                  <h4 className="text-teal-400 font-semibold">What if I'm not in a number-focused role?</h4>
+                  <h4 className="text-teal-400 font-semibold">What if I&apos;m not in a number-focused role?</h4>
                 </div>
               </div>
               
               <div className="ml-9 text-white text-sm space-y-3">
                 <p>
-                  It's common to think that only people in finance and sales can have a quantifier in their bullets. Although that's not true as every role has something to quantify.
+                  It&apos;s common to think that only people in finance and sales can have a quantifier in their bullets. Although that&apos;s not true as every role has something to quantify.
                 </p>
                 <p>
-                  If you think outside of the financial impact of your work, you can find numbers in almost every activity. For example, if you "worked in an international team", you can write "worked in an international team of 50+ people". Using numbers in your resume gives recruiters the ability to grasp the scale you've worked at.
+                  If you think outside of the financial impact of your work, you can find numbers in almost every activity. For example, if you &quot;worked in an international team&quot;, you can write &quot;worked in an international team of 50+ people&quot;. Using numbers in your resume gives recruiters the ability to grasp the scale you&apos;ve worked at.
                 </p>
               </div>
             </div>
@@ -536,7 +536,7 @@ const ResumeAnalyzerPage: React.FC = () => {
             
             <div className="ml-9 text-white text-sm">
               <p>
-                It's normal to repeat yourself throughout your resume, but over-repeating is something you want to avoid. It makes a resume less compelling and it creates an impression of a low vocabulary level. Try using synonyms when you repeat words frequently.
+                It&apos;s normal to repeat yourself throughout your resume, but over-repeating is something you want to avoid. It makes a resume less compelling and it creates an impression of a low vocabulary level. Try using synonyms when you repeat words frequently.
               </p>
             </div>
           </div>
@@ -599,7 +599,7 @@ const ResumeAnalyzerPage: React.FC = () => {
             <div className="flex-1">
               <div className="flex items-center mb-2">
                 <span className="bg-black text-white p-1 rounded mr-2 text-xs">🔥</span>
-                <p className="font-medium">With Enhancv's PRO report, you get:</p>
+                <p className="font-medium">With Enhancv&apos;s PRO report, you get:</p>
               </div>
               <ul className="text-sm space-y-1 mb-2">
                 <li className="flex items-start">
@@ -616,7 +616,7 @@ const ResumeAnalyzerPage: React.FC = () => {
                 </li>
                 <li className="flex items-start">
                   <span className="mr-2 text-orange-500">•</span>
-                  <span>Enhancv's resume and cover letter builder</span>
+                  <span>Enhancv&apos;s resume and cover letter builder</span>
                 </li>
                 <li className="flex items-start">
                   <span className="mr-2 text-orange-500">•</span>
@@ -646,7 +646,7 @@ const ResumeAnalyzerPage: React.FC = () => {
               <p className="font-medium text-teal-400">Is incorrect spelling unprofessional?</p>
             </div>
             <p className="text-sm pl-8">
-              With modern technology and all the spellcheckers out there, having a spelling mistake on your resume can be interpreted as an unprofessional and sometimes disrespectful thing. Make sure you use a real-time content analyzer to prevent making mistakes on your resume. Enhancv's resume builder analyses and shows your mistakes at the moment of their appearance to avoid you sending an unprofessional resume.
+              With modern technology and all the spellcheckers out there, having a spelling mistake on your resume can be interpreted as an unprofessional and sometimes disrespectful thing. Make sure you use a real-time content analyzer to prevent making mistakes on your resume. Enhancv&apos;s resume builder analyses and shows your mistakes at the moment of their appearance to avoid you sending an unprofessional resume.
             </p>
           </div>
           
@@ -684,7 +684,7 @@ const ResumeAnalyzerPage: React.FC = () => {
           </div>
           
           <p className="text-sm mb-3">
-            When you're uploading your resume in platforms like Indeed, you're likely to meet a file size limit. Ideally, your resume should be less than 2MB in size. Anything larger will most likely not be accepted on majority of platforms.
+            When you&apos;re uploading your resume in platforms like Indeed, you&apos;re likely to meet a file size limit. Ideally, your resume should be less than 2MB in size. Anything larger will most likely not be accepted on majority of platforms.
           </p>
           <p className="text-sm mb-6">
             Your file type also plays an important role in ATS screening. PDF files are preferred as the text can be easily read by the applicant tracking system. Avoid DOCX, PNG or JPG files.
@@ -733,7 +733,7 @@ const ResumeAnalyzerPage: React.FC = () => {
           <div className="mb-6">
             <div className="flex mb-2">
               <div className="bg-teal-500 text-white rounded-full h-6 w-6 flex items-center justify-center mr-2">●</div>
-              <p className="font-medium text-teal-400">What's the maximum size I can use for my resume file?</p>
+              <p className="font-medium text-teal-400">What&apos;s the maximum size I can use for my resume file?</p>
             </div>
             <p className="text-sm pl-8">
               The common file size limit for website uploads is under 2MB. If your resume is too large, we recommend using a platform like Enhancv that will compress the visual elements and produce a low-size, high-quality result.

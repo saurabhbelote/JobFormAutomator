@@ -9,6 +9,8 @@ import {
   useExperienceStore,
   useEducationStore,
   useProjectStore,
+  useLanguageStore,
+  useSkillStore
 } from "@/app/store";
 
 export default function Glallie() {
@@ -19,6 +21,8 @@ export default function Glallie() {
   const { experiences } = useExperienceStore();
   const { educations } = useEducationStore();
   const { projects } = useProjectStore();
+  const { languages } = useLanguageStore();
+  const { skills } = useSkillStore();
   return (
     <>
       <Head>
@@ -171,30 +175,17 @@ export default function Glallie() {
               </h2>
 
               <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <h3 className="font-bold">Customer Service Expertise</h3>
-                  <p className="text-sm">Advanced</p>
+              {skills.map((skill, index) => (
+                <div key={index} className="mb-4">
+                  <h4 className="font-bold">{skill.heading}</h4>
+                  {skill.items &&
+                    skill.items.split(",").map((detail, i) => (
+                      <p key={i} className="text-sm">
+                        {detail}
+                      </p>
+                    ))}
                 </div>
-                <div>
-                  <h3 className="font-bold">High-Volume Call Center</h3>
-                  <p className="text-sm">Intermediate</p>
-                </div>
-                <div>
-                  <h3 className="font-bold">Team Leader/Problem Solver</h3>
-                  <p className="text-sm">Intermediate</p>
-                </div>
-                <div>
-                  <h3 className="font-bold">Call Center Management</h3>
-                  <p className="text-sm">Novice</p>
-                </div>
-                <div>
-                  <h3 className="font-bold">Teambuilding & Training</h3>
-                  <p className="text-sm">Novice</p>
-                </div>
-                <div>
-                  <h3 className="font-bold">Continuous Improvement</h3>
-                  <p className="text-sm">Fundamental Awareness</p>
-                </div>
+              ))}
               </div>
             </div>
 
@@ -224,22 +215,12 @@ export default function Glallie() {
               </h2>
 
               <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <h3 className="font-bold">English</h3>
-                  <p className="text-sm">Very Fluent</p>
-                </div>
-                <div>
-                  <h3 className="font-bold">Tamil</h3>
-                  <p className="text-sm">Native Tongue</p>
-                </div>
-                <div>
-                  <h3 className="font-bold">Kannada</h3>
-                  <p className="text-sm">Native Tongue</p>
-                </div>
-                <div>
-                  <h3 className="font-bold">German</h3>
-                  <p className="text-sm">Learning on Duolingo</p>
-                </div>
+                {languages.map((language, index) => (
+                  <div key={index}>
+                    <h3 className="font-bold">{language.heading}</h3>
+                    <p className="text-sm">{language.option}</p>
+                  </div>
+                ))}
               </div>
             </div>
 

@@ -1,23 +1,24 @@
 "use client";
 import { useState } from "react";
-import { FaTimes, FaTag } from "react-icons/fa";
+import { FaTimes } from "react-icons/fa";
 import { GiAchievement } from "react-icons/gi";
+import { useSkillStore } from "@/app/store";
 export default function SkillsInput() {
   const [isOpen, setIsOpen] = useState(false);
-  const {skills, addSkill} = useSkillStore();
+  const { addSkill } = useSkillStore();
   const [formData, setFormData] = useState({
-    company: "",
-    position: "",
-    dateRange: "March 2023 - Present",
-    location: "",
-    website: "",
-    summary: "",
+    heading: "",
+    items: "",
   });
-
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    addSkill(formData.heading, formData.items);
+    setFormData({ heading: "", items: "" });
   };
   return (
     <section className="p-6 border-b">
@@ -67,67 +68,28 @@ export default function SkillsInput() {
               <div className="grid grid-cols-2 gap-4 mb-4">
                 <input
                   type="text"
-                  name="company"
-                  placeholder="Company"
+                  name="heading"
+                  placeholder="heading"
                   className="w-full p-2 bg-black border rounded-md"
-                  value={formData.company}
+                  value={formData.heading}
                   onChange={handleChange}
                 />
                 <input
                   type="text"
-                  name="position"
-                  placeholder="Position"
+                  name="items"
+                  placeholder="items"
                   className="w-full p-2 bg-black border rounded-md"
-                  value={formData.position}
-                  onChange={handleChange}
-                />
-                <input
-                  type="text"
-                  name="dateRange"
-                  className="w-full p-2 bg-black border rounded-md"
-                  value={formData.dateRange}
-                  readOnly
-                />
-                <input
-                  type="text"
-                  name="location"
-                  placeholder="Location"
-                  className="w-full p-2 bg-black border rounded-md"
-                  value={formData.location}
-                  onChange={handleChange}
-                />
-              </div>
-
-              {/* Website Field */}
-              <div className="mb-4 relative">
-                <input
-                  type="text"
-                  name="website"
-                  placeholder="Website"
-                  className="w-full p-2 bg-black border rounded-md"
-                  value={formData.website}
-                  onChange={handleChange}
-                />
-                <FaTag className="absolute right-3 top-3 text-gray-400" />
-              </div>
-
-              {/* Summary Editor (Basic Textarea for now) */}
-              <div className="mb-4">
-                <label className="block text-sm font-medium mb-2">
-                  Summary
-                </label>
-                <textarea
-                  name="summary"
-                  className="w-full p-3 bg-black border rounded-md min-h-[150px]"
-                  placeholder="Write your professional summary..."
-                  value={formData.summary}
+                  value={formData.items}
                   onChange={handleChange}
                 />
               </div>
 
               {/* Footer */}
               <div className="flex justify-end">
-                <button className="px-4 py-2 bg-white text-black rounded-md">
+                <button
+                  className="px-4 py-2 bg-white text-black rounded-md"
+                  onClick={handleSubmit}
+                >
                   Create
                 </button>
               </div>

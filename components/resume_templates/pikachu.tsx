@@ -13,6 +13,7 @@ import {
   useCertificateStore,
   // useAchievementStore,
   useSkillStore,
+  useLanguageStore,
   useExperienceStore,
   useEducationStore,
   useProjectStore,
@@ -28,7 +29,7 @@ export default function Resume() {
   const { educations } = useEducationStore();
   const { projects } = useProjectStore();
   const { skills } = useSkillStore();
-  // const { languages } = useLanguageStore();
+  const { languages } = useLanguageStore();
   return (
     <div className="bg-gray-100 min-h-screen p-4 flex justify-center">
       <Head>
@@ -108,10 +109,10 @@ export default function Resume() {
               {skills.map((skill, index) => (
                 <div key={index} className="mb-4">
                   <h4 className="font-bold">{skill.heading}</h4>
-                  {skill.items.length > 0 &&
-                    skill.items.map((item, itemIndex) => (
-                      <p key={itemIndex} className="text-sm">
-                        {item}
+                  {skill.items &&
+                    skill.items.split(",").map((detail, i) => (
+                      <p key={i} className="text-sm">
+                        {detail}
                       </p>
                     ))}
                 </div>
@@ -123,22 +124,12 @@ export default function Resume() {
               <h3 className="text-lg font-bold text-pink-600 border-b-2 border-pink-600 mb-4">
                 LANGUAGES
               </h3>
-              <div className="mb-4">
-                <h4 className="font-bold">English</h4>
-                <p className="text-sm">Very Fluent</p>
-              </div>
-              <div className="mb-4">
-                <h4 className="font-bold">Kannada</h4>
-                <p className="text-sm">Native Tongue</p>
-              </div>
-              <div className="mb-4">
-                <h4 className="font-bold">Tamil</h4>
-                <p className="text-sm">Native Tongue</p>
-              </div>
-              <div className="mb-4">
-                <h4 className="font-bold">German</h4>
-                <p className="text-sm">Learning on Duolingo</p>
-              </div>
+              {languages.map((language, index) => (
+                <div key={index} className="mb-4">
+                  <h4 className="font-bold">{language.heading}</h4>
+                  <span className="text-sm">{language.option}</span>
+                </div>
+              ))}
             </div>
 
             {/* Awards Section */}

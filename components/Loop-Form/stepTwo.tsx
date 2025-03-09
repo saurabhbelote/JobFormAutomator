@@ -4,7 +4,7 @@ import { FaEnvelope, FaPhone, FaFileAlt } from 'react-icons/fa';
 
 interface FormData {
   recruiterEmailTemplate?: string;
-  phoneNumber?: string;
+  phoneNumber: string;
   coverLetter?: string;
 }
 

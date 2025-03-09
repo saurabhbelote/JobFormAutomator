@@ -2,9 +2,10 @@
 
 "use client";
 import { useState } from "react";
-import StepOne from "@/components/Loop-Form/stepOne";
+// import StepOne from "@/components/Loop-Form/stepOne";
+
 import StepTwo from "@/components/Loop-Form/stepTwo";
-import StepThree from "@/components/Loop-Form/stepThree";
+// import StepThree from "@/components/Loop-Form/stepThree";
 
 export default function StepperForm() {
   const [step, setStep] = useState(1);
@@ -20,7 +21,7 @@ export default function StepperForm() {
 
   const nextStep = () => setStep((prev) => prev + 1);
   const prevStep = () => setStep((prev) => prev - 1);
-  const handleChange = (e) =>
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   return (
@@ -33,9 +34,9 @@ export default function StepperForm() {
             style={{ width: `${(step / 3) * 100}%` }}
           ></div>
         </div>
-        {step === 1 && <StepOne formData={formData} handleChange={handleChange} />}
+        {/* {step === 1 && <StepOne formData={formData} handleChange={handleChange} />} */}
         {step === 2 && <StepTwo formData={formData} handleChange={handleChange} />}
-        {step === 3 && <StepThree formData={formData} />}
+        {/* {step === 3 && <StepThree formData={formData} />} */}
         <div className="flex justify-between mt-6">
           {step > 1 && (
             <button 

@@ -1,7 +1,7 @@
 // pages/index.tsx
 "use client";
 import { useState } from 'react';
-import Image from 'next/image';
+
 
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
@@ -38,7 +38,7 @@ export default function Home() {
         {/* Main heading */}
         <h1 className="text-3xl font-bold mb-2 text-center">Get your resume score now!</h1>
         <p className="mb-8 text-center">
-          Upload your resume and you'll get a personalized email with an actionable tasklist.
+          Upload your resume and you&apos;ll get a personalized email with an actionable tasklist.
         </p>
 
         {/* Upload box */}
