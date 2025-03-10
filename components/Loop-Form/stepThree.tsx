@@ -30,8 +30,9 @@ const StepThree = ({ formData }: { formData: FormData }) => {
 
   const handleOnClick = () => {
     // Convert form data to JSON and encode for URL
-    const jsonData = encodeURIComponent(JSON.stringify(formData));
-    router.push(`/send-auto-mail?data=${jsonData}`);
+  //  const jsonData = encodeURIComponent(JSON.stringify(formData));
+  //  router.push(`/send-auto-mail?data=${jsonData}`);
+  router.push(`/send-auto-mail`);
   };
 
   return (
