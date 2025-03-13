@@ -5,6 +5,7 @@ import { useState } from "react";
 import StepOne from "@/components/Loop-Form/stepOne";
 import StepTwo from "@/components/Loop-Form/stepTwo";
 import StepThree from "@/components/Loop-Form/stepThree";
+import EmailPermission from "@/components/permission/EmailPermission";
 
 export default function StepperForm() {
   const [step, setStep] = useState(1);
@@ -23,19 +24,28 @@ export default function StepperForm() {
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
+  const handleEmailPermissionGranted = () => {
+    // Auto advance to next step when permission is granted
+    nextStep();
+  };
+
+  const TOTAL_STEPS = 4;
+  const progressPercentage = ((step / TOTAL_STEPS) * 100).toFixed(0);
+
   return (
     <div className="bg-gradient-to-b from-[#11011E] via-[#35013e] to-[#11011E] min-h-screen flex items-center justify-center px-4 py-10">
       <div className="max-w-xl w-full p-6 sm:p-10  shadow-2xl border border-[#ffffff17] rounded-2xl ">
-        <h2 className="text-center text-2xl sm:text-3xl font-semibold text-white mb-6">Step {step} of 3</h2>
-        <div className="w-full  rounded-full h-2 mb-6">
+        <h2 className="text-center text-2xl sm:text-3xl font-semibold text-white mb-6">Step {step} of {TOTAL_STEPS}</h2>
+        <div className="w-full bg-gray-700 rounded-full h-2 mb-6">
           <div
             className="bg-blue-500 h-2 rounded-full transition-all duration-300"
-            style={{ width: `${(step / 3) * 100}%` }}
+            style={{ width: `${progressPercentage}%` }}
           ></div>
         </div>
-        {step === 1 && <StepOne formData={formData} handleChange={handleChange} />}
-        {step === 2 && <StepTwo formData={formData} handleChange={handleChange} />}
-        {step === 3 && <StepThree formData={formData} />}
+        {step === 1 && <EmailPermission onPermissionGranted={handleEmailPermissionGranted} />}  
+        {step === 2 && <StepOne formData={formData} handleChange={handleChange} />}
+        {step === 3 && <StepTwo formData={formData} handleChange={handleChange} />}
+        {step === 4 && <StepThree formData={formData} />}
         <div className="flex justify-between mt-6">
           {step > 1 && (
             <button 
@@ -44,7 +54,7 @@ export default function StepperForm() {
               Back
             </button>
           )}
-          {step < 3 && (
+          {step < TOTAL_STEPS && (
             <button 
               onClick={nextStep} 
               className="px-5 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-700 transition-all">
