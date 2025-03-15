@@ -1,4 +1,3 @@
-
 "use client";
 import Link from 'next/link'
 import React, { useEffect, useRef, useState } from "react";
@@ -38,133 +37,95 @@ const Footer = () => {
 
   return (
     <footer
-      ref={footerRef} // Assign the ref to the footer
-      className={`text-gray-400 py-10 transition-all duration-700 ease-in-out bg-[#11011E] ${
-        isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-      }`}
+      ref={footerRef}
+      className={`text-gray-300 py-12 sm:py-16 transition-all duration-700 ease-in-out 
+      bg-gradient-to-b from-[#11011E] to-[#1A0435] border-t border-gray-800/30 
+      ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
     >
-      <div className="container mx-auto px-10 md:px-0 lg:px-0 ">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Logo and Social Links */}
-          <div className="flex flex-col items-start space-y-8">
-            <Image src="/images/Logo.png" alt="Logo" width={32} height={32} />
-            <div className="flex space-x-4 mt-4">
-              <a
-                href="#"
-                aria-label="Follow us on Instagram"
-                className="hover:text-white"
-              >
-                <FaInstagram />
-              </a>
-              <a
-                href="#"
-                aria-label="Follow us on Facebook"
-                className="hover:text-white"
-              >
-                <FaFacebook />
-              </a>
-              <a
-                href="#"
-                aria-label="Follow us on Twitter"
-                className="hover:text-white"
-              >
-                <FaTwitter />
-              </a>
-              <a
-                href="#"
-                aria-label="Follow us on YouTube"
-                className="hover:text-white"
-              >
-                <FaYoutube />
-              </a>
+          <div className="col-span-2 sm:col-span-2 lg:col-span-1 flex flex-col items-start space-y-6">
+            <Image 
+              src="/images/Logo.png" 
+              alt="Logo" 
+              width={45} 
+              height={45} 
+              className="hover:opacity-80 transition-opacity filter drop-shadow-lg" 
+            />
+            <div className="flex flex-wrap gap-5">
+              {['instagram', 'facebook', 'twitter', 'youtube'].map((social) => (
+                <a
+                  key={social}
+                  href="#"
+                  aria-label={`Follow us on ${social}`}
+                  className="text-gray-400 hover:text-white transform hover:scale-110 
+                  transition-all duration-300 ease-out hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]"
+                >
+                  {social === 'instagram' && <FaInstagram size={22} />}
+                  {social === 'facebook' && <FaFacebook size={22} />}
+                  {social === 'twitter' && <FaTwitter size={22} />}
+                  {social === 'youtube' && <FaYoutube size={22} />}
+                </a>
+              ))}
             </div>
-            <p className="mt-4 text-sm">© 2021 CoinMarketCap. All rights reserved.</p>
+            <p className="mt-4 text-sm text-gray-400 font-light">
+              © 2024 JobFormAutomator. <span className="hidden sm:inline">All rights reserved.</span>
+            </p>
           </div>
 
-          {/* About Us Section */}
-          <div>
-            <h3 className="text-lg font-semibold text-white mb-4">About Us</h3>
-            <ul className="space-y-2">
-              <li>
-                <a href="/careers" className="hover:text-white">
-                  Careers
-                </a>
-              </li>
-              <li>
-                <a href="/blog" className="hover:text-white">
-                  Blog
-                </a>
-              </li>
-              <li>
-                <a href="/policy" className="hover:text-white">
-                  Policy
-                </a>
-              </li>
-              <li>
-                <a href="/privacy" className="hover:text-white">
-                  Legal & Privacy
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Services Section */}
-          <div>
-            <h3 className="text-lg font-semibold text-white mb-4">Services</h3>
-            <ul className="space-y-2">
-              <li>
-                <a href="#" className="hover:text-white">
-                  Applications
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white">
-                  Buy Crypto
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white">
-                  Affiliate
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white">
-                  Institutional Services
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Learn Section */}
-          <div>
-            <h3 className="text-lg font-semibold text-white mb-4">Learn</h3>
-            <ul className="space-y-2">
-              <li>
-                <a href="#" className="hover:text-white">
-                  What is Cryptocurrency?
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white">
-                  Crypto Basics
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white">
-                  Tips and Tutorials
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-white">
-                  Market Update
-                </a>
-              </li>
-            </ul>
-          </div>
+          {/* Navigation Sections */}
+          {['Quick Links', 'Features', 'Help'].map((section, index) => (
+            <div key={section} className="flex flex-col space-y-4">
+              <h3 className="text-lg font-bold text-white relative inline-flex items-center group">
+                {section}
+                <span className="absolute -bottom-2 left-0 w-12 h-0.5 bg-purple-500/80 
+                group-hover:w-full transition-all duration-300"></span>
+              </h3>
+              <ul className="space-y-3 mt-2">
+                {section === 'Quick Links' && [
+                  { name: 'Home', path: '/' },
+                  { name: 'Pricing', path: '/pricing' },
+                  { name: 'My Profile', path: '/auth' }
+                ].map((item) => (
+                  <FooterLink key={item.name} href={item.path} text={item.name} />
+                ))}
+                {section === 'Features' && [
+                  { name: 'My Forms', path: '/loop-form' },
+                  { name: 'Templates', path: '/atsresume' },
+                  { name: 'Applications', path: '/atsresume' }
+                ].map((item) => (
+                  <FooterLink key={item.name} href={item.path} text={item.name} />
+                ))}
+                {section === 'Help' && [
+                  { name: 'Help Center', path: '/about' },
+                  { name: 'Settings', path: '/settings' }
+                ].map((item) => (
+                  <FooterLink key={item.name} href={item.path} text={item.name} />
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
       </div>
     </footer>
   );
 };
+
+// Add a new FooterLink component for consistent link styling
+const FooterLink = ({ href, text }) => (
+  <li>
+    <Link 
+      href={href}
+      className="text-gray-400 hover:text-white transition-all duration-200 flex items-center group
+      hover:translate-x-1 relative overflow-hidden"
+    >
+      <span className="absolute left-0 w-full h-[1px] bg-purple-500/30 -translate-x-full 
+      group-hover:translate-x-0 transition-transform duration-300"></span>
+      <span className="opacity-0 group-hover:opacity-100 mr-2 transition-opacity">›</span>
+      {text}
+    </Link>
+  </li>
+);
 
 export default Footer;

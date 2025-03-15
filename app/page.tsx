@@ -5,6 +5,9 @@ import FeaturesSection from '@/components/home/FeaturesSection';
 import HeroSection from '@/components/home/HeroSection';
 import HowItWorks from '@/components/home/HowItWorks';
 import ResumeATSChecker from '@/components/home/ResumeATSChecker';
+import PricingSection from '@/components/pricing/PricingSection';
+import TestimonialSection from "../components/TestimonialSection";
+import JobSeeker from "../components/JobSeeker";
 // import { useAuthState } from 'react-firebase-hooks/auth';
 // import { auth } from '@/firebase/config';
 import { useRouter } from "next/navigation";
@@ -33,12 +36,16 @@ export default function Mainpage() {
  // console.log(user); 
   return (
     <div className='bg-[#11011E]'>
-      <HeroSection />
-      <FeaturesSection />
+     <HeroSection />
       <CompaniesSection />
       <HowItWorks />
+      <FeaturesSection />
+      <PricingSection />
+      <TestimonialSection />
       <ResumeATSChecker />
       <FAQSection />
+      <JobSeeker />
+      
       {/* <SignupPage/> */}
     </div>
   );

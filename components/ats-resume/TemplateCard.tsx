@@ -1,13 +1,7 @@
-import Image from 'next/image';
-interface TemplateCardProps {
-  name: string;
-  imgSrc: string;
-}
-
-const TemplateCard = ({ name, imgSrc }: TemplateCardProps) => {
+const TemplateCard = ({ name, imgSrc }) => {
   return (
     <div className="flex flex-col items-center rounded-lg">
-      <Image
+      <img
         src={imgSrc}
         alt={`${name} Template`}
         className="w-full sm:w-80 sm:h-96 h-56 object-cover rounded"  // Image is responsive

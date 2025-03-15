@@ -1,7 +1,7 @@
+/** @format */
 
-"use client"
-// import { useState, useEffect, useRef } from "react";
-import TemplateCard from "./TemplateCard";
+import { useState, useEffect, useRef } from "react";
+import TemplateCard from "../ats-resume/TemplateCard";
 
 const templates = [
   { name: "Efficient", imgSrc: "/images/resumeCard.png" },
@@ -16,27 +16,27 @@ const templates = [
 ];
 
 export default function Template() {
-  // const [activeIndex, setActiveIndex] = useState(0);
-  // const scrollContainerRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const scrollContainerRef = useRef(null);
 
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     const container = scrollContainerRef.current;
-  //     const scrollLeft = container.scrollLeft;
-  //     const totalScroll = container.scrollWidth - container.clientWidth;
-  //     const progressIndex = Math.round(
-  //       (scrollLeft / totalScroll) * (templates.length - 1)
-  //     );
-  //     setActiveIndex(progressIndex);
-  //   };
+  useEffect(() => {
+    const handleScroll = () => {
+      const container = scrollContainerRef.current;
+      const scrollLeft = container.scrollLeft;
+      const totalScroll = container.scrollWidth - container.clientWidth;
+      const progressIndex = Math.round(
+        (scrollLeft / totalScroll) * (templates.length - 1)
+      );
+      setActiveIndex(progressIndex);
+    };
 
-  //   const container = scrollContainerRef.current;
-  //   container.addEventListener("scroll", handleScroll);
+    const container = scrollContainerRef.current;
+    container.addEventListener("scroll", handleScroll);
 
-  //   return () => {
-  //     container.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, []);
+    return () => {
+      container.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <div className="text-white py-10 px-5 min-h-screen">
@@ -53,7 +53,7 @@ export default function Template() {
 
       {/* Scrollable container */}
       <div
-        // ref={scrollContainerRef}
+        ref={scrollContainerRef}
         className="mt-10 flex space-x-6 overflow-x-auto hide-scrollbar px-4 ml-6 lg:ml-16"
         style={{ scrollSnapType: "x mandatory" }}>
         {templates.map((template, index) => (
@@ -70,7 +70,7 @@ export default function Template() {
       </div>
 
       {/* Progress Indicator */}
-      {/* <div className="flex justify-center mt-6 space-x-2">
+      <div className="flex justify-center mt-6 space-x-2">
         {templates.map((_, index) => (
           <div
             key={index}
@@ -79,7 +79,7 @@ export default function Template() {
             }`}
           />
         ))}
-      </div> */}
+      </div>
     </div>
   );
 }
