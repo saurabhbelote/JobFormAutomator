@@ -15,6 +15,7 @@ type PersonalData = {
   twitter: string;
   linkedin: string;
   github: string;
+  location: string;
 };
 
 type PersonalDataStore = {
@@ -37,6 +38,7 @@ export const usePersonalDataStore = create<PersonalDataStore>((set) => ({
     twitter: "",
     linkedin: "",
     github: "",
+    location: "",
   },
   updatePersonalData: (name, value) => {
     set((state) => ({
