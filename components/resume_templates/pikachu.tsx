@@ -20,7 +20,7 @@ import {
 } from "@/app/store";
 import { useState } from "react";
 import Image from "next/image";
-export default function Resume() {
+export default function Pikachu() {
   const [imageError] = useState(false);
   const { personalData } = usePersonalDataStore();
   const { certificates } = useCertificateStore();

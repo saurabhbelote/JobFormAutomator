@@ -5,7 +5,7 @@ import Image from "next/image";
 import {
   usePersonalDataStore,
   useCertificateStore,
-  // useAchievementStore,
+  useAchievementStore,
   useExperienceStore,
   useEducationStore,
   useProjectStore,
@@ -13,11 +13,12 @@ import {
   useSkillStore
 } from "@/app/store";
 
+const inter = Inter({ subsets: ["latin"] });
+
 export default function Glallie() {
-  const inter = Inter({ subsets: ["latin"] });
   const { personalData } = usePersonalDataStore();
   const { certificates } = useCertificateStore();
-  // const { achievements } = useAchievementStore();
+  const { achievements } = useAchievementStore();
   const { experiences } = useExperienceStore();
   const { educations } = useEducationStore();
   const { projects } = useProjectStore();
@@ -31,7 +32,7 @@ export default function Glallie() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main
-        className={`max-w-5xl mx-auto p-4 ${inter.className} text-black bg-[#f8f5ff]`}
+        className={`max-w-5xl mx-auto p-8 ${inter.className} text-black bg-[#f8f5ff]`}
       >
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {/* Left sidebar */}

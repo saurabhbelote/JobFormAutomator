@@ -110,3 +110,41 @@ body {
 .animation-delay-4000 {
   animation-delay: 4s;
 }
+
+/* my css  */
+
+@media print {
+  * {
+    box-sizing: border-box !important;
+  }
+  
+  body {
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  .resume-container {
+    width: 100% !important;
+    max-width: 800px !important;
+    margin: auto !important;
+    padding: 20px !important;
+    display: block !important;
+  }
+
+  .resume-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+  }
+
+  .work-experience {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+

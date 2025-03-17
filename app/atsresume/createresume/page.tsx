@@ -2,11 +2,17 @@
 import React, { useRef, useEffect } from "react";
 import LeftSidebar from "@/components/left/LeftSidebar";
 import Celibi from "@/components/resume_templates/Celibi";
+//import Glallie from "@/components/resume_templates/glalie"
+//import Leafish from "@/components/resume_templates/leafish"
+import Bonzor from "@/components/resume_templates/bonzor"
+//import Pikachu from "@/components/resume_templates/pikachu"
 import Rightsidebar from '@/components/right/Rightsidebar';
 import { useReactToPrint } from "react-to-print";
 import { ref, getDatabase, get } from "firebase/database";
 import { getAuth } from "firebase/auth";
 import app from "@/firebase/config";
+
+
 const CreateResume: React.FC = () => {
   const contentRef = useRef<HTMLDivElement>(null);
   const reactToPrintFn = useReactToPrint({ contentRef });
@@ -38,9 +44,11 @@ const CreateResume: React.FC = () => {
       </div>
       <div
         ref={contentRef}
-        className="w-[714px] h-screen p-4 overflow-y-auto scrollbar-hidden"
+        className="w-[800px] h-screen p-4 overflow-y-auto scrollbar-hidden"
       >
-        <Celibi />
+      <div ref={contentRef} className="resume-container w-full max-w-[800px] mx-auto p-4">
+        <Bonzor />
+      </div>
       </div>
       <div className="w-3/12 h-screen overflow-y-auto scrollbar-hidden">
         <Rightsidebar />
