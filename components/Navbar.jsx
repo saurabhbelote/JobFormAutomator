@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 
+=======
+/** @format */
+>>>>>>> 997d0552bf75fc1556cef6c0a4338a8a3f61de73
 "use client";
 import { useState } from "react";
 import Image from "next/image";
@@ -13,6 +17,15 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
   };
+<<<<<<< HEAD
+=======
+
+  const checkCurrentUser = () => {
+    const currentUser = auth.currentUser;
+    console.log("Current User:", currentUser);
+  };
+
+>>>>>>> 997d0552bf75fc1556cef6c0a4338a8a3f61de73
   return (
     <nav className="bg-[#11011E] text-white py-4 px-6 sm:px-12 flex items-center justify-between z-50 fixed w-full shadow-md">
       {/* Logo */}
@@ -91,6 +104,12 @@ const Navbar = () => {
 
       {/* Auth Buttons */}
       <div className="hidden sm:flex items-center space-x-4">
+<<<<<<< HEAD
+=======
+        <button className="text-sm sm:text-base hover:text-primary transform transition duration-200 hover:scale-105" onClick={checkCurrentUser}>
+          User
+        </button>
+>>>>>>> 997d0552bf75fc1556cef6c0a4338a8a3f61de73
         <Link href="/sign-in">
           <button className="text-sm sm:text-base hover:text-primary transform transition duration-200 hover:scale-105">
             Login

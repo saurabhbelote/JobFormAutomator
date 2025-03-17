@@ -236,7 +236,10 @@ const RightSidebar: React.FC = () => {
             />
           </div>
         </div>
+<<<<<<< HEAD
         
+=======
+>>>>>>> 997d0552bf75fc1556cef6c0a4338a8a3f61de73
       </div>
     </div>
   );

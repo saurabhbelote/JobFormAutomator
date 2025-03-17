@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { create } from "zustand";
 import React from "react";
 //change the personal data
@@ -48,10 +49,61 @@ export const usePersonalDataStore = create<PersonalDataStore>((set) => ({
       },
     }));
   },
+=======
+import {create} from 'zustand';
+import React from 'react';
+//change the personal data
+type PersonalData = {
+    name: string;
+    headline:string;
+    summary: string;
+    profile: string;
+    address: string;
+    phone: string;
+    email: string;
+    skill: string;
+    hobbie: string;
+    language: string;
+    twitter:string;
+    linkedin: string;
+    github: string;
+};
+
+type PersonalDataStore = {
+    personalData: PersonalData;
+    updatePersonalData: (name: string, value: string) => void;
+};
+
+export const usePersonalDataStore = create<PersonalDataStore>((set) => ({
+    personalData: {
+        name: "",
+        headline:"",
+        summary: "",
+        profile: "",
+        address: "",
+        phone: "",
+        email: "",
+        skill: "",
+        hobbie: "",
+        language: "",
+        twitter:"",
+        linkedin: "",
+        github: "",
+    },
+    updatePersonalData: (name, value) => {
+        set((state) => ({
+            personalData: {
+                ...state.personalData,
+                [name]: value,
+            },
+        }));
+    },
+>>>>>>> 997d0552bf75fc1556cef6c0a4338a8a3f61de73
 }));
 
 //change the project data
 type Project = {
+<<<<<<< HEAD
   id: string;
   name: string;
   description: string;
@@ -177,10 +229,104 @@ export const useEducationStore = create<EducationStore>((set) => ({
       educations: state.educations.filter((education) => education.id !== id),
     }));
   },
+=======
+    id: string; 
+    name: string;
+    details: string;
+};
+
+type ProjectStore = {
+    projects: Project[];
+    addProject: (name: string, details: string) => void;
+    updateProject: (id: string, name: string, details: string) => void;
+    deleteProject: (id: string) => void;
+};
+
+export const useProjectStore = create<ProjectStore>((set) => ({
+    projects: [],
+    addProject: (name, details) => {
+        const newProject: Project = {
+            id: Date.now().toString(), // Use a timestamp as a unique ID
+            name,
+            details,
+        };
+        set((state) => ({
+            projects: [...state.projects, newProject],
+        }));
+    },
+    updateProject: (id, name, details) => {
+        set((state) => ({
+            projects: state.projects.map((project) =>
+                project.id === id ? { ...project, name, details } : project
+            ),
+        }));
+    },
+    deleteProject: (id) => {
+        set((state) => ({
+            projects: state.projects.filter((project) => project.id !== id),
+        }));
+    },
+}));
+
+
+//change the education data
+type Education = {
+    id: string; 
+    name: string; 
+    details: string; 
+    startDate: string; 
+    endDate: string; 
+    cgpa: string;
+};
+
+type EducationStore = {
+    educations: Education[]; 
+    addEducation: (name: string, details: string, startDate: string, endDate: string, cgpa: string) => void; // Add education
+    updateEducation: (id: string, name: string, details: string, startDate: string, endDate: string, cgpa: string) => void; // Update education
+    deleteEducation: (id: string) => void; 
+};
+
+export const useEducationStore = create<EducationStore>((set) => ({
+    educations: [],
+
+    // Add a new education entry
+    addEducation: (name, details, startDate, endDate, cgpa) => {
+        const newEducation: Education = {
+            id: Date.now().toString(), // Generate unique ID using timestamp
+            name,
+            details,
+            startDate,
+            endDate,
+            cgpa,
+        };
+        set((state) => ({
+            educations: [...state.educations, newEducation],
+        }));
+    },
+
+    // Update an existing education entry
+    updateEducation: (id, name, details, startDate, endDate, cgpa) => {
+        set((state) => ({
+            educations: state.educations.map((education) =>
+                education.id === id
+                    ? { ...education, name, details, startDate, endDate, cgpa }
+                    : education
+            ),
+        }));
+    },
+
+    // Delete an education entry
+    deleteEducation: (id) => {
+        set((state) => ({
+            educations: state.educations.filter((education) => education.id !== id),
+        }));
+    },
+>>>>>>> 997d0552bf75fc1556cef6c0a4338a8a3f61de73
 }));
 
 //change the certificate data
 type Certificate = {
+<<<<<<< HEAD
   id: string;
   title: string;
   awarder: string;
@@ -242,10 +388,59 @@ export const useCertificateStore = create<CertificateStore>((set) => ({
       ),
     }));
   },
+=======
+    id: string; 
+    name: string; 
+    details: string; 
+    link: string
+};
+
+type CertificateStore = {
+    certificates: Certificate[]; 
+    addCertificate: (name: string, details: string, link: string) => void; // Add certificate
+    updateCertificate: (id: string, name: string, details: string, link: string) => void; // Update education
+    deleteCertificate: (id: string) => void; 
+};
+
+export const useCertificateStore = create<CertificateStore>((set) => ({
+    certificates: [],
+
+    // Add a new certificate entry
+    addCertificate: (name, details, link) => {
+        const newCertificate: Certificate = {
+            id: Date.now().toString(), // Generate unique ID using timestamp
+            name,
+            details,
+            link,
+        };
+        set((state) => ({
+            certificates: [...state.certificates, newCertificate],
+        }));
+    },
+
+    // Update an existing certificate entry
+    updateCertificate: (id, name, details, link) => {
+        set((state) => ({
+            certificates: state.certificates.map((certificate) =>
+                certificate.id === id
+                    ? { ...certificate, name, details, link}
+                    : certificate
+            ),
+        }));
+    },
+
+    // Delete an certificate entry
+    deleteCertificate: (id) => {
+        set((state) => ({
+            certificates: state.certificates.filter((certificate) => certificate.id !== id),
+        }));
+    },
+>>>>>>> 997d0552bf75fc1556cef6c0a4338a8a3f61de73
 }));
 
 //change the work experience
 type Experience = {
+<<<<<<< HEAD
   id: string;
   company: string;
   position: string;
@@ -458,10 +653,107 @@ type fontSize = {
 export const usefontSize = create<fontSize>((set) => ({
   sizeValue: [33], // Default value
   setsizeValue: (newValue) => set(() => ({ sizeValue: newValue })),
+=======
+    id:string;
+    name:string;
+    details:string;
+    startDate:string;
+    endDate:string;
+}
+type ExperienceStore = {
+    experiences: Experience[];
+    addExperience: (name:string, details:string, startDate: string, endDate:string) => void;
+    updateExperience: (id:string, name: string, details:string, startDate:string, endDate:string) => void;
+    deleteExperience:(id:string) =>void;
+}
+export const useExperienceStore = create<ExperienceStore>((set) =>({
+    experiences:[], 
+
+    addExperience: (name, details, startDate, endDate) => {
+        const newExperience: Experience = {
+            id: Date.now().toString(), // Generate unique ID
+            name,
+            details,
+            startDate,
+            endDate,
+        };
+        set((state) => ({
+            experiences: [...state.experiences, newExperience],
+        }));
+    },
+    updateExperience: (id, name, details, startDate, endDate) => {
+        set((state) => ({
+            experiences: state.experiences.map((experience) =>
+                experience.id === id
+                    ? { ...experience, name, details, startDate, endDate }
+                    : experience
+            ),
+        }));
+    },
+    deleteExperience: (id) => {
+        set((state) => ({
+            experiences: state.experiences.filter((experience) => experience.id !== id),
+        }));
+    },
+
+}))
+
+//change the achievements
+type Achievement = {
+    id:string;
+    name:string;
+    details:string;
+}
+type AchievementStore = {
+    achievements: Achievement[];
+    addAchievement:(name:string, details:string) => void;
+    updateAchievement:(id:string, name:string, details:string) => void;
+    deleteAchievement: (id:string) => void;
+}
+export const useAchievementStore = create<AchievementStore>((set) =>({
+    achievements:[], 
+
+    addAchievement: (name, details) => {
+        const newAchievement: Achievement = {
+            id: Date.now().toString(), // Generate unique ID
+            name,
+            details,
+        };
+        set((state) => ({
+            achievements: [...state.achievements, newAchievement],
+        }));
+    },
+    updateAchievement: (id, name, details) => {
+        set((state) => ({
+            achievements: state.achievements.map((achievement) =>
+                achievement.id === id
+                    ? { ...achievement, name, details}
+                    : achievement
+            ),
+        }));
+    },
+    deleteAchievement: (id) => {
+        set((state) => ({
+            achievements: state.achievements.filter((achievement) => achievement.id !== id),
+        }));
+    },
+
+}))
+
+//font size
+type fontSize = {
+    sizeValue: number[];
+    setsizeValue: (newValue: number[]) => void;
+};
+export const usefontSize = create<fontSize>((set) => ({
+    sizeValue: [33], // Default value
+    setsizeValue: (newValue) => set(() => ({ sizeValue: newValue })),
+>>>>>>> 997d0552bf75fc1556cef6c0a4338a8a3f61de73
 }));
 
 //font weight
 type fontWeight = {
+<<<<<<< HEAD
   weightValue: number[];
   setweightValue: (newValue: number[]) => void;
 };
@@ -478,22 +770,51 @@ type Margin = {
 export const useMargin = create<Margin>((set) => ({
   marginValue: [33], // Default value
   setmarginValue: (newValue) => set(() => ({ marginValue: newValue })),
+=======
+    weightValue: number[];
+    setweightValue: (newValue: number[]) => void;
+};
+export const usefontWeight = create<fontWeight>((set) => ({
+    weightValue: [33], // Default value
+    setweightValue: (newValue) => set(() => ({ weightValue: newValue })),
+}));
+
+
+//margin
+type Margin = {
+    marginValue: number[];
+    setmarginValue: (newValue: number[]) => void;
+};
+export const useMargin = create<Margin>((set) => ({
+    marginValue: [33], // Default value
+    setmarginValue: (newValue) => set(() => ({ marginValue: newValue })),
+>>>>>>> 997d0552bf75fc1556cef6c0a4338a8a3f61de73
 }));
 
 //font family
 type fontFamily = {
+<<<<<<< HEAD
   position: string;
   setPosition: (newPosition: string) => void;
 };
 export const usefontFamily = create<fontFamily>((set) => ({
   position: "top",
   setPosition: (newPosition) => set({ position: newPosition }),
+=======
+    position: string;
+    setPosition: (newPosition: string) => void;
+};
+export const usefontFamily = create<fontFamily>((set) => ({
+    position: 'top', 
+    setPosition: (newPosition) => set({ position: newPosition }),
+>>>>>>> 997d0552bf75fc1556cef6c0a4338a8a3f61de73
 }));
 
 //template
 // Define the type for the templates
 
 type Template = {
+<<<<<<< HEAD
   id: string;
   name: string;
   component: React.ReactNode;
@@ -510,4 +831,22 @@ export const useTemplateStore = create<TemplateStore>((set) => ({
   activeTemplateId: null, // No active template initially
 
   setActiveTemplate: (id) => set({ activeTemplateId: id }),
+=======
+    id: string;
+    name: string;
+    component: React.ReactNode;
+};
+
+type TemplateStore = {
+    templates: Template[];
+    activeTemplateId: string | null;
+    setActiveTemplate: (id: string) => void;
+};
+
+export const useTemplateStore = create<TemplateStore>((set) => ({
+    templates: [], // Initialize with no templates; add manually or dynamically
+    activeTemplateId: null, // No active template initially
+
+    setActiveTemplate: (id) => set({ activeTemplateId: id }),
+>>>>>>> 997d0552bf75fc1556cef6c0a4338a8a3f61de73
 }));

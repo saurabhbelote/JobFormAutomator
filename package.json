@@ -11,26 +11,38 @@
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
     "@lottiefiles/dotlottie-react": "^0.12.3",
+<<<<<<< HEAD
     "axios": "^1.8.2",
+=======
+>>>>>>> 997d0552bf75fc1556cef6c0a4338a8a3f61de73
     "firebase": "^11.3.0",
     "framer-motion": "^12.0.6",
     "lucide-react": "^0.475.0",
     "next": "15.1.6",
+<<<<<<< HEAD
     "pdf-parse": "^1.1.1",
+=======
+>>>>>>> 997d0552bf75fc1556cef6c0a4338a8a3f61de73
     "pdfjs": "^2.5.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-firebase-hooks": "^5.1.1",
     "react-icons": "^5.4.0",
     "react-pdf": "^9.2.1",
+<<<<<<< HEAD
     "react-to-print": "^3.0.5",
+=======
+>>>>>>> 997d0552bf75fc1556cef6c0a4338a8a3f61de73
     "react-toastify": "^11.0.3",
     "zustand": "^5.0.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@types/node": "^20",
+<<<<<<< HEAD
     "@types/pdf-parse": "^1.1.4",
+=======
+>>>>>>> 997d0552bf75fc1556cef6c0a4338a8a3f61de73
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
