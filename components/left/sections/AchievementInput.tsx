@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use client";
 import { useAchievementStore } from "@/app/store";
 import { useState } from "react";
@@ -111,3 +112,33 @@ export default function AchievementInput() {
     </section>
   );
 }
+=======
+
+
+export default function AchievementInput() {
+    return (
+        <div id="eduForm-awards" className="mb-2">
+        
+        <div className="my-2 flex flex-col">
+          <input
+            type="text"
+            placeholder="Name of the achievement"
+            className="rounded-md w-72 h-8 mb-2"
+          />
+          <input
+            type="text"
+            placeholder="Awarding Organisation"
+            className="rounded-md w-72 h-8 mb-2"
+          />
+          <span className="text-white">Date</span>
+          <input
+            type="date"
+            name="startDate"
+            placeholder="Date"
+            className="rounded-md w-72 h-8 mb-2"
+          />
+        </div>
+      </div>
+    );
+}
+>>>>>>> 997d0552bf75fc1556cef6c0a4338a8a3f61de73

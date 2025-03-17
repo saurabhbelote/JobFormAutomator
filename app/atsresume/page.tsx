@@ -1,4 +1,5 @@
 "use client";
+<<<<<<< HEAD
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Header from "@/components/createResume/Header";
@@ -13,6 +14,17 @@ export default function AtsResume() {
       {showModal && <ImportResumeModal onClose={() => setShowModal(false)} />}
       <Header />
       <div className="flex p-6 h-[100vh] gap-10 bg-gradient-to-b pt-5 from-[#11011E] via-[#35013e] to-[#11011E] bg-[#11011E] text-white">
+=======
+import React from "react";
+import { useRouter } from "next/navigation";
+import Header from "@/components/createResume/Header";
+export default function AtsResume() {
+  const router = useRouter();
+  return (
+    <div>
+      <Header />
+      <div className=" flex p-6 h-[100vh] gap-10 bg-gradient-to-b pt-5 from-[#11011E] via-[#35013e] to-[#11011E] bg-[#11011E] text-white">
+>>>>>>> 997d0552bf75fc1556cef6c0a4338a8a3f61de73
         {/* Create new resume card */}
         <div
           onClick={() => router.push("atsresume/createresume")}
@@ -41,10 +53,14 @@ export default function AtsResume() {
         </div>
 
         {/* Import existing resume card */}
+<<<<<<< HEAD
         <div
           className="bg-[#ffffff0f] border-[#ffffff17] border-[1.5px] w-[25%] h-[60%] rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow duration-200 cursor-pointer"
           onClick={() => setShowModal(true)}
         >
+=======
+        <div className="bg-[#ffffff0f] border-[#ffffff17] border-[1.5px] w-[25%] h-[60%] rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow duration-200 cursor-pointer">
+>>>>>>> 997d0552bf75fc1556cef6c0a4338a8a3f61de73
           <div className="aspect-w-8 aspect-h-11 bg-[#11011E] mb-4 py-20 px-10 rounded-lg">
             <label className="w-full h-full flex flex-col items-center justify-center cursor-pointer">
               <input
@@ -53,6 +69,10 @@ export default function AtsResume() {
                 className="hidden"
                 onChange={(e) => {
                   if (e.target.files?.[0]) {
+<<<<<<< HEAD
+=======
+                    // Handle file import logic here
+>>>>>>> 997d0552bf75fc1556cef6c0a4338a8a3f61de73
                     console.log("Imported file:", e.target.files[0]);
                   }
                 }}

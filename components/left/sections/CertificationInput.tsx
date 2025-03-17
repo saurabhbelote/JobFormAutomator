@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use client";
 import { useCertificateStore } from "@/app/store";
 import { useState } from "react";
@@ -128,3 +129,33 @@ export default function CertificationInput() {
     </section>
   );
 }
+=======
+
+
+export default function CertificationInput(){
+    return (
+        <div id="eduForm-certificates" className="mb-2">
+          
+          <div className="my-2 flex flex-col">
+            <input
+              type="text"
+              placeholder="Name of the Certificate"
+              className="rounded-md w-72 h-8 mb-2"
+            />
+            <input
+              type="text"
+              placeholder="Awarding Organisation"
+              className="rounded-md w-72 h-8 mb-2"
+            />
+            <span className="text-white"> Date</span>
+            <input
+              type="date"
+              name="startDate"
+              placeholder="Date"
+              className="rounded-md w-72 h-8 mb-2"
+            />
+          </div>
+        </div>
+    );
+}
+>>>>>>> 997d0552bf75fc1556cef6c0a4338a8a3f61de73

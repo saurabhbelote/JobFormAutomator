@@ -1,4 +1,8 @@
 "use client";
+<<<<<<< HEAD
+=======
+
+>>>>>>> 997d0552bf75fc1556cef6c0a4338a8a3f61de73
 import React, { useState, useEffect, useRef } from "react";
 import { ref, getDatabase, update } from "firebase/database";
 import { getAuth, onAuthStateChanged, User } from "firebase/auth";
@@ -12,7 +16,11 @@ import {
 import { storage } from "@/firebase/config";
 import app from "@/firebase/config";
 
+<<<<<<< HEAD
 pdfjs.GlobalWorkerOptions.workerSrc = `/pdfjs/pdf.worker.min.js`;
+=======
+pdfjs.GlobalWorkerOptions.workerSrc = `${process.env.NEXT_PUBLIC_PUBLIC_URL}/pdfjs/pdf.worker.min.js`;
+>>>>>>> 997d0552bf75fc1556cef6c0a4338a8a3f61de73
 
 const Resume: React.FC = () => {
   const [pdf, setPdf] = useState<File | null>(null);
@@ -40,7 +48,10 @@ const Resume: React.FC = () => {
         setUser(null);
         console.log("No user signed in");
         toast.error("You need to be signed in to upload your resume.");
+<<<<<<< HEAD
         window.location.href = "/sign-in"
+=======
+>>>>>>> 997d0552bf75fc1556cef6c0a4338a8a3f61de73
       }
     });
 
@@ -112,6 +123,7 @@ const Resume: React.FC = () => {
     e.preventDefault();
 
     console.log("User before submitting:", user); // Debugging user data before submission
+<<<<<<< HEAD
     function notifyExtensionOnResumeSubmit(urdData: string) {
       const event = new CustomEvent('resumeSubmitted', {
         detail: {
@@ -122,6 +134,8 @@ const Resume: React.FC = () => {
       document.dispatchEvent(event);
     }
 
+=======
+>>>>>>> 997d0552bf75fc1556cef6c0a4338a8a3f61de73
 
     if (!pdfName) {
       toast.error("Please Provide Your Resume Before Submitting!");
@@ -153,7 +167,10 @@ const Resume: React.FC = () => {
       });
 
       toast.success("Document uploaded successfully!");
+<<<<<<< HEAD
       notifyExtensionOnResumeSubmit(urdData)
+=======
+>>>>>>> 997d0552bf75fc1556cef6c0a4338a8a3f61de73
       localStorage.setItem("SubscriptionType", "FreeTrialStarted");
 
       const getSubscription = ref(db, `user/${uid}/Payment`);
@@ -255,4 +272,8 @@ const Resume: React.FC = () => {
   );
 };
 
+<<<<<<< HEAD
 export default Resume;
+=======
+export default Resume;
+>>>>>>> 997d0552bf75fc1556cef6c0a4338a8a3f61de73

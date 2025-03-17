@@ -42,8 +42,13 @@ function Register() {
     }
   };
 
+<<<<<<< HEAD
   return ( 
     <main className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6 text-black">
+=======
+  return (
+    <main className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
+>>>>>>> 997d0552bf75fc1556cef6c0a4338a8a3f61de73
       <div className="bg-white shadow-lg rounded-lg p-8 max-w-lg w-full text-center">
         <h1 className="text-3xl font-bold text-gray-800 mb-6">Sign Up</h1>
         <p className="text-gray-600 mb-4">Achieve career success with Job Form Automator! Start auto-applying now!</p>
