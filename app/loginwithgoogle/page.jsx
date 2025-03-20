@@ -43,7 +43,7 @@ function SignInwithGoogle() {
           const subRef = ref(db, `user/${user.uid}/Payment/SubscriptionType`)
           const subSnapshot = await get(subRef);
           let subType = subSnapshot.val()
-          localStorage.setItem("SubscriptionType",subType)
+          localStorage.setItem("SubscriptionType", subType)
           try {
 
             const user = auth.currentUser;
@@ -141,14 +141,14 @@ function SignInwithGoogle() {
           }).then(async () => {
             await axios.post("http://localhost:3001/send-email", {
               email: email,
-              name: name|| "User",
-            }).then(()=>{
+              name: name || "User",
+            }).then(() => {
 
-            }).catch((err)=>{
+            }).catch((err) => {
               toast.error(err.message)
             });
-           
-      
+
+
             // setMessage("Login successful! Welcome email sent.");
             toast.success("Registered!", {
               position: "top-center",
@@ -172,7 +172,7 @@ function SignInwithGoogle() {
             const subRef = ref(db, `user/${user.uid}/Payment/SubscriptionType`)
             const subSnapshot = await get(subRef);
             let subType = subSnapshot.val()
-            localStorage.setItem("SubscriptionType",subType)
+            localStorage.setItem("SubscriptionType", subType)
             try {
 
               const user = auth.currentUser;
@@ -269,17 +269,22 @@ function SignInwithGoogle() {
   return (
 
 
-    <div>
-      <button type="button" className="btn-google" onClick={googleLogin} style={{color:"black"}} >
-        <Image src={google} alt="Google icon"
-          style={{
-            width: '20px',
-            height: '20px',
-            marginRight: '10px'
-          }} />
-        Sign in with Google
+    <div className="flex justify-center items-center h-full">
+      <button
+        type="button"
+        className="flex items-center justify-center w-full max-w-xs px-4 py-2 border border-gray-300 rounded-lg shadow-md bg-white hover:bg-gray-100 transition duration-300"
+        onClick={googleLogin}
+      >
+        <Image
+          src={google}
+          alt="Google icon"
+          className="w-5 h-5 mr-3"
+        />
+        <span className="text-gray-700 font-medium">Sign in with Google</span>
       </button>
     </div>
+
+
   );
 }
 export default SignInwithGoogle;
