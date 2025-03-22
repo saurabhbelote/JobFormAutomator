@@ -77,10 +77,16 @@ const PricingSection = () => {
         .forEach((card) => observer.unobserve(card));
     };
   }, []);
-  function handlePyment(name,price) {
-    if (name != "Basic") {
-      window.location.href = `/payment?plan=${encodeURIComponent(name)}&price=${encodeURIComponent(price)}`;
+  function handlePayment(plan) {
+    if (plan.name !== "Basic") {
+      const queryParams = new URLSearchParams({
+        name: plan.name,
+        price: plan.price,
+        description: plan.description,
+        features: JSON.stringify(plan.features),
+      }).toString();
 
+      window.location.href = `/checkout?${queryParams}`;
     }
   }
 
@@ -107,8 +113,8 @@ const PricingSection = () => {
               key={index}
               ref={(el) => (cardRefs.current[index] = el)}
               className={`p-6 rounded-2xl shadow-md relative border-[1px]  backdrop-blur-3xl transition-all duration-500 ease-in-out transform ${isInView
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-10"
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-10"
                 } ${plan.bestSeller
                   ? "border-[#0FAE96] bg-gradient-to-bl from-[#0fae965a]  via-[#11011E] to-[#11011E] "
                   : "border-[#ffffff17] "
@@ -129,7 +135,7 @@ const PricingSection = () => {
               </div>
               <button
                 className={`mt-6 px-4 py-2 rounded-xl ${plan.buttonStyle} w-full`}
-                onClick={() => handlePyment(plan.name, plan.price)}
+                onClick={() => handlePayment(plan)}
               >
                 {plan.buttonText}
               </button>
